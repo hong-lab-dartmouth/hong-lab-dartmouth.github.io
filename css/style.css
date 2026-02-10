@@ -76,30 +76,82 @@ a:hover {
     font-weight: 200;
 }
 
-/* Centered homepage title */
 .home-hero {
     position: fixed;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    pointer-events: none; /* keeps nav clickable */
+    pointer-events: none;
 }
 
-/* Professional typography + restrained color */
-.home-hero h1 {
+/* THIS stays centered forever */
+.hero-title {
     font-family: var(--font-headings);
     font-size: clamp(150px, 6vw, 72px);
     font-weight: 400;
     letter-spacing: 0.06em;
-    color: #1f2933;          /* deep neutral slate */
+    color: #1f2933;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 0;
 }
 
-/* optional subtle accent */
-.home-hero h1 span {
-    color: #6b7280;          /* muted professional grey */
-    font-weight: 400;
+/* Hong stays centered but shifts slightly left */
+.hong {
+    position: relative;
+    z-index: 2;
+    transform: translateX(0);
+    animation: hongEase 2.5s cubic-bezier(.22,.61,.36,1) forwards;
 }
+
+/* Lab starts inside Hong and glides out */
+.lab {
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: translateX(-120px);
+    animation: labEase 2.5s cubic-bezier(.22,.61,.36,1) forwards;
+}
+
+/* Mask that hides anything under Hong */
+.hong::after {
+    content: "";
+    position: absolute;
+    inset: -1px -1px;
+    background: #f5f6f7;  /* same as body background */
+    z-index: -1;
+}
+
+
+@keyframes hongEase {
+    0% {
+        transform: translateX(+150px);
+    }
+    100% {
+        transform: translateX(-40px);
+    }
+}
+
+@keyframes labEase {
+    0% {
+        opacity: 0;
+        transform: translateX(-120px);
+    }
+    40% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(12px);
+    }
+}
+
+
+
 
 .logo {
     position: relative;
