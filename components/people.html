@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hong Lab | People</title>
+
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
 </head>
@@ -13,129 +14,346 @@
     <!-- Header -->
     <header class="site-header">
         <div class="header-inner">
-            <div class="logo">
+
+            <a href="../index.html" class="logo-mark" aria-label="Hong Lab home">
                 <img src="../assets/logo.png" alt="Hong Lab">
-                <a href="../index.html" class="logo-hitbox" aria-label="Hong Lab home"></a>
-            </div>
+                <span>Hong Lab</span>
+            </a>
 
             <nav class="main-nav">
                 <ul>
-                    <li><a href="about.html"><h1>What We Do</h1></a></li>
-                    <li><a href="people.html"><h1>People</h1></a></li>
-                    <li><a href="publications.html"><h1>Publications</h1></a></li>
-                    <li><a href="contact.html"><h1>Contact</h1></a></li>
+                    <li><a href="../index.html#research">What We Do</a></li>
+                    <li><a href="people.html">People</a></li>
+                    <li><a href="publications.html">Publications</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
                 </ul>
             </nav>
+
         </div>
     </header>
 
     <!-- Page content -->
     <main class="page-content">
 
-        <section class="people-section">
+        <!-- Slideshow -->
+        <section class="people-slideshow" id="people-slideshow"></section>
 
-        <h1 class="page-title">Lab Director</h1>
-
-        <div class="lab-director">
-            <div class="lab-director-image">
-                <img src="../assets/Hong-Jennifer-1250.jpg" alt="Dr. Jennifer Hong">
-            </div>
-
-            <div class="lab-director-text">
-                <h2>Dr. Jennifer Hong</h2>
-                <p class="description">
-                    I am a board-certified neurosurgeon focused on brain, spine and peripheral nerve disease. My goal is to restore patients' neurologic function. I'm here to improve their quality of life.
-                </p>
-            </div>
-        </div>
-
-            <h1 class="page-title">Medical Students</h1>
-
-            <div class="people-grid">
-
-                <div class="person-card">
-                    <img src="../assets/picture_placeholder.png" alt="Postdoctoral Researcher">
-                    <h2>Name</h2>
-                    <p class="description">
-                        Research interests, projects, and background.
-                    </p>
-                </div>
-
-                <div class="person-card">
-                    <img src="../assets/picture_placeholder.png" alt="Graduate Student">
-                    <h2>Name</h2>
-                    <p class="description">
-                        Area of study, methods, and current work.
-                    </p>
-                </div>
-
-                <div class="person-card">
-                    <img src="../assets/picture_placeholder.png" alt="Undergraduate Researcher">
-                    <h2>Name</h2>
-                    <p class="description">
-                        Major, interests, and project involvement.
-                    </p>
-                </div>
-                
-                <div class="person-card">
-                    <img src="../assets/picture_placeholder.png" alt="Undergraduate Researcher">
-                    <h2>Name</h2>
-                    <p class="description">
-                        Major, interests, and project involvement.
-                    </p>
-                </div>
-                
-                <div class="person-card">
-                    <img src="../assets/picture_placeholder.png" alt="Undergraduate Researcher">
-                    <h2>Name</h2>
-                    <p class="description">
-                        Major, interests, and project involvement.
-                    </p>
-                </div>
-                
-                <div class="person-card">
-                    <img src="../assets/picture_placeholder.png" alt="Undergraduate Researcher">
-                    <h2>Name</h2>
-                    <p class="description">
-                        Major, interests, and project involvement.
-                    </p>
-                </div>
-
-            </div>
-
-            <h1 class="page-title">Graduate Students</h1>
-        
-            <div class="people-grid">
-
-                <!-- Postdoc -->
-                <div class="person-card">
-                    <img src="../assets/picture_placeholder.png" alt="Postdoctoral Researcher">
-                    <h2>Name</h2>
-                    <p class="description">
-                        Research interests, projects, and background.
-                    </p>
-                </div>
-
-            </div>
-
-            <h1 class="page-title">Undergraduate Students</h1>
-        
-            <div class="people-grid">
-
-                <!-- Postdoc -->
-                <div class="person-card">
-                    <img src="../assets/Wahab-Ahmad.jpg" alt="Postdoctoral Researcher">
-                    <h2>Ahmad Wahab</h2>
-                    <p class="description">
-                        Hi, I am Ahmad Wahab, a computational tech assistant in Hong Lab. I am passionate about leveraging technology to advance neuroscience research and improve patient outcomes.
-                    </p>
-                </div>
-
-            </div>
-
-        </section>
+        <!-- People -->
+        <section class="people-section" id="people-section"></section>
 
     </main>
+
+    <!-- Bio Modal -->
+    <div class="bio-modal" id="bio-modal" aria-hidden="true">
+        <div class="bio-modal-overlay" id="bio-modal-overlay"></div>
+
+        <div class="bio-modal-card" role="dialog" aria-modal="true" aria-labelledby="bio-modal-name">
+            <button class="bio-modal-close" id="bio-modal-close" type="button" aria-label="Close bio modal">
+                ×
+            </button>
+
+            <img id="bio-modal-image" class="bio-modal-image" src="" alt="">
+
+            <div class="bio-modal-content">
+                <h2 id="bio-modal-name"></h2>
+                <p id="bio-modal-text"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function loadPeoplePage() {
+
+            const response = await fetch('./people.json');
+            const data = await response.json();
+
+            const peopleSection = document.getElementById('people-section');
+
+            /* =========================
+               Slideshow
+            ========================= */
+
+            const slideshowImages = [
+                '../assets/people_slideshow/1.jpg',
+                '../assets/people_slideshow/2.jpg',
+                '../assets/people_slideshow/3.jpeg',
+            ];
+
+            const slideshow = document.getElementById('people-slideshow');
+
+            slideshowImages.forEach((src, index) => {
+
+                const slide = document.createElement('div');
+
+                slide.className = index === 0
+                    ? 'people-slide active'
+                    : 'people-slide';
+
+                const img = document.createElement('img');
+
+                img.src = src;
+                img.alt = `Hong Lab slideshow image ${index + 1}`;
+
+                slide.appendChild(img);
+                slideshow.appendChild(slide);
+            });
+
+            let currentSlide = 0;
+
+            setInterval(() => {
+
+                const slides = document.querySelectorAll('.people-slide');
+
+                if (slides.length === 0) {
+                    return;
+                }
+
+                slides[currentSlide].classList.remove('active');
+
+                currentSlide = (currentSlide + 1) % slides.length;
+
+                slides[currentSlide].classList.add('active');
+
+            }, 2500);
+
+            /* =========================
+               Bio Modal
+            ========================= */
+
+            const bioModal = document.getElementById('bio-modal');
+            const bioModalImage = document.getElementById('bio-modal-image');
+            const bioModalName = document.getElementById('bio-modal-name');
+            const bioModalText = document.getElementById('bio-modal-text');
+            const bioModalClose = document.getElementById('bio-modal-close');
+            const bioModalOverlay = document.getElementById('bio-modal-overlay');
+
+            function openBioModal(person) {
+
+                bioModalImage.src = person.image;
+                bioModalImage.alt = person.alt || person.name;
+
+                bioModalName.textContent = person.name;
+                bioModalText.textContent = person.description;
+
+                bioModal.classList.add('open');
+                bioModal.setAttribute('aria-hidden', 'false');
+
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeBioModal() {
+
+                bioModal.classList.remove('open');
+                bioModal.setAttribute('aria-hidden', 'true');
+
+                document.body.style.overflow = '';
+            }
+
+            bioModalClose.addEventListener('click', closeBioModal);
+            bioModalOverlay.addEventListener('click', closeBioModal);
+
+            document.addEventListener('keydown', event => {
+                if (event.key === 'Escape' && bioModal.classList.contains('open')) {
+                    closeBioModal();
+                }
+            });
+
+            function addBioButton(parentElement, person) {
+
+                if (!person.description || person.description.trim() === '') {
+                    return;
+                }
+
+                const bioButton = document.createElement('button');
+
+                bioButton.type = 'button';
+                bioButton.textContent = 'Bio';
+                bioButton.className = 'scholar-link bio-button';
+
+                bioButton.addEventListener('click', () => {
+                    openBioModal(person);
+                });
+
+                parentElement.appendChild(bioButton);
+            }
+
+            /* =========================
+               Lab Director
+            ========================= */
+
+            const directorTitle = document.createElement('h1');
+
+            directorTitle.className = 'page-title';
+            directorTitle.textContent = data.labDirector.title;
+
+            peopleSection.appendChild(directorTitle);
+
+            const labDirector = document.createElement('div');
+
+            labDirector.className = 'lab-director';
+
+            const labDirectorImage = document.createElement('div');
+
+            labDirectorImage.className = 'lab-director-image';
+
+            const directorImg = document.createElement('img');
+
+            directorImg.src = data.labDirector.image;
+            directorImg.alt = data.labDirector.alt || data.labDirector.name;
+
+            labDirectorImage.appendChild(directorImg);
+
+            const labDirectorText = document.createElement('div');
+
+            labDirectorText.className = 'lab-director-text';
+
+            const directorName = document.createElement('h2');
+
+            directorName.textContent = data.labDirector.name;
+
+            labDirectorText.appendChild(directorName);
+
+            if (data.labDirector.scholar) {
+
+                const directorScholar = document.createElement('a');
+
+                directorScholar.href = data.labDirector.scholar.url;
+
+                directorScholar.textContent =
+                    data.labDirector.scholar.label || 'Google Scholar';
+
+                directorScholar.target = '_blank';
+                directorScholar.rel = 'noopener noreferrer';
+
+                directorScholar.className = 'scholar-link';
+
+                labDirectorText.appendChild(directorScholar);
+            }
+
+            if (data.labDirector.description && data.labDirector.description.trim() !== '') {
+                const directorBio = document.createElement('p');
+                directorBio.className = 'lab-director-bio';
+                directorBio.textContent = data.labDirector.description;
+                labDirectorText.appendChild(directorBio);
+            }
+
+            labDirector.appendChild(labDirectorImage);
+            labDirector.appendChild(labDirectorText);
+
+            peopleSection.appendChild(labDirector);
+
+            /* =========================
+               Sections
+            ========================= */
+
+            data.sections.forEach(section => {
+
+    const sectionTitle = document.createElement('h1');
+
+    sectionTitle.className = 'page-title';
+    sectionTitle.textContent = section.title;
+
+    peopleSection.appendChild(sectionTitle);
+
+    const isAlumniSection =
+        section.title.toLowerCase() === 'alumni';
+
+    /* =========================
+       Alumni
+    ========================= */
+
+    if (isAlumniSection) {
+
+        const alumniWrapper = document.createElement('div');
+        alumniWrapper.className = 'alumni-wrapper';
+
+        section.groups.forEach(group => {
+
+            const alumniGroup = document.createElement('div');
+            alumniGroup.className = 'alumni-group';
+
+            const alumniGroupTitle = document.createElement('h2');
+            alumniGroupTitle.className = 'alumni-group-title';
+            alumniGroupTitle.textContent = group.category;
+
+            alumniGroup.appendChild(alumniGroupTitle);
+
+            group.people.forEach(person => {
+
+                const alumniName = document.createElement('p');
+                alumniName.className = 'alumni-name';
+
+                alumniName.textContent = person.note
+                    ? `${person.name} (${person.note})`
+                    : person.name;
+
+                alumniGroup.appendChild(alumniName);
+            });
+
+            alumniWrapper.appendChild(alumniGroup);
+        });
+
+        peopleSection.appendChild(alumniWrapper);
+
+        return;
+    }
+
+    /* =========================
+       Standard People Grid
+    ========================= */
+
+    const peopleGrid = document.createElement('div');
+
+    peopleGrid.className = 'people-grid';
+
+    section.people.forEach(person => {
+
+        const personCard = document.createElement('div');
+
+        personCard.className = 'person-card';
+
+        const personImg = document.createElement('img');
+
+        personImg.src = person.image;
+        personImg.alt = person.alt || person.name;
+
+        const personName = document.createElement('h2');
+
+        personName.textContent = person.name;
+
+        personCard.appendChild(personImg);
+        personCard.appendChild(personName);
+
+        addBioButton(personCard, person);
+
+        if (person.scholar) {
+
+            const scholarLink = document.createElement('a');
+
+            scholarLink.href = person.scholar.url;
+
+            scholarLink.textContent =
+                person.scholar.label || 'Google Scholar';
+
+            scholarLink.target = '_blank';
+            scholarLink.rel = 'noopener noreferrer';
+
+            scholarLink.className = 'scholar-link';
+
+            personCard.appendChild(scholarLink);
+        }
+        peopleGrid.appendChild(personCard);
+    });
+
+    peopleSection.appendChild(peopleGrid);
+    });
+
+        }
+
+        loadPeoplePage().catch(error => {
+            console.error('Failed to load people page data:', error);
+        });
+    </script>
 
 </body>
 </html>
