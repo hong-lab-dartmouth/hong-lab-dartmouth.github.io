@@ -9,8 +9,8 @@ html, body {
 }
 
 :root {
-    --font-headings: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-                     Roboto, Helvetica, Arial, sans-serif;
+    --font-headings: "Source Sans 3", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 Roboto, Helvetica, Arial, sans-serif;
     --bg: #f5f6f7;
     --text: #111827;
     --muted: #4b5563;
@@ -59,9 +59,9 @@ a:hover {
 }
 
 .header-inner {
-    max-width: 1280px;
+    max-width: 1180px;
     margin: 0 auto;
-    padding: 18px 32px;
+    padding: 18px 48px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -154,10 +154,10 @@ a:hover {
     position: relative;
     z-index: 3;
 
-    width: min(1280px, calc(100% - 64px));
-    max-width: 1280px;
+    width: min(1180px, calc(100% - 96px));
+    max-width: 1180px;
     margin: 0 auto;
-    padding: 56px 64px;
+    padding: 46px 54px;
     box-sizing: border-box;
 
     background: rgba(7, 18, 31, 0.80);
@@ -180,7 +180,7 @@ a:hover {
 .hero-subheading {
     margin: 14px 0 0 0;
     color: white;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -197,20 +197,20 @@ a:hover {
 }
 
 .hero-about-title {
-    margin: 28px 0 20px 0;
+    margin: 24px 0 18px 0;
     color: white;
     max-width: none;
-    font-size: clamp(28px, 3.2vw, 42px);
+    font-size: clamp(28px, 3.2vw, 40px);
     line-height: 1.25;
     font-weight: 400;
 }
 
 .hero-about-text {
-    margin: 0;
+    margin: 28px 0 0 0;
     color: rgba(255, 255, 255, 0.95);
     max-width: none;
-    font-size: 18px;
-    line-height: 1.8;
+    font-size: 17px;
+    line-height: 1.75;
     font-weight: 300;
 }
 
@@ -398,14 +398,14 @@ a:hover {
 .focus-modal-card {
     position: relative;
     z-index: 1;
-    width: min(760px, 100%);
+    width: min(980px, 100%);
     max-height: 85vh;
     overflow-y: auto;
     background: #ffffff;
     color: #111827;
     border: 1px solid var(--line);
     border-radius: 22px;
-    padding: 42px 46px;
+    padding: 48px;
 }
 
 .focus-modal-close {
@@ -420,15 +420,39 @@ a:hover {
     color: #111827;
 }
 
-.focus-modal-card h2 {
-    margin: 0 42px 20px 0;
+.focus-modal-layout {
+    display: flex;
+    align-items: center;
+    gap: 52px;
+}
+
+.focus-modal-left {
+    flex: 0 0 330px;
+    text-align: center;
+}
+
+.focus-modal-left img {
+    width: 310px;
+    height: 310px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+.focus-modal-right h2 {
+    margin: 0 0 20px 0;
     font-size: clamp(28px, 4vw, 42px);
     line-height: 1.15;
     font-weight: 400;
     color: #111827;
 }
 
-.focus-modal-card p {
+.focus-modal-right {
+    flex: 1;
+}
+
+.focus-modal-right p {
     margin: 0;
     font-size: 17px;
     line-height: 1.85;
@@ -453,11 +477,42 @@ a:hover {
     .focus-circle-card:nth-child(n) {
         grid-column: auto;
     }
+
+    .focus-modal-layout {
+        gap: 36px;
+    }
+
+    .focus-modal-left {
+        flex: 0 0 280px;
+    }
+
+    .focus-modal-left img {
+        width: 260px;
+        height: 260px;
+    }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     .focus-modal-card {
-        padding: 34px 28px;
+        padding: 42px 28px 34px;
+    }
+
+    .focus-modal-layout {
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .focus-modal-left {
+        flex: none;
+    }
+
+    .focus-modal-left img {
+        width: 190px;
+        height: 190px;
+    }
+
+    .focus-modal-right p {
+        text-align: center;
     }
 }
 
@@ -482,96 +537,71 @@ a:hover {
 
 
 /* =========================
-   Home Contact Section
+   Contact us
 ========================= */
 
 .home-contact {
     background: #ffffff;
-    padding: 88px 32px 96px;
+    padding: 42px 48px 46px;
 }
 
 .home-contact-inner {
-    max-width: 980px;
+    max-width: 1180px;
     margin: 0 auto;
+    padding: 0 48px;
+    box-sizing: border-box;
 
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-
-    gap: 64px;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
     align-items: start;
 }
 
 .home-contact-left h2 {
-    margin: 0 0 18px 0;
-
-    font-size: 42px;
-    line-height: 1.05;
-
-    font-weight: 400;
-    letter-spacing: -0.03em;
-
+    margin: 0 0 14px 0;
+    font-size: 34px;
+    line-height: 1.1;
+    font-weight: 500;
+    letter-spacing: -0.02em;
     color: #111827;
 }
 
 .home-contact-text {
-    margin: 0 0 30px 0;
-
-    font-size: 17px;
-    line-height: 1.85;
-
+    margin: 0;
+    max-width: 470px;
+    font-size: 18px;
+    line-height: 1.65;
+    font-weight: 300;
     color: #4b5563;
-
-    max-width: 560px;
-
-    text-align: justify;
-}
-
-.home-contact-actions {
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
 }
 
 .home-contact-right {
     display: flex;
     flex-direction: column;
-    gap: 26px;
-
-    padding-top: 8px;
+    gap: 22px;
+    padding-top: 0;
 }
 
 .contact-mini-block {
-    border-top: 1px solid rgba(17, 24, 39, 0.10);
-    padding-top: 18px;
+    padding-top: 0;
 }
 
 .contact-mini-block h3 {
-    margin: 0 0 6px 0;
-
+    margin: 0 0 7px 0;
     font-size: 11px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-
     color: #9ca3af;
-
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .contact-mini-block p,
 .contact-mini-block a {
     margin: 0;
-
     font-size: 17px;
-    line-height: 1.7;
-
+    line-height: 1.55;
+    font-weight: 300;
     color: #111827;
-}
-
-@media (max-width: 900px) {
-    .home-contact-inner {
-        grid-template-columns: 1fr;
-        gap: 42px;
-    }
 }
 
 

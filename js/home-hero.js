@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     /* =========================
-       Research Focus Modal
+    Research Focus Modal
     ========================= */
 
     const focusCards = document.querySelectorAll('.focus-circle-card');
@@ -85,11 +85,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     const modalClose = document.getElementById('focus-modal-close');
     const modalTitle = document.getElementById('focus-modal-title');
     const modalDescription = document.getElementById('focus-modal-description');
+    const modalImage = document.getElementById('focus-modal-image');
 
-    if (modal && modalOverlay && modalClose && modalTitle && modalDescription) {
+    if (modal && modalOverlay && modalClose && modalTitle && modalDescription && modalImage) {
         function openFocusModal(card) {
+            const cardImage = card.querySelector('img');
+
             modalTitle.textContent = card.dataset.title;
             modalDescription.textContent = card.dataset.description;
+
+            modalImage.src = cardImage.src;
+            modalImage.alt = cardImage.alt;
 
             modal.classList.add('open');
             modal.setAttribute('aria-hidden', 'false');
@@ -117,4 +123,5 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     }
+
 });
