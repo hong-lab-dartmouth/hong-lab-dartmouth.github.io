@@ -615,13 +615,13 @@ a:hover {
 ========================= */
 
 .page-content {
-    padding: 72px 32px 100px 32px;
+    padding: 72px 48px 100px;
     background: var(--bg);
     min-height: 100vh;
 }
 
 .publications-section {
-    max-width: 1280px;
+    max-width: 1180px;
     margin: 0 auto;
 }
 

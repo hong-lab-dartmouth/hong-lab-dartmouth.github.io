@@ -18,7 +18,7 @@
           "authors": "Garcia M, Hong J, Singh A, Morrison K",
           "venue": "Neurorehabilitation & Repair Methods",
           "links": [
-            { "label": "PDF", "url": "#" },
+            { "label": "paper", "url": "#" },
             { "label": "DOI", "url": "https://doi.org/example2" }
           ]
         },
@@ -27,7 +27,7 @@
           "authors": "Wahab A, Hong J, Lee S, Thompson D",
           "venue": "Proceedings of the Clinical AI in Imaging Workshop",
           "links": [
-            { "label": "PDF", "url": "#" },
+            { "label": "paper", "url": "#" },
             { "label": "DOI", "url": "https://doi.org/example3" },
             { "label": "Poster", "url": "#" }
           ]
@@ -42,7 +42,7 @@
           "authors": "Hong J, Reynolds P, Kim H, Zhao Y",
           "venue": "Spine Analytics",
           "links": [
-            { "label": "PDF", "url": "#" },
+            { "label": "paper", "url": "#" },
             { "label": "DOI", "url": "https://doi.org/example4" },
             { "label": "Supplement", "url": "#" }
           ]
@@ -52,7 +52,7 @@
           "authors": "Patel R, Wahab A, Hong J, Alvarez J",
           "venue": "Medical NLP Letters",
           "links": [
-            { "label": "PDF", "url": "#" },
+            { "label": "paper", "url": "#" },
             { "label": "DOI", "url": "https://doi.org/example5" },
             { "label": "Code", "url": "https://github.com/example5" }
           ]
@@ -62,7 +62,7 @@
           "authors": "Morrison K, Chen L, Hong J",
           "venue": "Frontiers in Clinical Neuroscience",
           "links": [
-            { "label": "PDF", "url": "#" },
+            { "label": "paper", "url": "#" },
             { "label": "DOI", "url": "https://doi.org/example6" }
           ]
         }
@@ -76,7 +76,7 @@
           "authors": "Hong J, Singh A, Chen L, Patel R",
           "venue": "Neurosurgery Practice",
           "links": [
-            { "label": "PDF", "url": "#" },
+            { "label": "paper", "url": "#" },
             { "label": "DOI", "url": "https://doi.org/example7" }
           ]
         },
@@ -85,7 +85,7 @@
           "authors": "Lee S, Hong J, Zhao Y",
           "venue": "Imaging in Medicine",
           "links": [
-            { "label": "PDF", "url": "#" },
+            { "label": "paper", "url": "#" },
             { "label": "DOI", "url": "https://doi.org/example8" },
             { "label": "Dataset", "url": "#" }
           ]
@@ -100,7 +100,7 @@
           "authors": "Hong J, Wahab A, Kim H, Reynolds P",
           "venue": "arXiv",
           "links": [
-            { "label": "PDF", "url": "#" },
+            { "label": "paper", "url": "#" },
             { "label": "arXiv", "url": "#" },
             { "label": "Code", "url": "https://github.com/example9" }
           ]
@@ -110,7 +110,7 @@
           "authors": "Patel R, Chen L, Hong J",
           "venue": "medRxiv",
           "links": [
-            { "label": "PDF", "url": "#" },
+            { "label": "paper", "url": "#" },
             { "label": "medRxiv", "url": "#" }
           ]
         }
