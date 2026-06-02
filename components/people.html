@@ -35,10 +35,28 @@
     <!-- Page content -->
     <main class="page-content">
 
-        <!-- Slideshow -->
-        <section class="people-slideshow" id="people-slideshow"></section>
+        <!-- Hero: slideshow + PI on first screen -->
+        <section class="people-hero">
 
-        <!-- People -->
+            <div class="people-hero-top">
+                <section class="people-slideshow-card" aria-label="Hong Lab slideshow">
+                    <div class="people-slideshow" id="people-slideshow"></div>
+                </section>
+
+                <aside class="people-slideshow-description">
+                    <p class="people-kicker">Hong Lab</p>
+                    <h1 id="slideshow-caption-title">Our lab community</h1>
+                    <p id="slideshow-caption-text">
+                        Snapshots from the Hong Lab community.
+                    </p>
+                </aside>
+            </div>
+
+            <div id="lab-director-slot"></div>
+
+        </section>
+
+        <!-- Remaining people -->
         <section class="people-section" id="people-section"></section>
 
     </main>
@@ -74,14 +92,28 @@
             ========================= */
 
             const slideshowImages = [
-                '../assets/people_slideshow/1.jpg',
-                '../assets/people_slideshow/2.jpg',
-                '../assets/people_slideshow/3.jpeg',
+                {
+                    src: '../assets/people_slideshow/1.jpg',
+                    title: 'Hong Lab community',
+                    description: 'Members of the Hong Lab working, collaborating, and building a shared research environment.'
+                },
+                {
+                    src: '../assets/people_slideshow/2.jpg',
+                    title: 'Research in action',
+                    description: 'A snapshot of the lab’s research culture, mentorship, and scientific work.'
+                },
+                {
+                    src: '../assets/people_slideshow/3.jpeg',
+                    title: 'People behind the science',
+                    description: 'The students, researchers, and collaborators who make the lab possible.'
+                }
             ];
 
             const slideshow = document.getElementById('people-slideshow');
+            const captionTitle = document.getElementById('slideshow-caption-title');
+            const captionText = document.getElementById('slideshow-caption-text');
 
-            slideshowImages.forEach((src, index) => {
+            slideshowImages.forEach((slideData, index) => {
 
                 const slide = document.createElement('div');
 
@@ -91,14 +123,17 @@
 
                 const img = document.createElement('img');
 
-                img.src = src;
-                img.alt = `Hong Lab slideshow image ${index + 1}`;
+                img.src = slideData.src;
+                img.alt = slideData.title;
 
                 slide.appendChild(img);
                 slideshow.appendChild(slide);
             });
 
             let currentSlide = 0;
+
+            captionTitle.textContent = slideshowImages[0].title;
+            captionText.textContent = slideshowImages[0].description;
 
             setInterval(() => {
 
@@ -114,7 +149,10 @@
 
                 slides[currentSlide].classList.add('active');
 
-            }, 2500);
+                captionTitle.textContent = slideshowImages[currentSlide].title;
+                captionText.textContent = slideshowImages[currentSlide].description;
+
+            }, 3500);
 
             /* =========================
                Bio Modal
@@ -181,12 +219,12 @@
                Lab Director
             ========================= */
 
-            const directorTitle = document.createElement('h1');
+            const labDirectorSlot = document.getElementById('lab-director-slot');
+            const smallDirectorTitle = document.createElement('h2');
+            smallDirectorTitle.className = 'small-section-title';
+            smallDirectorTitle.textContent = data.labDirector.title;
 
-            directorTitle.className = 'page-title';
-            directorTitle.textContent = data.labDirector.title;
-
-            peopleSection.appendChild(directorTitle);
+            labDirectorSlot.appendChild(smallDirectorTitle);
 
             const labDirector = document.createElement('div');
 
@@ -240,113 +278,120 @@
             labDirector.appendChild(labDirectorImage);
             labDirector.appendChild(labDirectorText);
 
-            peopleSection.appendChild(labDirector);
+            labDirectorSlot.appendChild(labDirector);
 
-            /* =========================
-               Sections
-            ========================= */
-
-            data.sections.forEach(section => {
-
-    const sectionTitle = document.createElement('h1');
-
-    sectionTitle.className = 'page-title';
-    sectionTitle.textContent = section.title;
-
-    peopleSection.appendChild(sectionTitle);
-
-    const isAlumniSection =
-        section.title.toLowerCase() === 'alumni';
-
-    /* =========================
-       Alumni
-    ========================= */
-
-    if (isAlumniSection) {
-
-        const alumniWrapper = document.createElement('div');
-        alumniWrapper.className = 'alumni-wrapper';
-
-        section.groups.forEach(group => {
-
-            const alumniGroup = document.createElement('div');
-            alumniGroup.className = 'alumni-group';
-
-            const alumniGroupTitle = document.createElement('h2');
-            alumniGroupTitle.className = 'alumni-group-title';
-            alumniGroupTitle.textContent = group.category;
-
-            alumniGroup.appendChild(alumniGroupTitle);
-
-            group.people.forEach(person => {
-
-                const alumniName = document.createElement('p');
-                alumniName.className = 'alumni-name';
-
-                alumniName.textContent = person.note
-                    ? `${person.name} (${person.note})`
-                    : person.name;
-
-                alumniGroup.appendChild(alumniName);
+            const regularSections = data.sections.filter(section => {
+                const title = section.title.toLowerCase();
+                return title !== 'alumni' && title !== 'collaborators';
             });
 
-            alumniWrapper.appendChild(alumniGroup);
-        });
+            const alumniSection = data.sections.find(section =>
+                section.title.toLowerCase() === 'alumni'
+            );
 
-        peopleSection.appendChild(alumniWrapper);
+            const collaboratorsSection = data.sections.find(section =>
+                section.title.toLowerCase() === 'collaborators'
+            );
 
-        return;
-    }
+            function renderGroupedList(section) {
+                const column = document.createElement('div');
+                column.className = 'grouped-list-column';
 
-    /* =========================
-       Standard People Grid
-    ========================= */
+                const title = document.createElement('h1');
+                title.className = 'page-title';
+                title.textContent = section.title;
+                column.appendChild(title);
 
-    const peopleGrid = document.createElement('div');
+                const wrapper = document.createElement('div');
+                wrapper.className = 'grouped-list-wrapper';
 
-    peopleGrid.className = 'people-grid';
+                section.groups.forEach(group => {
+                    const groupDiv = document.createElement('div');
+                    groupDiv.className = 'alumni-group';
 
-    section.people.forEach(person => {
+                    const groupTitle = document.createElement('h2');
+                    groupTitle.className = 'alumni-group-title';
+                    groupTitle.textContent = group.category;
 
-        const personCard = document.createElement('div');
+                    groupDiv.appendChild(groupTitle);
 
-        personCard.className = 'person-card';
+                    group.people.forEach(person => {
+                        const name = document.createElement('p');
+                        name.className = 'alumni-name';
 
-        const personImg = document.createElement('img');
+                        name.textContent = person.note
+                            ? `${person.name} (${person.note})`
+                            : person.name;
 
-        personImg.src = person.image;
-        personImg.alt = person.alt || person.name;
+                        groupDiv.appendChild(name);
+                    });
 
-        const personName = document.createElement('h2');
+                    wrapper.appendChild(groupDiv);
+                });
 
-        personName.textContent = person.name;
+                column.appendChild(wrapper);
+                return column;
+            }
 
-        personCard.appendChild(personImg);
-        personCard.appendChild(personName);
+            regularSections.forEach(section => {
+                const sectionTitle = document.createElement('h1');
 
-        addBioButton(personCard, person);
+                sectionTitle.className = 'page-title';
+                sectionTitle.textContent = section.title;
 
-        if (person.scholar) {
+                peopleSection.appendChild(sectionTitle);
 
-            const scholarLink = document.createElement('a');
+                const peopleGrid = document.createElement('div');
+                peopleGrid.className = 'people-grid';
 
-            scholarLink.href = person.scholar.url;
+                section.people.forEach(person => {
+                    const personCard = document.createElement('div');
+                    personCard.className = 'person-card';
 
-            scholarLink.textContent =
-                person.scholar.label || 'Google Scholar';
+                    const personImg = document.createElement('img');
+                    personImg.src = person.image;
+                    personImg.alt = person.alt || person.name;
 
-            scholarLink.target = '_blank';
-            scholarLink.rel = 'noopener noreferrer';
+                    const personName = document.createElement('h2');
+                    personName.textContent = person.name;
 
-            scholarLink.className = 'scholar-link';
+                    personCard.appendChild(personImg);
+                    personCard.appendChild(personName);
 
-            personCard.appendChild(scholarLink);
-        }
-        peopleGrid.appendChild(personCard);
-    });
+                    addBioButton(personCard, person);
 
-    peopleSection.appendChild(peopleGrid);
-    });
+                    if (person.scholar) {
+                        const scholarLink = document.createElement('a');
+
+                        scholarLink.href = person.scholar.url;
+                        scholarLink.textContent = person.scholar.label || 'Google Scholar';
+                        scholarLink.target = '_blank';
+                        scholarLink.rel = 'noopener noreferrer';
+                        scholarLink.className = 'scholar-link';
+
+                        personCard.appendChild(scholarLink);
+                    }
+
+                    peopleGrid.appendChild(personCard);
+                });
+
+                peopleSection.appendChild(peopleGrid);
+            });
+
+            if (alumniSection || collaboratorsSection) {
+                const sideBySideLists = document.createElement('div');
+                sideBySideLists.className = 'side-by-side-lists';
+
+                if (alumniSection) {
+                    sideBySideLists.appendChild(renderGroupedList(alumniSection));
+                }
+
+                if (collaboratorsSection) {
+                    sideBySideLists.appendChild(renderGroupedList(collaboratorsSection));
+                }
+
+                peopleSection.appendChild(sideBySideLists);
+            }
 
         }
 

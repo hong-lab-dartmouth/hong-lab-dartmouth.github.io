@@ -1,102 +1,120 @@
-const HERO_JSON_PATH = "assets/datas/home-hero.json";
-const HERO_IMAGE_BASE = "assets/home-hero/";
+document.addEventListener('DOMContentLoaded', async () => {
+    /* =========================
+       Hero Slideshow
+    ========================= */
 
-const heroSlideshow = document.getElementById("hero-slideshow");
-const heroSlideTitle = document.getElementById("hero-slide-title");
-const prevButton = document.getElementById("hero-prev");
-const nextButton = document.getElementById("hero-next");
+    const slideshow = document.getElementById('hero-slideshow');
+    const prevButton = document.getElementById('hero-prev');
+    const nextButton = document.getElementById('hero-next');
 
-let slides = [];
-let currentIndex = 0;
-let autoplayInterval = null;
+    if (slideshow) {
+        let slidesData = [];
 
-function renderSlides(slideData) {
-    const overlay = heroSlideshow.querySelector(".hero-overlay");
-
-    slideData.forEach((slide, index) => {
-        const slideElement = document.createElement("div");
-        slideElement.className = `hero-slide ${index === 0 ? "active" : ""}`;
-
-        const img = document.createElement("img");
-        img.src = `${HERO_IMAGE_BASE}${slide.image}`;
-        img.alt = slide.title || "Hong Lab slideshow image";
-        img.loading = index === 0 ? "eager" : "lazy";
-
-        slideElement.appendChild(img);
-        heroSlideshow.insertBefore(slideElement, overlay);
-    });
-
-    updateSlideTitle();
-}
-
-function updateSlideTitle() {
-    if (!slides.length) return;
-    heroSlideTitle.textContent = slides[currentIndex].title || "";
-}
-
-function showSlide(index) {
-    const slideElements = heroSlideshow.querySelectorAll(".hero-slide");
-    if (!slideElements.length) return;
-
-    slideElements.forEach((slide) => slide.classList.remove("active"));
-
-    currentIndex = (index + slideElements.length) % slideElements.length;
-    slideElements[currentIndex].classList.add("active");
-    updateSlideTitle();
-}
-
-function nextSlide() {
-    showSlide(currentIndex + 1);
-}
-
-function prevSlide() {
-    showSlide(currentIndex - 1);
-}
-
-function startAutoplay() {
-    stopAutoplay();
-    autoplayInterval = setInterval(nextSlide, 5000);
-}
-
-function stopAutoplay() {
-    if (autoplayInterval) {
-        clearInterval(autoplayInterval);
-        autoplayInterval = null;
-    }
-}
-
-async function initHeroSlideshow() {
-    try {
-        const response = await fetch(HERO_JSON_PATH);
-
-        if (!response.ok) {
-            throw new Error(`Failed to load slideshow JSON: ${response.status}`);
+        try {
+            const response = await fetch('assets/datas/home-slideshow.json');
+            const data = await response.json();
+            slidesData = data.slides || [];
+        } catch (error) {
+            console.error('Failed to load home hero slides:', error);
         }
 
-        const data = await response.json();
-        slides = Array.isArray(data.slides) ? data.slides : [];
+        if (slidesData.length > 0) {
+            slidesData.forEach((slideData, index) => {
+                const slide = document.createElement('div');
+                slide.className = index === 0 ? 'hero-slide active' : 'hero-slide';
 
-        if (!slides.length) {
-            heroSlideTitle.textContent = "";
-            return;
+                const img = document.createElement('img');
+                img.src = `assets/home-slideshow/${slideData.image}`;
+                img.alt = slideData.title || `Hong Lab slide ${index + 1}`;
+
+                slide.appendChild(img);
+                slideshow.insertBefore(slide, slideshow.querySelector('.hero-overlay'));
+            });
+
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+            let intervalId;
+
+            function showSlide(nextIndex) {
+                slides[currentSlide].classList.remove('active');
+
+                currentSlide = (nextIndex + slides.length) % slides.length;
+
+                slides[currentSlide].classList.add('active');
+            }
+
+            function nextSlide() {
+                showSlide(currentSlide + 1);
+            }
+
+            function previousSlide() {
+                showSlide(currentSlide - 1);
+            }
+
+            function restartAutoSlide() {
+                clearInterval(intervalId);
+                intervalId = setInterval(nextSlide, 3000);
+            }
+
+            if (nextButton) {
+                nextButton.addEventListener('click', () => {
+                    nextSlide();
+                    restartAutoSlide();
+                });
+            }
+
+            if (prevButton) {
+                prevButton.addEventListener('click', () => {
+                    previousSlide();
+                    restartAutoSlide();
+                });
+            }
+
+            intervalId = setInterval(nextSlide, 3000);
+        }
+    }
+
+    /* =========================
+       Research Focus Modal
+    ========================= */
+
+    const focusCards = document.querySelectorAll('.focus-circle-card');
+
+    const modal = document.getElementById('focus-modal');
+    const modalOverlay = document.getElementById('focus-modal-overlay');
+    const modalClose = document.getElementById('focus-modal-close');
+    const modalTitle = document.getElementById('focus-modal-title');
+    const modalDescription = document.getElementById('focus-modal-description');
+
+    if (modal && modalOverlay && modalClose && modalTitle && modalDescription) {
+        function openFocusModal(card) {
+            modalTitle.textContent = card.dataset.title;
+            modalDescription.textContent = card.dataset.description;
+
+            modal.classList.add('open');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
         }
 
-        renderSlides(slides);
-        startAutoplay();
+        function closeFocusModal() {
+            modal.classList.remove('open');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
 
-        nextButton.addEventListener("click", () => {
-            nextSlide();
-            startAutoplay();
+        focusCards.forEach(card => {
+            card.addEventListener('click', () => {
+                openFocusModal(card);
+            });
         });
 
-        prevButton.addEventListener("click", () => {
-            prevSlide();
-            startAutoplay();
+        modalClose.addEventListener('click', closeFocusModal);
+        modalOverlay.addEventListener('click', closeFocusModal);
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && modal.classList.contains('open')) {
+                closeFocusModal();
+            }
         });
-    } catch (error) {
-        console.error(error);
-        heroSlideTitle.textContent = "";
     }
-}
-
-initHeroSlideshow();
+});

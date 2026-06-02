@@ -1,11 +1,11 @@
 {
     "labDirector": {
-        "title": "Lab Director",
+        "title": "Principal Investigator",
         "scholar": {
             "url": "https://www.ncbi.nlm.nih.gov/myncbi/1X7m-hqDefn5Fm/bibliography/public/",
                 "label": "My Bibliography"
             },
-        "name": "Dr. Jennifer Hong",
+        "name": "Jennifer Hong, MD",
         "image": "../assets/Profile_Pictures/Jennifer Hong.png",
         "description": "I am a neurosurgeon-scientist who works at the intersection of patient care, regenerative medicine, transcriptomics and advanced bioimaging. The goal of my lab is to use cutting-edge scientific tools to solve clinically-relevant problems and better understand the molecular mechanisms underlying neuronal disfunction, degeneration and repair in patients. Ultimately, I hope to improve patient outcomes for neurosurgical interventions in the areas of epilepsy and peripheral nerve injury. I believe that research makes a difference, and a central focus of my lab is scientific mentorship and training of the next generation of biomedical researchers."
     },
@@ -119,6 +119,20 @@
                     ]
                 },
                 {
+                    "category": "Rotation Students",
+                    "people": [
+                        {
+                            "name": "Rachel Lemley"
+                        },
+                        {
+                            "name": "Cinthia Cruz"
+                        },
+                        {
+                            "name": "Briana Wyman"
+                        }
+                    ]
+                },
+                {
                     "category": "Medical Students",
                     "people": [
                         {
@@ -142,20 +156,6 @@
                     ]
                 },
                 {
-                    "category": "Rotation Students",
-                    "people": [
-                        {
-                            "name": "Rachel Lemley"
-                        },
-                        {
-                            "name": "Cinthia Cruz"
-                        },
-                        {
-                            "name": "Briana Wyman"
-                        }
-                    ]
-                },
-                {
                     "category": "Undergraduate Students",
                     "people": [
                         {
@@ -166,6 +166,30 @@
                         },
                         {
                             "name": "Michelle Lee"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Collaborators",
+            "groups": [
+                {
+                    "category": "Faculty",
+                    "people": [
+                        {
+                            "name": "Collaborator Name"
+                        },
+                        {
+                            "name": "Collaborator Name"
+                        }
+                    ]
+                },
+                {
+                    "category": "Industry",
+                    "people": [
+                        {
+                            "name": "Collaborator Name"
                         }
                     ]
                 }

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
 </head>
+
 <body class="homepage">
 
     <header class="site-header home-header">
@@ -28,6 +29,7 @@
     </header>
 
     <main>
+
         <section class="hero">
             <div class="hero-media" id="hero-slideshow">
                 <!-- Slides injected by JS -->
@@ -35,142 +37,154 @@
             </div>
 
             <div class="hero-content">
-                <p class="hero-kicker">Dartmouth Neuroscience Research</p>
+
+                <p class="hero-kicker">GEISEL SCHOOL OF MEDICINE AT DARTMOUTH</p>
+
                 <h1 class="hero-heading">Hong Lab</h1>
-                <p class="hero-subheading">
-                    We are a neuroscience lab studying the brain, behavior, and neural systems
-                    through clinically grounded and translational research.
+                
+                <p class="hero-subheading"> Neurosurgery, epilepsy, peripheral neuropathy, clinical ethics</p>
+
+                <h2 class="hero-about-title">
+                    We are a neuroscience research group driven by the connection between the operating room and the laboratory.
+                </h2>
+
+                <p class="hero-about-text">
+                    Our research focuses on neurological conditions that often require neurosurgical intervention, in particular drug-resistant epilepsy, which affects one in three people with epilepsy and remains poorly understood despite decades of study. We work in close collaboration with neurologists, neuropathologists, and computational researchers across the hospital and the college, leveraging access to rare surgical tissue to bring discoveries from the laboratory back to the clinic.
                 </p>
 
-                <p class="hero-slide-title" id="hero-slide-title"></p>
-
-                <div class="hero-actions">
-                    <a href="#research" class="button-primary">Explore Research</a>
-                    <a href="components/people.html" class="button-secondary">Meet the Team</a>
-                </div>
             </div>
 
             <div class="hero-controls" aria-label="Slideshow controls">
-                <button class="hero-control" id="hero-prev" aria-label="Previous slide">←</button>
-                <button class="hero-control" id="hero-next" aria-label="Next slide">→</button>
+                <button class="hero-control" id="hero-prev" type="button" aria-label="Previous slide">←</button>
+                <button class="hero-control" id="hero-next" type="button" aria-label="Next slide">→</button>
             </div>
+
         </section>
 
-        <section class="home-intro" id="research">
-            <div class="intro-grid">
-                <div class="intro-block">
-                    <p class="section-label">About the Hong Lab</p>
-                    <h2>We are a neuroscience research group driven by the connection between the operating room and the laboratory.</h2>
-                </div>
-
-                <div class="intro-block intro-text">
-                    <p>
-                        Our research focuses on neurological conditions that often require neurosurgical intervention, in particular drug-resistant epilepsy, which affects one in three people with epilepsy and remains poorly understood despite decades of study. We work in close collaboration with neurologists, neuropathologists, and computational researchers across the hospital and the college, leveraging access to rare surgical tissue to bring discoveries from the laboratory back to the clinic.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section class="focus-section">
+        <section class="focus-section" id="research">
             <div class="section-heading">
                 <p class="section-label">Research Areas</p>
                 <h2>Core areas of focus</h2>
             </div>
 
-            <div class="focus-grid">
+            <div class="focus-circle-grid">
 
-                <article class="focus-card">
+                <article class="focus-circle-card"
+                    data-title="Molecular & Cellular Mechanisms of Epilepsy"
+                    data-description="Understanding seizures requires investigating the tissue in which they arise. Our group works directly with resected surgical brain tissue, using it as a window into the cellular and molecular landscape of epilepsy. Our work spans several directions: the role of somatic mutations in focal epilepsy; cell-type-specific gene expression differences across epilepsy subtypes including focal cortical dysplasia and mesial temporal sclerosis; the biology of perineuronal nets and their potential contribution to seizure generation.">
+                    <div class="focus-circle-image">
+                        <img src="assets/research-focus/epilepsy.png" alt="Microscopy image representing epilepsy research">
+                    </div>
                     <h3>Molecular & Cellular Mechanisms of Epilepsy</h3>
-                    <p>
-                        Understanding seizures requires investigating the tissue in which they arise. Our group works directly with resected surgical brain tissue, using it as a window into the cellular and molecular landscape of epilepsy. Our work spans several directions: the role of somatic mutations in focal epilepsy; cell-type-specific gene expression differences across epilepsy subtypes including focal cortical dysplasia and mesial temporal sclerosis; the biology of perineuronal nets and their potential contribution to seizure generation.
-                    </p>
                 </article>
 
-                <article class="focus-card">
+                <article class="focus-circle-card"
+                    data-title="AI & Computational Neuroscience"
+                    data-description="Traditional methods for analysing brain tissue in detail are labour-intensive and can be challenging to scale. We are developing a virtual staining platform that uses deep learning to extract structural information from routine pathology slides without the need for specialised staining. This will make it possible to analyse large collections of archived tissue for markers that would otherwise stay invisible.">
+                    <div class="focus-circle-image">
+                        <img src="assets/research-focus/ai.png" alt="Computational neuroscience research image">
+                    </div>
                     <h3>AI & Computational Neuroscience</h3>
-                    <p>
-                        Traditional methods for analysing brain tissue in detail are labour-intensive and can be challenging to scale. We are developing a virtual staining platform that uses deep learning to extract structural information from routine pathology slides without the need for specialised staining. This will make it possible to analyse large collections of archived tissue for markers that would otherwise stay invisible.
-                    </p>
                 </article>
 
-                <article class="focus-card">
+                <article class="focus-circle-card"
+                    data-title="Novel Therapies in Neurological Disease"
+                    data-description="We use mouse models to address questions that are less tractable in human tissue and to test potential therapeutic approaches. Current work includes investigating the distribution of AAV-based gene therapies in the brain, a growing consideration as viral vector approaches move toward clinical use in epilepsy. We also study diabetic peripheral neuropathy, examining the molecular pathways involved in nerve degeneration and regeneration and exploring the potential of microtubule-stabilising compounds as a therapeutic strategy.">
+                    <div class="focus-circle-image">
+                        <img src="assets/research-focus/therapies.png" alt="Research image representing neurological therapies">
+                    </div>
                     <h3>Novel Therapies in Neurological Disease</h3>
-                    <p>
-                        We use mouse models to address questions that are less tractable in human tissue and to test potential therapeutic approaches. Current work includes investigating the distribution of AAV-based gene therapies in the brain, a growing consideration as viral vector approaches move toward clinical use in epilepsy. We also study diabetic peripheral neuropathy, examining the molecular pathways involved in nerve degeneration and regeneration and exploring the potential of microtubule-stabilising compounds as a therapeutic strategy.
-                    </p>
                 </article>
 
-                <article class="focus-card">
+                <article class="focus-circle-card"
+                    data-title="Neurosurgical Care, Access & Ethics"
+                    data-description="Good neurosurgical care depends not only on what happens in the operating room, but also on who can access it. We examine questions of access, equity, and ethics in neurosurgical practice including disparities in care for rural patients, the dynamics of informed consent, and the impact of emerging treatments on how stroke care is organised at a systems level.">
+                    <div class="focus-circle-image">
+                        <img src="assets/research-focus/ethics.png" alt="Clinical care and ethics research image">
+                    </div>
                     <h3>Neurosurgical Care, Access & Ethics</h3>
-                    <p>
-                        Good neurosurgical care depends not only on what happens in the operating room, but also on who can access it. We examine questions of access, equity, and ethics in neurosurgical practice including disparities in care for rural patients, the dynamics of informed consent, and the impact of emerging treatments on how stroke care is organised at a systems level.
-                    </p>
                 </article>
 
-                <article class="focus-card">
+                <article class="focus-circle-card"
+                    data-title="Epilepsy Surgery & Outcomes"
+                    data-description="Surgical approaches can lead to seizure reduction and cognitive improvement in patients whose epilepsy does not respond to medication, yet outcomes are variable and not straightforward to predict. We study molecular and electrophysiological predictors of surgical outcomes. Additionally, we are conducting an institutional review of different surgical approaches over the past 15 years, allowing us to track how the field has evolved and which approaches work best for which patients.">
+                    <div class="focus-circle-image">
+                        <img src="assets/research-focus/outcomes.png" alt="Epilepsy surgery outcomes research image">
+                    </div>
                     <h3>Epilepsy Surgery & Outcomes</h3>
-                    <p>
-                        Surgical approaches can lead to seizure reduction and cognitive improvement in patients whose epilepsy does not respond to medication, yet outcomes are variable and not straightforward to predict. We study molecular and electrophysiological predictors of surgical outcomes. Additionally, we are conducting an institutional review of different surgical approaches over the past 15 years, allowing us to track how the field has evolved and which approaches work best for which patients.
-                    </p>
                 </article>
+
             </div>
         </section>
 
+        <div class="focus-modal" id="focus-modal" aria-hidden="true">
+            <div class="focus-modal-overlay" id="focus-modal-overlay"></div>
+
+            <div class="focus-modal-card" role="dialog" aria-modal="true" aria-labelledby="focus-modal-title">
+                <button class="focus-modal-close" id="focus-modal-close" type="button" aria-label="Close research area modal">
+                    ×
+                </button>
+
+                <h2 id="focus-modal-title"></h2>
+                <p id="focus-modal-description"></p>
+            </div>
+        </div>
 
         <section class="home-contact" id="contact">
 
             <div class="home-contact-inner">
 
                 <div class="home-contact-left">
-                <p class="section-label">Contact</p>
-                <h2>Work with us</h2>
+                    <p class="section-label">Contact</p>
+                    <h2>Work with us</h2>
 
-                <p class="home-contact-text">
-                    We welcome inquiries from students, collaborators, and clinicians interested in neuroscience research.
-                    Reach out for research opportunities, collaboration, or general questions.
-                </p>
+                    <p class="home-contact-text">
+                        We welcome inquiries from students, collaborators, and clinicians interested in neuroscience research.
+                        Reach out for research opportunities, collaboration, or general questions.
+                    </p>
 
-                <div class="home-contact-actions">
-                    <a href="mailto:honglab@hospital.edu" class="button-primary">
-                    Email the Lab
-                    </a>
+                    <div class="home-contact-actions">
+                        <a href="mailto:honglab@hospital.edu" class="button-primary">
+                            Email the Lab
+                        </a>
 
-                    <a href="components/contact.html" class="button-secondary">
-                    Full Contact Page
-                    </a>
-                </div>
+                        <a href="components/contact.html" class="button-secondary">
+                            Full Contact Page
+                        </a>
+                    </div>
                 </div>
 
                 <div class="home-contact-right">
 
-                <div class="contact-mini-block">
-                    <h3>Lab Director</h3>
-                    <p>Dr. Jennifer Hong</p>
-                    <p class="muted">Neurosurgery</p>
-                </div>
+                    <div class="contact-mini-block">
+                        <h3>Lab Director</h3>
+                        <p>Dr. Jennifer Hong</p>
+                        <p class="muted">Neurosurgery</p>
+                    </div>
 
-                <div class="contact-mini-block">
-                    <h3>Email</h3>
-                    <p>
-                    <a href="mailto:honglab@hospital.edu">
-                        honglab@hospital.edu
-                    </a>
-                    </p>
-                </div>
+                    <div class="contact-mini-block">
+                        <h3>Email</h3>
+                        <p>
+                            <a href="mailto:honglab@hospital.edu">
+                                honglab@hospital.edu
+                            </a>
+                        </p>
+                    </div>
 
-                <div class="contact-mini-block">
-                    <h3>Location</h3>
-                    <p class="muted">
-                    Dartmouth College<br>
-                    Hanover, NH
-                    </p>
-                </div>
+                    <div class="contact-mini-block">
+                        <h3>Location</h3>
+                        <p class="muted">
+                            Dartmouth College<br>
+                            Hanover, NH
+                        </p>
+                    </div>
 
                 </div>
 
             </div>
 
         </section>
+
     </main>
 
     <script src="js/home-hero.js"></script>
