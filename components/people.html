@@ -22,7 +22,7 @@
 
             <nav class="main-nav">
                 <ul>
-                    <li><a href="../index.html#research">What We Do</a></li>
+                    <li><a href="../index.html#research-start">What We Do</a></li>
                     <li><a href="people.html">People</a></li>
                     <li><a href="publications.html">Publications</a></li>
                     <li><a href="../index.html#contact">Contact</a></li>
@@ -43,11 +43,10 @@
                     <div class="people-slideshow" id="people-slideshow"></div>
                 </section>
 
-                <aside class="people-slideshow-description">
-                    <p class="people-kicker">Hong Lab</p>
-                    <h1 id="slideshow-caption-title">Our lab community</h1>
-                    <p id="slideshow-caption-text">
-                        Snapshots from the Hong Lab community.
+                <aside class="people-diversity-statement">
+                    <h1>Our community</h1>
+                    <p>
+                        Our lab brings together undergraduate, medical, and PhD students from a wide range of backgrounds and disciplines. We believe that diversity of training, perspective, and experience is what sharpens good science into excellent science.
                     </p>
                 </aside>
             </div>
@@ -94,24 +93,19 @@
             const slideshowImages = [
                 {
                     src: '../assets/people_slideshow/1.jpg',
-                    title: 'Hong Lab community',
                     description: 'Members of the Hong Lab working, collaborating, and building a shared research environment.'
                 },
                 {
                     src: '../assets/people_slideshow/2.jpg',
-                    title: 'Research in action',
                     description: 'A snapshot of the lab’s research culture, mentorship, and scientific work.'
                 },
                 {
                     src: '../assets/people_slideshow/3.jpeg',
-                    title: 'People behind the science',
                     description: 'The students, researchers, and collaborators who make the lab possible.'
                 }
             ];
 
             const slideshow = document.getElementById('people-slideshow');
-            const captionTitle = document.getElementById('slideshow-caption-title');
-            const captionText = document.getElementById('slideshow-caption-text');
 
             slideshowImages.forEach((slideData, index) => {
 
@@ -124,35 +118,37 @@
                 const img = document.createElement('img');
 
                 img.src = slideData.src;
-                img.alt = slideData.title;
+
+                const description = document.createElement('p');
+                description.className = 'people-slide-description';
+                description.textContent = slideData.description;
 
                 slide.appendChild(img);
+                slide.appendChild(description);
+
                 slideshow.appendChild(slide);
             });
 
+            const slides = document.querySelectorAll('.people-slide');
+
             let currentSlide = 0;
+            let intervalId;
 
-            captionTitle.textContent = slideshowImages[0].title;
-            captionText.textContent = slideshowImages[0].description;
-
-            setInterval(() => {
-
-                const slides = document.querySelectorAll('.people-slide');
-
-                if (slides.length === 0) {
-                    return;
-                }
-
+            function showSlide(nextIndex) {
                 slides[currentSlide].classList.remove('active');
 
-                currentSlide = (currentSlide + 1) % slides.length;
+                currentSlide = (nextIndex + slides.length) % slides.length;
 
                 slides[currentSlide].classList.add('active');
+            }
 
-                captionTitle.textContent = slideshowImages[currentSlide].title;
-                captionText.textContent = slideshowImages[currentSlide].description;
+            function nextSlide() {
+                showSlide(currentSlide + 1);
+            }
 
-            }, 3500);
+            if (slides.length > 0) {
+                intervalId = setInterval(nextSlide, 4000);
+            }
 
             /* =========================
                Bio Modal
@@ -382,13 +378,14 @@
                 const sideBySideLists = document.createElement('div');
                 sideBySideLists.className = 'side-by-side-lists';
 
+                if (collaboratorsSection) {
+                    sideBySideLists.appendChild(renderGroupedList(collaboratorsSection));
+                }
+
                 if (alumniSection) {
                     sideBySideLists.appendChild(renderGroupedList(alumniSection));
                 }
 
-                if (collaboratorsSection) {
-                    sideBySideLists.appendChild(renderGroupedList(collaboratorsSection));
-                }
 
                 peopleSection.appendChild(sideBySideLists);
             }
