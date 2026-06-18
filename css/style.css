@@ -10,34 +10,50 @@ html, body {
 }
 
 :root {
-    --font-headings: "Source Sans 3", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    --font-sans: "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
                  Roboto, Helvetica, Arial, sans-serif;
-    --bg: #f5f6f7;
-    --text: #111827;
-    --muted: #4b5563;
-    --line: rgba(17, 24, 39, 0.12);
+    /* alias kept so existing references keep working */
+    --font-headings: var(--font-sans);
+
+    --black: #0a0a0a;
+    --bg: #fafafa;
+    --text: #0a0a0a;
+    --muted: #6b7280;
+    --line: rgba(10, 10, 10, 0.10);
     --white: #ffffff;
+
+    /* Dartmouth green, restrained */
+    --accent: #00693e;
+    --accent-bright: #1fa56a;   /* lifted green for legibility on black */
+
+    --radius: 8px;
+    --radius-lg: 12px;
 }
 
 body {
     background: var(--bg);
     color: var(--text);
-    font-family: var(--font-headings);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, h4, h5, h6,
 .main-nav a {
-    font-family: var(--font-headings);
+    font-family: var(--font-sans);
     letter-spacing: 0.02em;
 }
 
 a {
     color: inherit;
     text-decoration: none;
+    transition: opacity 0.2s ease, color 0.2s ease;
 }
 
 a:hover {
-    opacity: 0.8;
+    opacity: 0.72;
 }
 
 /* =========================
@@ -54,9 +70,9 @@ a:hover {
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
 
-    background: #111827;
+    background: var(--black);
 
-    border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .header-inner {
@@ -74,8 +90,8 @@ a:hover {
     gap: 12px;
     color: white;
     font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
+    font-weight: 400;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
 }
 
@@ -95,11 +111,35 @@ a:hover {
 }
 
 .main-nav a {
-    color: rgba(255, 255, 255, 0.92);
-    font-size: 14px;
+    position: relative;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 13px;
     font-weight: 400;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+    transition: color 0.2s ease;
+}
+
+.main-nav a:hover {
+    opacity: 1;
+    color: #ffffff;
+}
+
+.main-nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -7px;
+    height: 1.5px;
+    background: var(--accent-bright);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.28s ease;
+}
+
+.main-nav a:hover::after {
+    transform: scaleX(1);
 }
 
 #research-start {
@@ -124,7 +164,7 @@ a:hover {
     position: absolute;
     inset: 0;
     overflow: hidden;
-    background: #0b1118;
+    background: #0a0a0a;
 }
 
 .hero-slide {
@@ -147,6 +187,16 @@ a:hover {
     filter: none;
 }
 
+.hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
 .hero-overlay {
     position: absolute;
     inset: 0;
@@ -165,9 +215,11 @@ a:hover {
     padding: 46px 54px;
     box-sizing: border-box;
 
-    background: rgba(7, 18, 31, 0.80);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 22px;
+    background: rgba(10, 10, 10, 0.62);
+    backdrop-filter: blur(18px) saturate(120%);
+    -webkit-backdrop-filter: blur(18px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: var(--radius-lg);
 
     color: white;
     text-align: left;
@@ -175,10 +227,10 @@ a:hover {
 
 .hero-kicker {
     margin: 0 0 18px 0;
-    color: rgba(255, 255, 255, 0.88);
+    color: var(--accent-bright);
     font-size: 13px;
     font-weight: 500;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
 }
 
@@ -194,10 +246,10 @@ a:hover {
 .hero-heading {
     margin: 0 0 18px 0;
     color: white;
-    font-size: clamp(56px, 8vw, 92px);
-    line-height: 0.95;
-    font-weight: 500;
-    letter-spacing: 0.01em;
+    font-size: clamp(58px, 8.5vw, 104px);
+    line-height: 0.92;
+    font-weight: 300;
+    letter-spacing: -0.035em;
     max-width: none;
 }
 
@@ -270,11 +322,11 @@ a:hover {
 ========================= */
 
 .focus-section {
-    background: #111827;
+    background: var(--black);
     color: white;
     min-height: calc(100vh - 79px);
     box-sizing: border-box;
-    padding: 72px 32px;
+    padding: 96px 32px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -288,19 +340,19 @@ a:hover {
 
 .section-label {
     margin: 0 0 16px 0;
-    color: rgba(255, 255, 255, 0.68);
+    color: var(--accent-bright);
     font-size: 13px;
     font-weight: 500;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
 }
 
 .section-heading h2 {
     margin: 0;
-    font-size: clamp(36px, 5vw, 64px);
+    font-size: clamp(38px, 5.2vw, 68px);
     line-height: 1;
-    font-weight: 400;
-    letter-spacing: -0.04em;
+    font-weight: 300;
+    letter-spacing: -0.045em;
     color: white;
 }
 
@@ -351,7 +403,7 @@ a:hover {
 
 .focus-circle-card:hover .focus-circle-image {
     transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.55);
+    border-color: var(--accent-bright);
 }
 
 .focus-circle-image img {
@@ -407,9 +459,9 @@ a:hover {
     max-height: 85vh;
     overflow-y: auto;
     background: #ffffff;
-    color: #111827;
+    color: #0a0a0a;
     border: 1px solid var(--line);
-    border-radius: 22px;
+    border-radius: var(--radius-lg);
     padding: 48px;
 }
 
@@ -449,8 +501,9 @@ a:hover {
     margin: 0 0 20px 0;
     font-size: clamp(28px, 4vw, 42px);
     line-height: 1.15;
-    font-weight: 400;
-    color: #111827;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: #0a0a0a;
 }
 
 .focus-modal-right {
@@ -564,11 +617,11 @@ a:hover {
 
 .home-contact-left h2 {
     margin: 0 0 14px 0;
-    font-size: 34px;
-    line-height: 1.1;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    color: #111827;
+    font-size: clamp(34px, 4vw, 48px);
+    line-height: 1.05;
+    font-weight: 300;
+    letter-spacing: -0.035em;
+    color: #0a0a0a;
 }
 
 .home-contact-text {
@@ -594,10 +647,15 @@ a:hover {
 .contact-mini-block h3 {
     margin: 0 0 7px 0;
     font-size: 11px;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #9ca3af;
-    font-weight: 400;
+    color: var(--accent);
+    font-weight: 500;
+}
+
+.contact-mini-block a:hover {
+    color: var(--accent);
+    opacity: 1;
 }
 
 .contact-mini-block p,
@@ -628,10 +686,11 @@ a:hover {
 .page-title,
 .small-section-title {
     margin: 0 0 18px 0;
-    font-size: clamp(30px, 4vw, 46px);
-    line-height: 1.1;
-    font-weight: 400;
-    color: #111827;
+    font-size: clamp(34px, 4.5vw, 56px);
+    line-height: 1.05;
+    font-weight: 300;
+    letter-spacing: -0.035em;
+    color: #0a0a0a;
 }
 
 .pub-year {
@@ -651,9 +710,14 @@ a:hover {
     background: #ffffff;
     border: 1px solid var(--line);
     padding: 30px 32px;
-    margin-bottom: 20px;
-    border-radius: 18px;
+    margin-bottom: 16px;
+    border-radius: var(--radius);
     overflow: hidden;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.pub-item:hover {
+    border-color: rgba(0, 105, 62, 0.45);
 }
 
 .pub-title {
@@ -703,7 +767,8 @@ a:hover {
 .pub-link:hover {
     opacity: 1;
     transform: translateY(-1px);
-    background: #111827;
+    background: var(--accent);
+    border-color: var(--accent);
     color: #ffffff;
 }
 
@@ -812,8 +877,9 @@ a:hover {
     margin: 0 0 22px 0;
     font-size: clamp(42px, 6vw, 76px);
     line-height: 1;
-    font-weight: 400;
-    color: #111827;
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    color: #0a0a0a;
 }
 
 .people-diversity-statement p {
@@ -832,17 +898,19 @@ a:hover {
 .people-kicker {
     margin: 0 0 16px 0;
     font-size: 13px;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #6b7280;
+    color: var(--accent);
+    font-weight: 500;
 }
 
 .people-slideshow-description h1 {
     margin: 0 0 22px 0;
     font-size: clamp(42px, 6vw, 76px);
     line-height: 1;
-    font-weight: 400;
-    color: #111827;
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    color: #0a0a0a;
 }
 
 .people-slideshow-description p {
@@ -918,7 +986,8 @@ a:hover {
 .scholar-link:hover {
     opacity: 1;
     transform: translateY(-1px);
-    background: #111827;
+    background: var(--accent);
+    border-color: var(--accent);
     color: #ffffff;
 }
 
@@ -930,8 +999,13 @@ a:hover {
 
 .lab-director,
 .person-card {
-    border-radius: 18px;
+    border-radius: var(--radius);
     overflow: hidden;
+    transition: border-color 0.2s ease;
+}
+
+.person-card:hover {
+    border-color: rgba(0, 105, 62, 0.45);
 }
 
 .people-grid {
@@ -996,6 +1070,7 @@ a:hover {
     overflow-y: auto;
     background: #ffffff;
     border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
     display: grid;
     grid-template-columns: 300px 1fr;
     gap: 32px;
@@ -1024,8 +1099,9 @@ a:hover {
 .bio-modal-content h2 {
     margin: 0 36px 18px 0;
     font-size: 30px;
-    font-weight: 400;
-    color: #111827;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: #0a0a0a;
 }
 
 .bio-modal-content p {
@@ -1157,5 +1233,58 @@ a:hover {
 
     .people-slideshow-description h1 {
         font-size: 42px;
+    }
+}
+
+/* =========================
+   Responsive header + contact
+========================= */
+
+@media (max-width: 720px) {
+    .header-inner {
+        flex-direction: column;
+        gap: 14px;
+        padding: 14px 22px;
+    }
+
+    .main-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px 20px;
+    }
+
+    .main-nav a {
+        font-size: 12px;
+        letter-spacing: 0.06em;
+    }
+}
+
+@media (max-width: 760px) {
+    .home-contact {
+        padding: 56px 22px 60px;
+    }
+
+    .home-contact-inner {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 0;
+    }
+}
+
+/* =========================
+   Reduced motion
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
     }
 }
