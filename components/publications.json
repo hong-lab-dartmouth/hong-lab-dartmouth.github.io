@@ -4,114 +4,19 @@
       "year": "2026",
       "items": [
         {
-          "title": "Closed-loop neuromonitoring for early detection of spinal cord ischemia in high-risk spine surgery",
-          "authors": "Hong J, Patel R, Nguyen T, Wahab A, Chen L",
-          "venue": "Journal of Neurosurgical Systems",
+          "title": "Post-vagus nerve stimulation mood and cognitive burden in dual epileptic–functional seizure patients",
+          "authors": "Natarajan V, Sandhu R, Mazof C, Odom N, Hong J",
+          "venue": "Epilepsy & Behavior, 175:110837",
           "links": [
-            { "label": "Paper", "url": "#" },
-            { "label": "DOI", "url": "https://doi.org/example1" },
-            { "label": "Code", "url": "https://github.com/example1" }
+            { "label": "DOI", "url": "https://doi.org/10.1016/j.yebeh.2025.110837" }
           ]
         },
         {
-          "title": "Quantifying peripheral nerve recovery using multimodal electrophysiology and patient-reported outcomes",
-          "authors": "Garcia M, Hong J, Singh A, Morrison K",
-          "venue": "Neurorehabilitation & Repair Methods",
+          "title": "Rising Prevalence of Central Nervous System Involvement in Multiple Myeloma: A 2012–2020 National Inpatient Sample (NIS) Analysis in the United States",
+          "authors": "Mazof CJ, Natarajan V, Vrattos A, Shah P, Lansigan F, Hong J",
+          "venue": "Clinical Lymphoma Myeloma and Leukemia, 26:219–225.e5",
           "links": [
-            { "label": "paper", "url": "#" },
-            { "label": "DOI", "url": "https://doi.org/example2" }
-          ]
-        },
-        {
-          "title": "A lightweight clinical pipeline for automated segmentation of postoperative spine MRI",
-          "authors": "Wahab A, Hong J, Lee S, Thompson D",
-          "venue": "Proceedings of the Clinical AI in Imaging Workshop",
-          "links": [
-            { "label": "paper", "url": "#" },
-            { "label": "DOI", "url": "https://doi.org/example3" },
-            { "label": "Poster", "url": "#" }
-          ]
-        }
-      ]
-    },
-    {
-      "year": "2025",
-      "items": [
-        {
-          "title": "Predicting short-term outcomes after lumbar decompression using structured perioperative features",
-          "authors": "Hong J, Reynolds P, Kim H, Zhao Y",
-          "venue": "Spine Analytics",
-          "links": [
-            { "label": "paper", "url": "#" },
-            { "label": "DOI", "url": "https://doi.org/example4" },
-            { "label": "Supplement", "url": "#" }
-          ]
-        },
-        {
-          "title": "Estimating surgical complexity from operative notes with document embeddings and weak supervision",
-          "authors": "Patel R, Wahab A, Hong J, Alvarez J",
-          "venue": "Medical NLP Letters",
-          "links": [
-            { "label": "paper", "url": "#" },
-            { "label": "DOI", "url": "https://doi.org/example5" },
-            { "label": "Code", "url": "https://github.com/example5" }
-          ]
-        },
-        {
-          "title": "A practical framework for longitudinal tracking of postoperative neurological function",
-          "authors": "Morrison K, Chen L, Hong J",
-          "venue": "Frontiers in Clinical Neuroscience",
-          "links": [
-            { "label": "paper", "url": "#" },
-            { "label": "DOI", "url": "https://doi.org/example6" }
-          ]
-        }
-      ]
-    },
-    {
-      "year": "2024",
-      "items": [
-        {
-          "title": "Reliability of intraoperative neurophysiological monitoring signals under variable anesthetic regimens",
-          "authors": "Hong J, Singh A, Chen L, Patel R",
-          "venue": "Neurosurgery Practice",
-          "links": [
-            { "label": "paper", "url": "#" },
-            { "label": "DOI", "url": "https://doi.org/example7" }
-          ]
-        },
-        {
-          "title": "Benchmarking segmentation quality for spine MRI in small-data clinical settings",
-          "authors": "Lee S, Hong J, Zhao Y",
-          "venue": "Imaging in Medicine",
-          "links": [
-            { "label": "paper", "url": "#" },
-            { "label": "DOI", "url": "https://doi.org/example8" },
-            { "label": "Dataset", "url": "#" }
-          ]
-        }
-      ]
-    },
-    {
-      "year": "Preprints",
-      "items": [
-        {
-          "title": "Toward robust postoperative outcome prediction with multimodal clinical time series",
-          "authors": "Hong J, Wahab A, Kim H, Reynolds P",
-          "venue": "arXiv",
-          "links": [
-            { "label": "paper", "url": "#" },
-            { "label": "arXiv", "url": "#" },
-            { "label": "Code", "url": "https://github.com/example9" }
-          ]
-        },
-        {
-          "title": "A clinician-in-the-loop approach to validating automated spine MRI segmentation",
-          "authors": "Patel R, Chen L, Hong J",
-          "venue": "medRxiv",
-          "links": [
-            { "label": "paper", "url": "#" },
-            { "label": "medRxiv", "url": "#" }
+            { "label": "DOI", "url": "https://doi.org/10.1016/j.clml.2025.12.004" }
           ]
         }
       ]
