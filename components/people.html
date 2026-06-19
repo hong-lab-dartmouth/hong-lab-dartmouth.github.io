@@ -28,6 +28,7 @@
                     <li><a href="../index.html#research-start">Research</a></li>
                     <li><a href="people.html">People</a></li>
                     <li><a href="publications.html">Publications</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
                     <li><a href="../index.html#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -38,24 +39,9 @@
     <!-- Page content -->
     <main class="page-content">
 
-        <!-- Hero: slideshow + PI on first screen -->
+        <!-- Lab director / PI -->
         <section class="people-hero">
-
-            <div class="people-hero-top">
-                <section class="people-slideshow-card" aria-label="Hong Lab slideshow">
-                    <div class="people-slideshow" id="people-slideshow"></div>
-                </section>
-
-                <aside class="people-diversity-statement">
-                    <h1>Our community</h1>
-                    <p>
-                        Our lab brings together undergraduate, medical, and PhD students from a wide range of backgrounds and disciplines. We believe that diversity of training, perspective, and experience is what sharpens good science into excellent science.
-                    </p>
-                </aside>
-            </div>
-
             <div id="lab-director-slot"></div>
-
         </section>
 
         <!-- Remaining people -->
@@ -88,70 +74,6 @@
             const data = await response.json();
 
             const peopleSection = document.getElementById('people-section');
-
-            /* =========================
-               Slideshow
-            ========================= */
-
-            const slideshowImages = [
-                {
-                    src: '../assets/people_slideshow/1.jpg',
-                    description: 'Members of the Hong Lab working, collaborating, and building a shared research environment.'
-                },
-                {
-                    src: '../assets/people_slideshow/2.JPG',
-                    description: 'A snapshot of the lab’s research culture, mentorship, and scientific work.'
-                },
-                {
-                    src: '../assets/people_slideshow/3.jpeg',
-                    description: 'The students, researchers, and collaborators who make the lab possible.'
-                }
-            ];
-
-            const slideshow = document.getElementById('people-slideshow');
-
-            slideshowImages.forEach((slideData, index) => {
-
-                const slide = document.createElement('div');
-
-                slide.className = index === 0
-                    ? 'people-slide active'
-                    : 'people-slide';
-
-                const img = document.createElement('img');
-
-                img.src = slideData.src;
-
-                const description = document.createElement('p');
-                description.className = 'people-slide-description';
-                description.textContent = slideData.description;
-
-                slide.appendChild(img);
-                slide.appendChild(description);
-
-                slideshow.appendChild(slide);
-            });
-
-            const slides = document.querySelectorAll('.people-slide');
-
-            let currentSlide = 0;
-            let intervalId;
-
-            function showSlide(nextIndex) {
-                slides[currentSlide].classList.remove('active');
-
-                currentSlide = (nextIndex + slides.length) % slides.length;
-
-                slides[currentSlide].classList.add('active');
-            }
-
-            function nextSlide() {
-                showSlide(currentSlide + 1);
-            }
-
-            if (slides.length > 0) {
-                intervalId = setInterval(nextSlide, 4000);
-            }
 
             /* =========================
                Bio Modal
@@ -413,6 +335,7 @@
                     <li><a href="../index.html#research-start">Research</a></li>
                     <li><a href="people.html">People</a></li>
                     <li><a href="publications.html">Publications</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
                 </ul>
             </nav>
             <div class="footer-contact">
