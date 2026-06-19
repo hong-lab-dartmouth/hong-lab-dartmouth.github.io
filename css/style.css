@@ -737,53 +737,20 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     background: var(--bg);
 }
 
-.people-hero {
-    min-height: auto;
-    margin: 0 auto 70px auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 34px;
-}
-
-/* Right-side slideshow text */
-
-/* Lab Director inside first screen */
-
-.lab-director {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 28px;
-    align-items: start;
-    background: #ffffff;
-    border: 1px solid var(--line);
-    padding: 24px;
-    margin: 0;
-}
-
-.lab-director-image img {
-    width: 100%;
-    display: block;
-    object-fit: cover;
-    aspect-ratio: 4 / 5;
-}
-
-.lab-director-text h2,
 .person-card h2 {
-    margin: 0 0 10px 0;
-    font-size: 24px;
+    margin: 0 0 2px 0;
+    font-size: 20px;
     font-weight: 400;
-    color: #111827;
+    color: #0a0a0a;
 }
 
-.lab-director-bio {
-    margin-top: 4px;
-    font-size: 16px;
-    line-height: 1.65;
-    color: #374151;
+.person-title {
+    margin: 0;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: var(--muted);
 }
 
-.people-hero,
 .people-section {
     max-width: 1180px;
     margin-left: auto;
@@ -814,13 +781,6 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     color: #0a0a0a;
 }
 
-.person-card .scholar-link,
-.lab-director-text .scholar-link {
-    margin-right: 10px;
-    margin-bottom: 4px;
-}
-
-.lab-director,
 .person-card {
     border-radius: var(--radius);
     overflow: hidden;
@@ -849,14 +809,17 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     display: block;
     object-fit: cover;
     aspect-ratio: 3 / 4;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     border-radius: 8px;
 }
 
-.bio-button {
-    font-family: var(--font-headings);
-    background: transparent;
-    cursor: pointer;
+.person-card img.is-clickable {
+    cursor: zoom-in;
+    transition: opacity 0.2s ease;
+}
+
+.person-card img.is-clickable:hover {
+    opacity: 0.9;
 }
 
 /* =========================
@@ -919,11 +882,20 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 .bio-modal-content h2 {
-    margin: 0 36px 18px 0;
+    margin: 0 36px 4px 0;
     font-size: 30px;
     font-weight: 300;
     letter-spacing: -0.02em;
     color: #0a0a0a;
+}
+
+.bio-modal-title {
+    margin: 0 0 18px 0;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #6cb33f;
 }
 
 .bio-modal-content p {
@@ -931,6 +903,13 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     font-size: 16px;
     line-height: 1.8;
     color: #4b5563;
+}
+
+.bio-modal-links {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .alumni-group {
@@ -997,36 +976,9 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     }
 }
 
-@media (max-width: 1000px) {
-    .people-hero {
-        min-height: auto;
-        justify-content: flex-start;
-    }
-
-    
-    
-    
-
-    .lab-director {
-        grid-template-columns: 220px 1fr;
-    }
-
-    .people-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-}
-
 @media (max-width: 800px) {
     .people-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .lab-director {
-        grid-template-columns: 1fr;
-    }
-
-    .lab-director-image {
-        max-width: 280px;
     }
 }
 
@@ -1176,12 +1128,10 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 .hero-heading,
 .section-heading h2,
 .accordion-title,
-.home-contact-left h2,
 .page-title,
 .small-section-title,
 .pub-year-title,
 .pub-title,
-.lab-director-text h2,
 .person-card h2,
 .bio-modal-content h2 {
     font-family: var(--font-serif);

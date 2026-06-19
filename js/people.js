@@ -1,125 +1,96 @@
-/* People page: render the PI, team grids, and alumni from data/people.json,
-   plus the bio modal. */
+/* People page: one unified team grid (PI first, then PhD -> Medical ->
+   Undergraduate) plus the alumni list, all from data/people.json.
+   Clicking a photo opens the bio modal (bio + scholar link). */
+
+const SECTION_ORDER = ['phd students', 'medical students', 'undergraduate students'];
 
 async function loadPeoplePage() {
-  const response = await fetch('../data/people.json', { cache: 'no-store' });
-  const data = await response.json();
-
+  const res = await fetch('../data/people.json', { cache: 'no-store' });
+  const data = await res.json();
   const peopleSection = document.getElementById('people-section');
 
   /* ---- Bio modal ---- */
-  const bioModal = document.getElementById('bio-modal');
-  const bioModalImage = document.getElementById('bio-modal-image');
-  const bioModalName = document.getElementById('bio-modal-name');
-  const bioModalText = document.getElementById('bio-modal-text');
-  const bioModalClose = document.getElementById('bio-modal-close');
-  const bioModalOverlay = document.getElementById('bio-modal-overlay');
+  const modal = document.getElementById('bio-modal');
+  const mImage = document.getElementById('bio-modal-image');
+  const mName = document.getElementById('bio-modal-name');
+  const mTitle = document.getElementById('bio-modal-title');
+  const mText = document.getElementById('bio-modal-text');
+  const mLinks = document.getElementById('bio-modal-links');
 
-  function openBioModal(person) {
-    bioModalImage.src = person.image;
-    bioModalImage.alt = person.alt || person.name;
-    bioModalName.textContent = person.name;
-    bioModalText.textContent = person.description;
-    bioModal.classList.add('open');
-    bioModal.setAttribute('aria-hidden', 'false');
+  function openModal(person) {
+    mImage.src = person.image;
+    mImage.alt = person.alt || person.name;
+    mName.textContent = person.name;
+
+    mTitle.textContent = person.title || '';
+    mTitle.style.display = person.title ? '' : 'none';
+
+    const bio = (person.description || '').trim();
+    mText.textContent = bio;
+    mText.style.display = bio ? '' : 'none';
+
+    mLinks.innerHTML = '';
+    if (person.scholar) {
+      const a = document.createElement('a');
+      a.href = person.scholar.url;
+      a.textContent = person.scholar.label || 'Google Scholar';
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.className = 'scholar-link';
+      mLinks.appendChild(a);
+    }
+
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   }
 
-  function closeBioModal() {
-    bioModal.classList.remove('open');
-    bioModal.setAttribute('aria-hidden', 'true');
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
 
-  bioModalClose.addEventListener('click', closeBioModal);
-  bioModalOverlay.addEventListener('click', closeBioModal);
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && bioModal.classList.contains('open')) closeBioModal();
+  document.getElementById('bio-modal-close').addEventListener('click', closeModal);
+  document.getElementById('bio-modal-overlay').addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
   });
 
-  function addBioButton(parent, person) {
-    if (!person.description || person.description.trim() === '') return;
-    const bioButton = document.createElement('button');
-    bioButton.type = 'button';
-    bioButton.textContent = 'Bio';
-    bioButton.className = 'scholar-link bio-button';
-    bioButton.addEventListener('click', () => openBioModal(person));
-    parent.appendChild(bioButton);
-  }
-
-  function scholarLink(scholar) {
-    const a = document.createElement('a');
-    a.href = scholar.url;
-    a.textContent = scholar.label || 'Google Scholar';
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    a.className = 'scholar-link';
-    return a;
-  }
-
-  /* ---- Lab director / PI ---- */
-  const director = data.labDirector;
-  const slot = document.getElementById('lab-director-slot');
-
-  const dirTitle = document.createElement('h2');
-  dirTitle.className = 'small-section-title';
-  dirTitle.textContent = director.title;
-  slot.appendChild(dirTitle);
-
-  const dirCard = document.createElement('div');
-  dirCard.className = 'lab-director';
-  dirCard.innerHTML = `
-    <div class="lab-director-image"><img src="${director.image}" alt="${director.alt || director.name}"></div>
-    <div class="lab-director-text"></div>`;
-  const dirText = dirCard.querySelector('.lab-director-text');
-
-  const dirName = document.createElement('h2');
-  dirName.textContent = director.name;
-  dirText.appendChild(dirName);
-  if (director.scholar) dirText.appendChild(scholarLink(director.scholar));
-  if (director.description && director.description.trim() !== '') {
-    const bio = document.createElement('p');
-    bio.className = 'lab-director-bio';
-    bio.textContent = director.description;
-    dirText.appendChild(bio);
-  }
-  slot.appendChild(dirCard);
-
-  /* ---- Team grids + alumni ---- */
+  /* ---- Build the unified team list ---- */
   const isAlumni = (s) => s.title.toLowerCase() === 'alumni';
-  const teamSections = data.sections.filter((s) => !isAlumni(s));
-  const alumniSection = data.sections.find(isAlumni);
+  const team = data.sections
+    .filter((s) => !isAlumni(s))
+    .sort((a, b) => SECTION_ORDER.indexOf(a.title.toLowerCase()) - SECTION_ORDER.indexOf(b.title.toLowerCase()))
+    .flatMap((s) => s.people.map((p) => ({ ...p, title: s.title.replace(/Students?$/i, 'Student') })));
 
-  teamSections.forEach((section) => {
-    const heading = document.createElement('h1');
-    heading.className = 'page-title';
-    heading.textContent = section.title;
-    peopleSection.appendChild(heading);
+  if (data.labDirector) {
+    team.unshift({ ...data.labDirector, title: data.labDirector.title || 'Principal Investigator' });
+  }
 
-    const grid = document.createElement('div');
-    grid.className = 'people-grid';
+  const grid = document.createElement('div');
+  grid.className = 'people-grid';
 
-    section.people.forEach((person) => {
-      const card = document.createElement('div');
-      card.className = 'person-card';
-      card.innerHTML = `
-        <img src="${person.image}" alt="${person.alt || person.name}">
-        <h2>${person.name}</h2>`;
-      addBioButton(card, person);
-      if (person.scholar) card.appendChild(scholarLink(person.scholar));
-      grid.appendChild(card);
-    });
-
-    peopleSection.appendChild(grid);
+  team.forEach((person) => {
+    const card = document.createElement('div');
+    card.className = 'person-card';
+    const clickable = (person.description && person.description.trim()) || person.scholar;
+    card.innerHTML = `
+      <img src="${person.image}" alt="${person.alt || person.name}"${clickable ? ' class="is-clickable"' : ''}>
+      <h2>${person.name}</h2>
+      ${person.title ? `<p class="person-title">${person.title}</p>` : ''}`;
+    if (clickable) card.querySelector('img').addEventListener('click', () => openModal(person));
+    grid.appendChild(card);
   });
 
+  peopleSection.appendChild(grid);
+
+  /* ---- Alumni ---- */
+  const alumniSection = data.sections.find(isAlumni);
   if (alumniSection) {
     const wrap = document.createElement('div');
     wrap.className = 'side-by-side-lists';
-
-    const column = document.createElement('div');
-    column.className = 'grouped-list-column';
-    column.innerHTML = `<h1 class="page-title">${alumniSection.title}</h1>`;
+    wrap.innerHTML = `<h1 class="page-title">${alumniSection.title}</h1>`;
 
     const groups = document.createElement('div');
     groups.className = 'grouped-list-wrapper';
@@ -135,9 +106,7 @@ async function loadPeoplePage() {
       });
       groups.appendChild(div);
     });
-
-    column.appendChild(groups);
-    wrap.appendChild(column);
+    wrap.appendChild(groups);
     peopleSection.appendChild(wrap);
   }
 }
