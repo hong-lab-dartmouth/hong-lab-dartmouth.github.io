@@ -781,45 +781,58 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     color: #0a0a0a;
 }
 
-.person-card {
-    border-radius: var(--radius);
-    overflow: hidden;
-    transition: border-color 0.2s ease;
-}
-
-.person-card:hover {
-    border-color: rgba(108, 179, 63, 0.6);
-}
-
 .people-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 40px 30px;
+    gap: 44px 30px;
     margin-bottom: 96px;
 }
 
+/* Borderless, editorial cards. Clickable photos get a green ring + a
+   subtle zoom on hover — fresh and distinctive, not a generic boxed card. */
 .person-card {
-    background: #ffffff;
-    border: 1px solid var(--line);
-    padding: 16px;
+    background: none;
+    border: none;
+    padding: 0;
 }
 
-.person-card img {
-    width: 100%;
-    display: block;
-    object-fit: cover;
+.person-photo {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
     aspect-ratio: 3 / 4;
+    background: #ececec;
     margin-bottom: 14px;
-    border-radius: 8px;
 }
 
-.person-card img.is-clickable {
+.person-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.person-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    transition: border-color 0.25s ease;
+    pointer-events: none;
+}
+
+.person-photo.is-clickable {
     cursor: zoom-in;
-    transition: opacity 0.2s ease;
 }
 
-.person-card img.is-clickable:hover {
-    opacity: 0.9;
+.person-card:hover .person-photo.is-clickable img {
+    transform: scale(1.05);
+}
+
+.person-card:hover .person-photo.is-clickable::after {
+    border-color: var(--accent-bright);
 }
 
 /* =========================
@@ -927,18 +940,12 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 .alumni-name {
-    display: inline;
-    margin: 0;
+    display: block;
+    margin: 0 0 6px 0;
     font-size: 16px;
-    line-height: 1.9;
+    line-height: 1.5;
     font-weight: 300;
     color: #374151;
-}
-
-.alumni-name:not(:last-child)::after {
-    content: "·";
-    margin: 0 8px;
-    color: rgba(10, 10, 10, 0.28);
 }
 
 .side-by-side-lists {

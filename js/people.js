@@ -76,10 +76,12 @@ async function loadPeoplePage() {
     card.className = 'person-card';
     const clickable = (person.description && person.description.trim()) || person.scholar;
     card.innerHTML = `
-      <img src="${person.image}" alt="${person.alt || person.name}"${clickable ? ' class="is-clickable"' : ''}>
+      <div class="person-photo${clickable ? ' is-clickable' : ''}">
+        <img src="${person.image}" alt="${person.alt || person.name}">
+      </div>
       <h2>${person.name}</h2>
       ${person.title ? `<p class="person-title">${person.title}</p>` : ''}`;
-    if (clickable) card.querySelector('img').addEventListener('click', () => openModal(person));
+    if (clickable) card.querySelector('.person-photo').addEventListener('click', () => openModal(person));
     grid.appendChild(card);
   });
 
