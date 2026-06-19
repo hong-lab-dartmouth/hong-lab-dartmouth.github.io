@@ -1930,6 +1930,14 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     gap: 30px;
 }
 
+.contact-lead {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.7;
+    font-weight: 300;
+    color: #374151;
+}
+
 .contact-block h4 {
     margin: 0 0 8px;
     font-size: 11px;
