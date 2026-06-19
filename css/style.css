@@ -39,6 +39,13 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
 }
 
 h1, h2, h3, h4, h5, h6,
@@ -965,9 +972,8 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 ========================= */
 
 .page-content {
-    padding: 72px 48px 100px;
+    padding: 72px 48px 88px;
     background: var(--bg);
-    min-height: 100vh;
 }
 
 .publications-section {
@@ -1104,9 +1110,8 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 ========================= */
 
 .page-content {
-    padding: 72px 32px 100px 32px;
+    padding: 72px 32px 88px 32px;
     background: var(--bg);
-    min-height: 100vh;
 }
 
 .people-hero {
