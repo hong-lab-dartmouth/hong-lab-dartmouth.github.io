@@ -204,6 +204,36 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     transform: scaleX(1);
 }
 
+/* Mobile menu toggle — hidden on desktop, shown via the mobile media query */
+.nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.nav-toggle svg {
+    display: block;
+}
+
+.nav-toggle .icon-close {
+    display: none;
+}
+
+.site-header.nav-open .nav-toggle .icon-menu {
+    display: none;
+}
+
+.site-header.nav-open .nav-toggle .icon-close {
+    display: block;
+}
+
 #research-start {
     scroll-margin-top: 110px;
 }
@@ -303,9 +333,8 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     }
 
     .hero-subheading {
-        font-size: 15px;
-        letter-spacing: 0.12em;
-        line-height: 1.45;
+        font-size: 20px;
+        line-height: 1.3;
     }
 
     .hero-affiliations {
@@ -998,7 +1027,8 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     }
 
     .people-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px 16px;
     }
 
     
@@ -1159,22 +1189,46 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
    Responsive header + contact
 ========================= */
 
-@media (max-width: 720px) {
+@media (max-width: 820px) {
     .header-inner {
-        flex-direction: column;
-        gap: 14px;
-        padding: 14px 22px;
+        padding: 20px 24px;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .main-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--black);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease;
+    }
+
+    .site-header.nav-open .main-nav {
+        max-height: 70vh;
     }
 
     .main-nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 14px 20px;
+        flex-direction: column;
+        gap: 0;
+        padding: 6px 0;
     }
 
     .main-nav a {
-        font-size: 12px;
-        letter-spacing: 0.06em;
+        display: block;
+        padding: 15px 24px;
+        font-size: 14px;
+        letter-spacing: 0.08em;
+    }
+
+    .main-nav a::after {
+        display: none;
     }
 }
 

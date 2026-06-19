@@ -31,11 +31,25 @@ customElements.define('site-header', class extends HTMLElement {
             <img class="logo-h" src="${ROOT}assets/logos/hong-lab-mark.png" alt="">
             <span class="logo-rest"><span class="logo-rest-text">ong&nbsp;Lab</span></span>
           </a>
+          <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
+            <svg class="icon-menu" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+            <svg class="icon-close" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+          </button>
           <nav class="main-nav" aria-label="Main navigation">
             <ul>${navItems(NAV)}</ul>
           </nav>
         </div>
       </header>`;
+
+    // Mobile menu toggle
+    const header = this.querySelector('.site-header');
+    const toggle = this.querySelector('.nav-toggle');
+    const setOpen = (open) => {
+      header.classList.toggle('nav-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+    };
+    toggle.addEventListener('click', () => setOpen(!header.classList.contains('nav-open')));
+    this.querySelectorAll('.main-nav a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
   }
 });
 
