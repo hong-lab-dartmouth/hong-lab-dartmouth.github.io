@@ -78,7 +78,7 @@
     <script>
         async function loadPeoplePage() {
 
-            const response = await fetch('./people.json');
+            const response = await fetch('./people.json', { cache: 'no-store' });
             const data = await response.json();
 
             const peopleSection = document.getElementById('people-section');

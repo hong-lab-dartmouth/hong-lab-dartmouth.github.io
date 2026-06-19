@@ -48,7 +48,7 @@
 
   <script>
     async function loadPublications() {
-      const res = await fetch("./publications.json");
+      const res = await fetch("./publications.json", { cache: "no-store" });
 
       if (!res.ok) {
         throw new Error("Could not load publications.json");
