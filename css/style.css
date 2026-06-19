@@ -956,6 +956,31 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     flex-wrap: wrap;
 }
 
+/* Bio modal on mobile: stack image over text, fit the viewport */
+@media (max-width: 640px) {
+    .bio-modal {
+        padding: 16px;
+    }
+
+    .bio-modal-card {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 20px;
+        max-height: 88vh;
+    }
+
+    .bio-modal-image {
+        aspect-ratio: auto;
+        height: 230px;
+        object-fit: cover;
+    }
+
+    .bio-modal-content h2 {
+        font-size: 24px;
+        margin-right: 30px;
+    }
+}
+
 .alumni-group {
     margin-bottom: 0;
 }
