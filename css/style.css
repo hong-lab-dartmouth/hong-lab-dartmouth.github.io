@@ -830,7 +830,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 .person-photo {
     position: relative;
     overflow: hidden;
-    border-radius: var(--radius);
+    border-radius: 0;
     aspect-ratio: 3 / 4;
     background: #ececec;
     margin-bottom: 14px;
@@ -849,7 +849,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     position: absolute;
     inset: 0;
     border: 2px solid transparent;
-    border-radius: var(--radius);
+    border-radius: 0;
     transition: border-color 0.25s ease;
     pointer-events: none;
 }
@@ -1387,7 +1387,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 .gallery-media {
     overflow: hidden;
-    border-radius: var(--radius);
+    border-radius: 0;
     background: #ececec;
 }
 
