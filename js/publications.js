@@ -7,21 +7,28 @@ async function loadPublications() {
   const data = await res.json();
   const container = document.getElementById('publications-section');
 
+  // Bold the lab PI in author lists (academic convention).
+  const emphasize = (authors) => authors.replace(/(Hong J)\b/g, '<strong>$1</strong>');
+
   data.years.forEach((group) => {
     const yearDiv = document.createElement('div');
     yearDiv.className = 'pub-year';
+    yearDiv.innerHTML = `<h2 class="pub-year-title">${group.year}</h2>`;
 
-    const yearTitle = document.createElement('h2');
-    yearTitle.className = 'pub-year-title';
-    yearTitle.textContent = group.year;
-    yearDiv.appendChild(yearTitle);
+    const list = document.createElement('div');
+    list.className = 'pub-list';
 
     group.items.forEach((pub) => {
+      const primary = pub.links && pub.links[0] ? pub.links[0].url : null;
+      const title = primary
+        ? `<a class="pub-title-link" href="${primary}" target="_blank" rel="noopener noreferrer">${pub.title}</a>`
+        : pub.title;
+
       const article = document.createElement('article');
       article.className = 'pub-item';
       article.innerHTML = `
-        <h3 class="pub-title">${pub.title}</h3>
-        <p class="pub-authors">${pub.authors}</p>
+        <h3 class="pub-title">${title}</h3>
+        <p class="pub-authors">${emphasize(pub.authors)}</p>
         <p class="pub-venue">${pub.venue}</p>`;
 
       if (pub.links && pub.links.length > 0) {
@@ -39,9 +46,10 @@ async function loadPublications() {
         article.appendChild(links);
       }
 
-      yearDiv.appendChild(article);
+      list.appendChild(article);
     });
 
+    yearDiv.appendChild(list);
     container.appendChild(yearDiv);
   });
 }
