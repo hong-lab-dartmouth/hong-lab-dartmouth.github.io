@@ -117,7 +117,7 @@ a:hover {
 .header-inner {
     max-width: 1180px;
     margin: 0 auto;
-    padding: 24px 48px;
+    padding: 33px 48px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -218,7 +218,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 #research-start {
-    scroll-margin-top: 92px;
+    scroll-margin-top: 110px;
 }
 
 /* =========================
@@ -227,7 +227,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 .hero {
     position: relative;
-    height: calc(100vh - 92px);
+    height: calc(100vh - 110px);
     min-height: 620px;
     display: flex;
     align-items: center;

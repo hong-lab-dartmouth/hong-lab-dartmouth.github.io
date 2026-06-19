@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             entries.forEach((entry) => {
                 header.classList.toggle('is-scrolled', !entry.isIntersecting);
             });
-        }, { rootMargin: '-92px 0px 0px 0px', threshold: 0 });
+        }, { rootMargin: '-110px 0px 0px 0px', threshold: 0 });
 
         observer.observe(heroHeading);
     } else if (header) {
