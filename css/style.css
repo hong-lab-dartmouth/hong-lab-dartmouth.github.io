@@ -1832,19 +1832,50 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 /* =========================
-   Page label (top heading on inner pages)
+   Page header (eyebrow + heading + desc) — inner pages
 ========================= */
 
-.page-label {
+.page-header {
     max-width: 1180px;
-    margin: 0 auto 24px;
-    font-family: var(--font-sans);
-    font-size: clamp(30px, 4vw, 50px);
-    line-height: 1.05;
-    font-weight: 300;
-    letter-spacing: 0.05em;
+    margin: 0 auto 52px;
+}
+
+.page-eyebrow {
+    margin: 0 0 14px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: #6cb33f;
+}
+
+.page-heading {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: clamp(38px, 5vw, 66px);
+    line-height: 1.04;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: #0a0a0a;
+}
+
+.page-desc {
+    max-width: 720px;
+    margin: 22px 0 0;
+    font-size: 19px;
+    line-height: 1.75;
+    font-weight: 300;
+    color: #374151;
+}
+
+@media (max-width: 560px) {
+    .page-header {
+        margin-bottom: 40px;
+    }
+
+    .page-desc {
+        font-size: 16px;
+    }
 }
 
 /* =========================
