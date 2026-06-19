@@ -1269,23 +1269,25 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 .scholar-link {
     display: inline-flex;
     align-items: center;
-    min-height: 36px;
-    padding: 0 14px;
-    border-radius: 999px;
-    border: 1px solid rgba(17, 24, 39, 0.18);
-    font-size: 12px;
-    letter-spacing: 0.07em;
+    min-height: 30px;
+    padding: 0 12px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    font-family: var(--font-sans);
+    font-size: 11px;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
-    color: #111827;
-    transition: 0.2s ease;
+    font-weight: 500;
+    color: #4b5563;
+    background: transparent;
+    transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
 
 .scholar-link:hover {
     opacity: 1;
-    transform: translateY(-1px);
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #ffffff;
+    background: var(--accent-bright);
+    border-color: var(--accent-bright);
+    color: #0a0a0a;
 }
 
 .person-card .scholar-link,
@@ -1307,15 +1309,15 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 .people-grid {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 22px;
-    margin-bottom: 80px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 40px 30px;
+    margin-bottom: 96px;
 }
 
 .person-card {
     background: #ffffff;
     border: 1px solid var(--line);
-    padding: 14px;
+    padding: 16px;
 }
 
 .person-card img {
@@ -1323,9 +1325,8 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     display: block;
     object-fit: cover;
     aspect-ratio: 3 / 4;
-    margin-bottom: 18px;
-
-    border-radius: 12px;
+    margin-bottom: 16px;
+    border-radius: 8px;
 }
 
 .bio-button {
@@ -1421,10 +1422,13 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 .alumni-group-title {
-    margin: 0 0 10px 0;
-    font-size: 19px;
-    font-weight: 400;
-    color: #0a0a0a;
+    margin: 0 0 12px 0;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #6cb33f;
 }
 
 .alumni-name {
@@ -1445,6 +1449,8 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 .side-by-side-lists {
     display: block;
     margin-bottom: 80px;
+    padding-top: 48px;
+    border-top: 1px solid var(--line);
 }
 
 .grouped-list-column {
@@ -1478,7 +1484,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 @media (max-width: 1250px) {
     .people-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
@@ -1791,8 +1797,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 .people-slideshow-description h1,
 .lab-director-text h2,
 .person-card h2,
-.bio-modal-content h2,
-.alumni-group-title {
+.bio-modal-content h2 {
     font-family: var(--font-serif);
     letter-spacing: -0.005em;
 }
