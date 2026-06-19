@@ -6,7 +6,7 @@
   <title>Hong Lab | Contact</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Geist:wght@300;400;500;600&display=swap" />
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
 </head>
@@ -14,19 +14,19 @@
 <body>
 
   <!-- Header -->
-  <header class="site-header">
+  <header class="site-header is-scrolled">
     <div class="header-inner">
-      <div class="logo">
-        <img src="../assets/logo.png" alt="Hong Lab" />
-        <a href="../index.html" class="logo-hitbox" aria-label="Hong Lab home"></a>
-      </div>
+      <a href="../index.html" class="logo-mark" aria-label="Hong Lab home">
+        <img class="logo-h" src="../assets/lab_logo_white.png" alt="">
+        <span class="logo-rest"><span class="logo-rest-text">ong&nbsp;Lab</span></span>
+      </a>
 
-      <nav class="main-nav">
+      <nav class="main-nav" aria-label="Main navigation">
         <ul>
-          <li><a href="about.html"><h1>What We Do</h1></a></li>
-          <li><a href="people.html"><h1>People</h1></a></li>
-          <li><a href="publications.html"><h1>Publications</h1></a></li>
-          <li><a href="contact.html"><h1>Contact</h1></a></li>
+          <li><a href="../index.html#research-start">What we do</a></li>
+          <li><a href="people.html">People</a></li>
+          <li><a href="publications.html">Publications</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -124,6 +124,36 @@
     </section>
 
   </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="footer-geisel" href="https://geiselmed.dartmouth.edu/" target="_blank" rel="noopener" aria-label="Dartmouth Geisel School of Medicine, Department of Molecular &amp; Systems Biology">
+          <img src="../assets/affil_geisel_white.png" alt="Dartmouth Geisel School of Medicine — Department of Molecular & Systems Biology">
+        </a>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="../index.html#research-start">What we do</a></li>
+          <li><a href="people.html">People</a></li>
+          <li><a href="publications.html">Publications</a></li>
+        </ul>
+      </nav>
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p>Jennifer Hong, MD</p>
+        <a href="mailto:Jennifer.Hong@Dartmouth.edu">Jennifer.Hong@Dartmouth.edu</a>
+        <p class="footer-address">
+          Vail Basic Sciences Building<br>
+          74 College St, Hanover, NH
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Geisel School of Medicine at Dartmouth</p>
+    </div>
+  </footer>
 
 </body>
 </html>
