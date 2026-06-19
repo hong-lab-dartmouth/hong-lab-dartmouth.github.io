@@ -170,30 +170,6 @@
                     ]
                 }
             ]
-        },
-        {
-            "title": "Collaborators",
-            "groups": [
-                {
-                    "category": "Faculty",
-                    "people": [
-                        {
-                            "name": "Collaborator Name"
-                        },
-                        {
-                            "name": "Collaborator Name"
-                        }
-                    ]
-                },
-                {
-                    "category": "Industry",
-                    "people": [
-                        {
-                            "name": "Collaborator Name"
-                        }
-                    ]
-                }
-            ]
         }
     ]
 }

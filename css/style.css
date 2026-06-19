@@ -6,7 +6,6 @@ html, body {
     margin: 0;
     padding: 0;
     min-height: 100%;
-    scroll-behavior: smooth;
 }
 
 :root {
@@ -1413,31 +1412,33 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 .alumni-group {
-    margin-bottom: 36px;
-}
-
-.alumni-group-title {
-    margin: 0 0 16px 0;
-    font-size: 28px;
-    font-weight: 400;
-    color: #111827;
-}
-
-.alumni-name {
-    margin: 0 0 12px 0;
-    font-size: 20px;
-    font-weight: 400;
-    color: #111827;
-}
-
-.alumni-name:last-child {
     margin-bottom: 0;
 }
 
+.alumni-group-title {
+    margin: 0 0 10px 0;
+    font-size: 19px;
+    font-weight: 400;
+    color: #0a0a0a;
+}
+
+.alumni-name {
+    display: inline;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.9;
+    font-weight: 300;
+    color: #374151;
+}
+
+.alumni-name:not(:last-child)::after {
+    content: "·";
+    margin: 0 8px;
+    color: rgba(10, 10, 10, 0.28);
+}
+
 .side-by-side-lists {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 80px;
+    display: block;
     margin-bottom: 80px;
 }
 
@@ -1446,6 +1447,9 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 .grouped-list-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 28px 44px;
     margin-bottom: 0;
 }
 
@@ -1912,7 +1916,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     display: grid;
     grid-template-columns: 0.85fr 1.15fr;
     gap: 48px;
-    align-items: start;
+    align-items: stretch;
 }
 
 .contact-info {
@@ -1953,7 +1957,8 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 .contact-map {
     width: 100%;
-    aspect-ratio: 4 / 3;
+    height: 100%;
+    min-height: 340px;
     border-radius: var(--radius);
     overflow: hidden;
     border: 1px solid var(--line);
