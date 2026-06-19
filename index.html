@@ -1,189 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hong Lab</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Geist:wght@300;400;500;600&display=swap">
-
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="assets/favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hong Lab</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
 </head>
 
 <body class="homepage">
 
-    <header class="site-header home-header">
-        <div class="header-inner">
-            <a href="index.html" class="logo-mark" aria-label="Hong Lab home">
-                <img class="logo-h" src="assets/lab_logo_white.png" alt="">
-                <span class="logo-rest"><span class="logo-rest-text">ong&nbsp;Lab</span></span>
+  <site-header home></site-header>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-media">
+        <img class="hero-image" src="assets/img/hero-banner.jpg" alt="Immunofluorescence imaging of human brain tissue in the Hong Lab">
+        <div class="hero-overlay"></div>
+      </div>
+
+      <div class="hero-content">
+        <h1 class="hero-heading">Hong Lab</h1>
+        <p class="hero-subheading">Neurosurgery, epilepsy, peripheral neuropathy, clinical ethics</p>
+
+        <div class="hero-affiliations">
+          <div class="hero-affil-logos">
+            <a class="hero-affil hero-affil-geisel" href="https://geiselmed.dartmouth.edu/" target="_blank" rel="noopener" aria-label="Dartmouth Geisel School of Medicine">
+              <img src="assets/logos/geisel.png" alt="Dartmouth Geisel School of Medicine">
             </a>
-
-            <nav class="main-nav" aria-label="Main navigation">
-                <ul>
-                    <li><a href="#research-start">Research</a></li>
-                    <li><a href="components/people.html">People</a></li>
-                    <li><a href="components/publications.html">Publications</a></li>
-                    <li><a href="components/gallery.html">Gallery</a></li>
-                    <li><a href="components/contact.html">Contact</a></li>
-                </ul>
-            </nav>
+            <a class="hero-affil" href="https://sites.dartmouth.edu/cqb/" target="_blank" rel="noopener" aria-label="Center for Quantitative Biology">
+              <img src="assets/logos/cqb.png" alt="Center for Quantitative Biology">
+            </a>
+            <a class="hero-affil hero-affil-ind" href="https://sites.dartmouth.edu/ind/" target="_blank" rel="noopener" aria-label="Integrative Neuroscience at Dartmouth">
+              <img src="assets/logos/ind.png" alt="Integrative Neuroscience at Dartmouth">
+            </a>
+            <a class="hero-affil hero-affil-dh" href="https://www.dartmouth-health.org/" target="_blank" rel="noopener" aria-label="Dartmouth Health">
+              <img src="assets/logos/dartmouth-health.png" alt="Dartmouth Health">
+            </a>
+          </div>
         </div>
-    </header>
+      </div>
+    </section>
 
-    <main>
+    <section class="focus-section" id="research-start">
+      <div class="focus-inner">
 
-        <section class="hero">
-            <div class="hero-media">
-                <img class="hero-image" src="assets/home-slideshow/HongLab_Banner_2.jpg" alt="Immunofluorescence imaging of human brain tissue in the Hong Lab">
-                <div class="hero-overlay"></div>
-            </div>
-
-            <div class="hero-content">
-
-                <h1 class="hero-heading">Hong Lab</h1>
-
-                <p class="hero-subheading">Neurosurgery, epilepsy, peripheral neuropathy, clinical ethics</p>
-
-                <div class="hero-affiliations">
-                    <div class="hero-affil-logos">
-                        <a class="hero-affil hero-affil-geisel" href="https://geiselmed.dartmouth.edu/" target="_blank" rel="noopener" aria-label="Dartmouth Geisel School of Medicine">
-                            <img src="assets/affil_geiselmed_white.png" alt="Dartmouth Geisel School of Medicine">
-                        </a>
-                        <a class="hero-affil" href="https://sites.dartmouth.edu/cqb/" target="_blank" rel="noopener" aria-label="Center for Quantitative Biology">
-                            <img src="assets/affil_cqb_white.png" alt="Center for Quantitative Biology">
-                        </a>
-                        <a class="hero-affil hero-affil-ind" href="https://sites.dartmouth.edu/ind/" target="_blank" rel="noopener" aria-label="Integrative Neuroscience at Dartmouth">
-                            <img src="assets/affil_ind_white.png" alt="Integrative Neuroscience at Dartmouth">
-                        </a>
-                        <a class="hero-affil hero-affil-dh" href="https://www.dartmouth-health.org/" target="_blank" rel="noopener" aria-label="Dartmouth Health">
-                            <img src="assets/affil_dh_white.png" alt="Dartmouth Health">
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-
-        </section>
-
-        <section class="focus-section" id="research-start">
-            <div class="focus-inner">
-
-            <div class="section-heading">
-                <p class="section-label">Research</p>
-                <h2>Core areas of focus</h2>
-            </div>
-
-            <p class="focus-intro">We are a neuroscience research group that leverages the connection between the operating room and the laboratory to investigate neurological disease, such as drug-resistant epilepsy and peripheral neuropathy. Our work extends to questions of patient access to neurosurgical interventions and related issues of equity and ethics. We are passionate about rigor, reproducibility, and collaboration in pursuit of discoveries that can one day circle back to patients.</p>
-
-            <div class="focus-accordion">
-
-                <div class="accordion-item">
-                    <button class="accordion-trigger" type="button" aria-expanded="false">
-                        <span class="accordion-title">Molecular &amp; Cellular Mechanisms of Epilepsy</span>
-                        <span class="accordion-icon" aria-hidden="true"></span>
-                    </button>
-                    <div class="accordion-panel">
-                        <div class="accordion-panel-inner">
-                            <p>Understanding seizures requires investigating the tissue in which they arise. Our group works directly with resected surgical brain tissue, using it as a window into the cellular and molecular landscape of epilepsy. Our work spans several directions: the role of somatic mutations in focal epilepsy; cell-type-specific gene expression differences across epilepsy subtypes including focal cortical dysplasia and mesial temporal sclerosis; the biology of perineuronal nets and their potential contribution to seizure generation.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <button class="accordion-trigger" type="button" aria-expanded="false">
-                        <span class="accordion-title">AI &amp; Computational Neuroscience</span>
-                        <span class="accordion-icon" aria-hidden="true"></span>
-                    </button>
-                    <div class="accordion-panel">
-                        <div class="accordion-panel-inner">
-                            <p>Traditional methods for analysing brain tissue in detail are labour-intensive and can be challenging to scale. We are developing a virtual staining platform that uses deep learning to extract structural information from routine pathology slides without the need for specialised staining. This will make it possible to analyse large collections of archived tissue for markers that would otherwise stay invisible.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <button class="accordion-trigger" type="button" aria-expanded="false">
-                        <span class="accordion-title">Novel Therapies in Neurological Disease</span>
-                        <span class="accordion-icon" aria-hidden="true"></span>
-                    </button>
-                    <div class="accordion-panel">
-                        <div class="accordion-panel-inner">
-                            <p>We use mouse models to address questions that are less tractable in human tissue and to test potential therapeutic approaches. Current work includes investigating the distribution of AAV-based gene therapies in the brain, a growing consideration as viral vector approaches move toward clinical use in epilepsy. We also study diabetic peripheral neuropathy, examining the molecular pathways involved in nerve degeneration and regeneration and exploring the potential of microtubule-stabilising compounds as a therapeutic strategy.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <button class="accordion-trigger" type="button" aria-expanded="false">
-                        <span class="accordion-title">Neurosurgical Care, Access &amp; Ethics</span>
-                        <span class="accordion-icon" aria-hidden="true"></span>
-                    </button>
-                    <div class="accordion-panel">
-                        <div class="accordion-panel-inner">
-                            <p>Good neurosurgical care depends not only on what happens in the operating room, but also on who can access it. We examine questions of access, equity, and ethics in neurosurgical practice including disparities in care for rural patients, the dynamics of informed consent, and the impact of emerging treatments on how stroke care is organised at a systems level.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <button class="accordion-trigger" type="button" aria-expanded="false">
-                        <span class="accordion-title">Epilepsy Surgery &amp; Outcomes</span>
-                        <span class="accordion-icon" aria-hidden="true"></span>
-                    </button>
-                    <div class="accordion-panel">
-                        <div class="accordion-panel-inner">
-                            <p>Surgical approaches can lead to seizure reduction and cognitive improvement in patients whose epilepsy does not respond to medication, yet outcomes are variable and not straightforward to predict. We study molecular and electrophysiological predictors of surgical outcomes. Additionally, we are conducting an institutional review of different surgical approaches over the past 15 years, allowing us to track how the field has evolved and which approaches work best for which patients.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="site-footer" id="contact">
-        <div class="footer-inner">
-
-            <div class="footer-brand">
-                <a class="footer-geisel" href="https://geiselmed.dartmouth.edu/" target="_blank" rel="noopener" aria-label="Dartmouth Geisel School of Medicine, Department of Molecular &amp; Systems Biology">
-                    <img src="assets/affil_geisel_white.png" alt="Dartmouth Geisel School of Medicine — Department of Molecular & Systems Biology">
-                </a>
-            </div>
-
-            <nav class="footer-nav" aria-label="Footer navigation">
-                <h4>Explore</h4>
-                <ul>
-                    <li><a href="#research-start">Research</a></li>
-                    <li><a href="components/people.html">People</a></li>
-                    <li><a href="components/publications.html">Publications</a></li>
-                    <li><a href="components/gallery.html">Gallery</a></li>
-                </ul>
-            </nav>
-
-            <div class="footer-contact">
-                <h4>Contact</h4>
-                <p>Jennifer Hong, MD</p>
-                <a href="mailto:Jennifer.Hong@Dartmouth.edu">Jennifer.Hong@Dartmouth.edu</a>
-                <p class="footer-address">
-                    Vail Basic Sciences Building<br>
-                    74 College St, Hanover, NH
-                </p>
-            </div>
-
+        <div class="section-heading">
+          <p class="section-label">Research</p>
+          <h2>Core areas of focus</h2>
         </div>
 
-        <div class="footer-bottom">
-            <p>© 2026 Geisel School of Medicine at Dartmouth</p>
-        </div>
-    </footer>
+        <p class="focus-intro">We are a neuroscience research group that leverages the connection between the operating room and the laboratory to investigate neurological disease, such as drug-resistant epilepsy and peripheral neuropathy. Our work extends to questions of patient access to neurosurgical interventions and related issues of equity and ethics. We are passionate about rigor, reproducibility, and collaboration in pursuit of discoveries that can one day circle back to patients.</p>
 
-    <script src="js/home-hero.js"></script>
+        <div class="focus-accordion">
+
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false">
+              <span class="accordion-title">Molecular &amp; Cellular Mechanisms of Epilepsy</span>
+              <span class="accordion-icon" aria-hidden="true"></span>
+            </button>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                <p>Understanding seizures requires investigating the tissue in which they arise. Our group works directly with resected surgical brain tissue, using it as a window into the cellular and molecular landscape of epilepsy. Our work spans several directions: the role of somatic mutations in focal epilepsy; cell-type-specific gene expression differences across epilepsy subtypes including focal cortical dysplasia and mesial temporal sclerosis; the biology of perineuronal nets and their potential contribution to seizure generation.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false">
+              <span class="accordion-title">AI &amp; Computational Neuroscience</span>
+              <span class="accordion-icon" aria-hidden="true"></span>
+            </button>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                <p>Traditional methods for analysing brain tissue in detail are labour-intensive and can be challenging to scale. We are developing a virtual staining platform that uses deep learning to extract structural information from routine pathology slides without the need for specialised staining. This will make it possible to analyse large collections of archived tissue for markers that would otherwise stay invisible.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false">
+              <span class="accordion-title">Novel Therapies in Neurological Disease</span>
+              <span class="accordion-icon" aria-hidden="true"></span>
+            </button>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                <p>We use mouse models to address questions that are less tractable in human tissue and to test potential therapeutic approaches. Current work includes investigating the distribution of AAV-based gene therapies in the brain, a growing consideration as viral vector approaches move toward clinical use in epilepsy. We also study diabetic peripheral neuropathy, examining the molecular pathways involved in nerve degeneration and regeneration and exploring the potential of microtubule-stabilising compounds as a therapeutic strategy.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false">
+              <span class="accordion-title">Neurosurgical Care, Access &amp; Ethics</span>
+              <span class="accordion-icon" aria-hidden="true"></span>
+            </button>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                <p>Good neurosurgical care depends not only on what happens in the operating room, but also on who can access it. We examine questions of access, equity, and ethics in neurosurgical practice including disparities in care for rural patients, the dynamics of informed consent, and the impact of emerging treatments on how stroke care is organised at a systems level.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false">
+              <span class="accordion-title">Epilepsy Surgery &amp; Outcomes</span>
+              <span class="accordion-icon" aria-hidden="true"></span>
+            </button>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                <p>Surgical approaches can lead to seizure reduction and cognitive improvement in patients whose epilepsy does not respond to medication, yet outcomes are variable and not straightforward to predict. We study molecular and electrophysiological predictors of surgical outcomes. Additionally, we are conducting an institutional review of different surgical approaches over the past 15 years, allowing us to track how the field has evolved and which approaches work best for which patients.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <site-footer></site-footer>
+
+  <script src="js/components.js"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>

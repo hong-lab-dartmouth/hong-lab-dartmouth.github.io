@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hong Lab | Gallery</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+</head>
+
+<body>
+
+  <site-header></site-header>
+
+  <main class="page-content">
+    <section class="gallery-section">
+
+      <div class="page-header">
+        <p class="page-eyebrow">Gallery</p>
+        <h1 class="page-heading">Life in the lab</h1>
+        <p class="page-desc">Dinners, traditions, and conferences</p>
+      </div>
+
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <div class="gallery-media"><img src="../assets/img/gallery/labDinner.jpg" alt="Lab dinner"></div>
+          <figcaption>Lab dinner</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <div class="gallery-media"><img src="../assets/img/gallery/pumpkinDerby.jpg" alt="Pumpkin Derby 2025"></div>
+          <figcaption>Pumpkin Derby 2025</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <div class="gallery-media"><img src="../assets/img/gallery/conference.jpg" alt="At conference"></div>
+          <figcaption>At conference</figcaption>
+        </figure>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close image">×</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+    <p class="lightbox-caption" id="lightbox-caption"></p>
+  </div>
+
+  <site-footer></site-footer>
+
+  <script src="../js/components.js"></script>
+  <script src="../js/gallery.js"></script>
+</body>
+</html>

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Geist:wght@300;400;500;600&display=swap');
+
 /* =========================
    Base
 ========================= */
@@ -6,6 +8,12 @@ html, body {
     margin: 0;
     padding: 0;
     min-height: 100%;
+}
+
+/* Custom-element wrappers are layout-transparent. */
+site-header,
+site-footer {
+    display: contents;
 }
 
 :root {
