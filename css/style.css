@@ -315,11 +315,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 /* =========================
-   Research Focus Circles
-========================= */
-
-/* =========================
-   Hero affiliations (centered, subtle gray)
+   Hero affiliations
 ========================= */
 
 .hero-affiliations {
@@ -547,14 +543,6 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     line-height: 1.8;
     font-weight: 400;
     color: #374151;
-}
-
-/* =========================
-   Research Focus Modal
-========================= */
-
-.focus-modal.open {
-    display: flex;
 }
 
 /* =========================
@@ -1057,9 +1045,6 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     
 }
 
-.news-heading .section-label {
-    color: var(--accent);
-}
 
 @media (max-width: 640px) {
 }
@@ -1196,8 +1181,6 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 .small-section-title,
 .pub-year-title,
 .pub-title,
-.people-diversity-statement h1,
-.people-slideshow-description h1,
 .lab-director-text h2,
 .person-card h2,
 .bio-modal-content h2 {
