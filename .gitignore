@@ -5,3 +5,6 @@
 assets/GeiselLogos/
 assets/LabLogo/
 *.pdf
+
+# dev/handoff notes (not part of the site)
+Summaries/
