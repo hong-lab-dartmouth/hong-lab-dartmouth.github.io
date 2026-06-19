@@ -1,2 +1,7 @@
 .DS_Store
 *.DS_Store
+
+# local source assets / reference docs (not part of the built site)
+assets/GeiselLogos/
+assets/LabLogo/
+*.pdf
