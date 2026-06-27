@@ -11,6 +11,7 @@
   <meta property="og:image" content="../assets/img/sciatic-nerve.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="icon" type="image/png" href="../assets/favicon.png">
 </head>
 
@@ -51,10 +52,7 @@
         </div>
 
         <div class="contact-map">
-          <iframe
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-72.2908%2C43.7060%2C-72.2788%2C43.7120&layer=mapnik&marker=43.7089614%2C-72.2848164"
-            title="Map to the Hong Lab — 74 College St, Hanover, NH"
-            loading="lazy"></iframe>
+          <div id="map" class="contact-map-canvas" role="img" aria-label="Map to the Hong Lab — 74 College St, Hanover, NH"></div>
         </div>
       </div>
 
@@ -63,6 +61,21 @@
 
   <site-footer></site-footer>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    (function () {
+      var lat = 43.7089614, lng = -72.2848164;
+      var map = L.map('map', { scrollWheelZoom: false }).setView([lat, lng], 17);
+      map.attributionControl.setPrefix('');
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
+      }).addTo(map);
+      L.circleMarker([lat, lng], {
+        radius: 9, color: '#ffffff', weight: 3, fillColor: '#3E8E88', fillOpacity: 1
+      }).addTo(map);
+    })();
+  </script>
   <script src="../js/components.js"></script>
 </body>
 </html>
