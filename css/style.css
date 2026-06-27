@@ -313,9 +313,11 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     right: 52px;
     top: 32px;
     margin: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    text-align: right;
     color: rgba(255, 255, 255, 0.62);
     font-family: var(--font-sans);
     font-size: 12px;
@@ -327,6 +329,18 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 .hero-caption figcaption {
     margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Courtesy credit, one line below the subject; quieter than it.
+   Pulled in by the arrow's footprint (8px gap + 6px arrow) so it
+   right-aligns with the caption text, not with the arrow tip. */
+.hero-caption-credit {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 11px;
+    margin-right: 14px;
 }
 
 /* Deliberate editorial kicker, top-left, anchoring the top of the panel. */
@@ -346,7 +360,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
 }
 
-.hero-caption::after {
+.hero-caption figcaption::after {
     content: "";
     width: 0;
     height: 0;
