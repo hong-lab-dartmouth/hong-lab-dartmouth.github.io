@@ -1326,6 +1326,13 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     }
 }
 
+@media (max-width: 760px) {
+    /* Mobile: drop the Dartmouth/Geisel lockup to keep the footer compact. */
+    .footer-brand {
+        display: none;
+    }
+}
+
 @media (max-width: 560px) {
     .site-footer {
         padding: 52px 22px 76px;

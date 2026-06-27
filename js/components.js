@@ -1,19 +1,17 @@
 /* =============================================================
    Shared site chrome — single source of truth for the header
    and footer. Rendered as custom elements (<site-header> /
-   <site-footer>) so every page stays in sync. Paths resolve
-   from the site root, so the same markup works at any depth.
+   <site-footer>) so every page stays in sync. All paths are
+   root-relative, so the same markup works at any URL depth.
    ============================================================= */
 
-const ROOT = location.pathname.includes('/pages/') ? '../' : '';
-
-// [label, href] — order shared by the header and footer nav.
+// [label, href] — clean root-relative URLs, shared by the header and footer nav.
 const NAV = [
-  ['Research',     `${ROOT}index.html#research-start`],
-  ['People',       `${ROOT}pages/people.html`],
-  ['Publications', `${ROOT}pages/publications.html`],
-  ['Gallery',      `${ROOT}pages/gallery.html`],
-  ['Contact',      `${ROOT}pages/contact.html`],
+  ['Research',     '/#research-start'],
+  ['People',       '/people/'],
+  ['Publications', '/publications/'],
+  ['Gallery',      '/gallery/'],
+  ['Contact',      '/contact/'],
 ];
 
 const navItems = (links) =>
@@ -27,8 +25,8 @@ customElements.define('site-header', class extends HTMLElement {
     this.innerHTML = `
       <header class="site-header${state}">
         <div class="header-inner">
-          <a href="${ROOT}index.html" class="logo-mark" aria-label="Hong Lab home">
-            <img class="logo-h" src="${ROOT}assets/logos/shield-grey.png" alt="">
+          <a href="/" class="logo-mark" aria-label="Hong Lab home">
+            <img class="logo-h" src="/assets/logos/shield-grey.png" alt="">
             <span class="logo-rest"><span class="logo-rest-text">Hong&nbsp;Lab</span></span>
           </a>
           <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
@@ -110,7 +108,7 @@ customElements.define('site-footer', class extends HTMLElement {
           <div class="footer-brand">
             <a class="footer-geisel" href="https://geiselmed.dartmouth.edu/" target="_blank" rel="noopener"
                aria-label="Dartmouth Geisel School of Medicine, Department of Molecular & Systems Biology">
-              <img src="${ROOT}assets/logos/geisel-molsysbio.png"
+              <img src="/assets/logos/geisel-molsysbio.png"
                    alt="Dartmouth Geisel School of Medicine — Department of Molecular & Systems Biology">
             </a>
           </div>
@@ -140,5 +138,19 @@ customElements.define('site-footer', class extends HTMLElement {
 
         </div>
       </footer>`;
+  }
+});
+
+/* =============================================================
+   Mobile: open links that would open a new tab in the same tab
+   instead. Delegated on the document, so it also covers links
+   rendered asynchronously (people, publications).
+   ============================================================= */
+document.addEventListener('click', (e) => {
+  if (!window.matchMedia('(max-width: 760px)').matches) return;
+  const link = e.target.closest('a[target="_blank"]');
+  if (link && link.href) {
+    e.preventDefault();
+    window.location.href = link.href;
   }
 });
