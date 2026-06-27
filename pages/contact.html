@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hong Lab | Contact</title>
+  <meta name="description" content="Contact the Hong Lab at Dartmouth's Geisel School of Medicine — Vail Basic Sciences Building, Hanover, NH.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Contact — Hong Lab">
+  <meta property="og:description" content="Get in touch with the Hong Lab at Dartmouth.">
+  <meta property="og:image" content="../assets/img/sciatic-nerve.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+</head>
+
+<body>
+
+  <site-header></site-header>
+
+  <main class="page-content">
+    <section class="contact-section">
+
+      <div class="page-header">
+        <p class="page-eyebrow">Contact</p>
+        <h1 class="page-heading">Get in touch</h1>
+      </div>
+
+      <div class="contact-layout">
+        <div class="contact-info">
+          <p class="contact-lead">
+            We welcome inquiries from students, collaborators, and patients interested in our work. For research opportunities, clinical collaborations, or general questions, please reach out using the information below.
+          </p>
+
+          <div class="contact-block">
+            <h4>Principal Investigator</h4>
+            <p>Jennifer Hong, MD</p>
+            <a href="mailto:Jennifer.Hong@Dartmouth.edu">Jennifer.Hong@Dartmouth.edu</a>
+          </div>
+
+          <div class="contact-block">
+            <h4>Location</h4>
+            <p>Vail Basic Sciences Building<br>74 College St<br>Hanover, NH 03755</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=74%20College%20St%2C%20Hanover%2C%20NH%2003755" target="_blank" rel="noopener">Open in Google Maps →</a>
+          </div>
+
+          <div class="contact-block">
+            <h4>Join the lab</h4>
+            <p>We work with undergraduate, medical, and PhD students interested in neuroscience, imaging, and computational research. Send a short introduction, CV, and research interests to <a href="mailto:Jennifer.Hong@Dartmouth.edu">Jennifer.Hong@Dartmouth.edu</a>.</p>
+          </div>
+        </div>
+
+        <div class="contact-map">
+          <div id="map" class="contact-map-canvas" role="img" aria-label="Map to the Hong Lab — 74 College St, Hanover, NH"></div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <site-footer></site-footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    (function () {
+      var lat = 43.7089614, lng = -72.2848164;
+      var map = L.map('map', { scrollWheelZoom: false }).setView([lat, lng], 17);
+      map.attributionControl.setPrefix('');
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
+      }).addTo(map);
+      L.circleMarker([lat, lng], {
+        radius: 9, color: '#ffffff', weight: 3, fillColor: '#3E8E88', fillOpacity: 1
+      }).addTo(map);
+    })();
+  </script>
+  <script src="../js/components.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hong Lab | People</title>
+  <meta name="description" content="Meet the Hong Lab — the physicians, scientists, and students investigating neurological disease at Dartmouth, alongside our collaborators and alumni.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="People — Hong Lab">
+  <meta property="og:description" content="The team, collaborators, and alumni of the Hong Lab at Dartmouth.">
+  <meta property="og:image" content="../assets/img/sciatic-nerve.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+</head>
+
+<body>
+
+  <site-header></site-header>
+
+  <main class="page-content">
+
+    <div class="page-header">
+      <p class="page-eyebrow">People</p>
+      <h1 class="page-heading">Our team</h1>
+      <p class="page-desc">
+        Our lab brings together undergraduate, medical, and PhD students from a wide range of backgrounds and disciplines. We believe that diversity of training, perspective, and experience is what sharpens good science into excellent science.
+      </p>
+    </div>
+
+    <section class="people-section" id="people-section"></section>
+
+  </main>
+
+  <!-- Bio modal -->
+  <div class="bio-modal" id="bio-modal" aria-hidden="true">
+    <div class="bio-modal-overlay" id="bio-modal-overlay"></div>
+    <div class="bio-modal-card" role="dialog" aria-modal="true" aria-labelledby="bio-modal-name">
+      <button class="bio-modal-close" id="bio-modal-close" type="button" aria-label="Close bio modal">×</button>
+      <img id="bio-modal-image" class="bio-modal-image" src="" alt="">
+      <div class="bio-modal-content">
+        <h2 id="bio-modal-name"></h2>
+        <p id="bio-modal-title" class="bio-modal-title"></p>
+        <p id="bio-modal-text"></p>
+        <div id="bio-modal-links" class="bio-modal-links"></div>
+      </div>
+    </div>
+  </div>
+
+  <site-footer></site-footer>
+
+  <script src="../js/components.js"></script>
+  <script src="../js/people.js"></script>
+</body>
+</html>
