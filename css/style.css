@@ -113,7 +113,7 @@ a:hover {
 .logo-mark {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 11px;
     color: white;
     font-size: 15px;
     font-weight: 400;
@@ -122,7 +122,7 @@ a:hover {
 }
 
 .logo-mark img {
-    height: 40px;
+    height: 36px;
     width: auto;
     object-fit: contain;
     display: block;
@@ -281,11 +281,11 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     position: relative;
     z-index: 3;
 
-    width: min(1120px, calc(100% - 130px));
-    max-width: 1120px;
+    width: min(860px, calc(100% - 96px));
+    max-width: 860px;
     margin: 0;
-    margin-left: max(48px, calc((100% - 1180px) / 2 + 48px));
-    padding: 60px 68px;
+    margin-left: clamp(28px, 3.5vw, 64px);
+    padding: 52px 56px;
     box-sizing: border-box;
 
     background: rgba(0, 0, 0, 0.34);
@@ -313,7 +313,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 .hero-heading {
     margin: 0 0 14px 0;
     color: white;
-    font-size: clamp(80px, 12vw, 168px);
+    font-size: clamp(60px, 9vw, 140px);
     line-height: 1.02;
     font-weight: 300;
     letter-spacing: -0.035em;

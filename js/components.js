@@ -28,8 +28,8 @@ customElements.define('site-header', class extends HTMLElement {
       <header class="site-header${state}">
         <div class="header-inner">
           <a href="${ROOT}index.html" class="logo-mark" aria-label="Hong Lab home">
-            <img class="logo-h" src="${ROOT}assets/logos/hong-lab-mark.png" alt="">
-            <span class="logo-rest"><span class="logo-rest-text">ong&nbsp;Lab</span></span>
+            <img class="logo-h" src="${ROOT}assets/logos/shield-grey.png" alt="">
+            <span class="logo-rest"><span class="logo-rest-text">Hong&nbsp;Lab</span></span>
           </a>
           <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
             <svg class="icon-menu" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
