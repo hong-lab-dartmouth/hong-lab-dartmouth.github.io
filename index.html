@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hong Lab</title>
+  <title>Hong Lab — Neurosurgical Systems Biology</title>
+  <meta name="description" content="The Hong Lab at Dartmouth's Geisel School of Medicine is a neurosurgical systems biology group bridging the operating room and the laboratory to investigate neurological disease.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Hong Lab — Neurosurgical Systems Biology">
+  <meta property="og:description" content="A neurosurgical systems biology group at Dartmouth's Geisel School of Medicine.">
+  <meta property="og:image" content="assets/img/sciatic-nerve.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/png" href="assets/favicon.png">
 </head>
@@ -16,7 +22,12 @@
 
     <section class="hero">
       <div class="hero-media">
-        <img class="hero-image" src="assets/img/sciatic-nerve.jpg" alt="Fluorescence imaging of a sciatic nerve in the Hong Lab">
+        <picture>
+          <source srcset="assets/img/sciatic-nerve.webp" type="image/webp">
+          <img class="hero-image" src="assets/img/sciatic-nerve.jpg"
+               alt="Fluorescence imaging of a sciatic nerve in the Hong Lab"
+               width="6483" height="1450" fetchpriority="high" decoding="async">
+        </picture>
         <div class="hero-overlay"></div>
       </div>
 
@@ -40,6 +51,10 @@
             </a>
           </div>
         </div>
+
+        <figure class="hero-caption">
+          <figcaption>Photo: Mouse sciatic nerve</figcaption>
+        </figure>
       </div>
     </section>
 

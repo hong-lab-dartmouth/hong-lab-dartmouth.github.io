@@ -9,6 +9,12 @@
         "image": "../assets/img/people/Jennifer Hong.png",
         "description": "I am a neurosurgeon-scientist who works at the intersection of patient care, regenerative medicine, transcriptomics and advanced bioimaging. The goal of my lab is to use cutting-edge scientific tools to solve clinically-relevant problems and better understand the molecular mechanisms underlying neuronal disfunction, degeneration and repair in patients. Ultimately, I hope to improve patient outcomes for neurosurgical interventions in the areas of epilepsy and peripheral nerve injury. I believe that research makes a difference, and a central focus of my lab is scientific mentorship and training of the next generation of biomedical researchers."
     },
+    "collaborators": [
+        { "name": "Saeed Hassanpour, PhD", "url": "https://www.hassanpourlab.com/" },
+        { "name": "Scott C. Davis, PhD", "url": "https://sites.dartmouth.edu/poem/" },
+        { "name": "Irene Georgakoudi, PhD", "url": "https://sites.dartmouth.edu/georgakoudi-lab/" },
+        { "name": "Pamela Rosato, PhD", "url": "https://geiselmed.dartmouth.edu/rosato/" }
+    ],
     "sections": [
         {
             "title": "Medical Students",

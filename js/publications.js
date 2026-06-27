@@ -52,6 +52,9 @@ async function loadPublications() {
     yearDiv.appendChild(list);
     container.appendChild(yearDiv);
   });
+
+  // Wire up scroll-reveal for the freshly-injected year groups.
+  if (window.initScrollReveal) window.initScrollReveal();
 }
 
 loadPublications().catch((err) => console.error('Failed to load publications:', err));

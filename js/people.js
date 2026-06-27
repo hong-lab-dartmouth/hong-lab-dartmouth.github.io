@@ -77,7 +77,7 @@ async function loadPeoplePage() {
     const clickable = (person.description && person.description.trim()) || person.scholar;
     card.innerHTML = `
       <div class="person-photo${clickable ? ' is-clickable' : ''}">
-        <img src="${person.image}" alt="${person.alt || person.name}">
+        <img src="${person.image}" alt="${person.alt || person.name}" loading="lazy" decoding="async">
       </div>
       <h2>${person.name}</h2>
       ${person.title ? `<p class="person-title">${person.title}</p>` : ''}`;
@@ -86,6 +86,27 @@ async function loadPeoplePage() {
   });
 
   peopleSection.appendChild(grid);
+
+  /* ---- Collaborators (linked names, above alumni) ---- */
+  if (Array.isArray(data.collaborators) && data.collaborators.length) {
+    const wrap = document.createElement('div');
+    wrap.className = 'side-by-side-lists collaborators-block';
+    wrap.innerHTML = '<h1 class="page-title">Collaborators</h1>';
+
+    const list = document.createElement('div');
+    list.className = 'collaborators-list';
+    data.collaborators.forEach((c) => {
+      const a = document.createElement('a');
+      a.className = 'collaborator-link';
+      a.href = c.url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = c.name;
+      list.appendChild(a);
+    });
+    wrap.appendChild(list);
+    peopleSection.appendChild(wrap);
+  }
 
   /* ---- Alumni ---- */
   const alumniSection = data.sections.find(isAlumni);
@@ -111,6 +132,9 @@ async function loadPeoplePage() {
     wrap.appendChild(groups);
     peopleSection.appendChild(wrap);
   }
+
+  // Wire up scroll-reveal for the freshly-injected cards/lists.
+  if (window.initScrollReveal) window.initScrollReveal();
 }
 
 loadPeoplePage().catch((error) => console.error('Failed to load people page data:', error));
