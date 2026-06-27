@@ -5,7 +5,7 @@
 const SECTION_ORDER = ['phd students', 'medical students', 'undergraduate students'];
 
 async function loadPeoplePage() {
-  const res = await fetch('../data/people.json', { cache: 'no-store' });
+  const res = await fetch('/data/people.json', { cache: 'no-store' });
   const data = await res.json();
   const peopleSection = document.getElementById('people-section');
 
