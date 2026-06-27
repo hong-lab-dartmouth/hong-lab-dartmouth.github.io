@@ -433,8 +433,9 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
         gap: 16px;
     }
 
-    /* Subtle desktop-only detail — hidden on mobile. */
-    .hero-caption {
+    /* Subtle desktop-only details — hidden on mobile. */
+    .hero-caption,
+    .hero-kicker {
         display: none;
     }
 }
