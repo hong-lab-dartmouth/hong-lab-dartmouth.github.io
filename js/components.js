@@ -154,3 +154,29 @@ document.addEventListener('click', (e) => {
     window.location.href = link.href;
   }
 });
+
+/* =============================================================
+   "Research" nav jumps to the section without leaving
+   #research-start in the address bar.
+   ============================================================= */
+const onHomepage = () =>
+  location.pathname === '/' || location.pathname === '/index.html';
+
+const goToResearch = () => {
+  const target = document.getElementById('research-start');
+  if (target) target.scrollIntoView();
+  history.replaceState(null, '', location.pathname + location.search);
+};
+
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a[href$="#research-start"]');
+  if (link && onHomepage()) {
+    e.preventDefault();
+    goToResearch();
+  }
+});
+
+// Arrived from another page via /#research-start — scroll, then clean the URL.
+if (location.hash === '#research-start') {
+  document.addEventListener('DOMContentLoaded', goToResearch);
+}
