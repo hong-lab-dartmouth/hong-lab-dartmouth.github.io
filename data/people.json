@@ -105,6 +105,16 @@
                     "image": "../assets/img/people/Sydney Park.jpeg",
                     "name": "Sydney Park",
                     "description": "I am an undergraduate student in the Class of 2029 at Dartmouth College studying cognitive science, medicine, and Spanish, and I figure skate for DFSC. I have previously researched neurodegenerative diseases and read-through compounds, and I am currently assisting with an EpoB project, specifically working on mice behavior and health."
+                },
+                {
+                    "image": "../assets/img/people/Jay Nathan.jpg",
+                    "scholar": {
+                        "url": "https://scholar.google.com/citations?user=sZnKBY4AAAAJ&hl=en",
+                        "label": "Google Scholar"
+                    },
+                    "linkedin": "https://www.linkedin.com/in/jay-nathan-52a595214/",
+                    "name": "Jay Nathan",
+                    "description": "I am an undergraduate student in the Class of 2027 at Dartmouth College studying Neuroscience and Anthropology. I have experience in clinical research in surgical oncology and genetic testing, and in the lab, I am working on transgene expression following AAV transfection. I serve as a co-president of the Dartmouth Undergraduate Journal of Science, and I enjoy singing with my a cappella group, The Dartmouth Aires."
                 }
             ]
         },
