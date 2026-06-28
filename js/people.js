@@ -39,6 +39,15 @@ async function loadPeoplePage() {
       a.className = 'scholar-link';
       mLinks.appendChild(a);
     }
+    if (person.linkedin) {
+      const a = document.createElement('a');
+      a.href = person.linkedin;
+      a.textContent = 'LinkedIn';
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.className = 'scholar-link';
+      mLinks.appendChild(a);
+    }
 
     modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
@@ -74,7 +83,7 @@ async function loadPeoplePage() {
   team.forEach((person) => {
     const card = document.createElement('div');
     card.className = 'person-card';
-    const clickable = (person.description && person.description.trim()) || person.scholar;
+    const clickable = (person.description && person.description.trim()) || person.scholar || person.linkedin;
     card.innerHTML = `
       <div class="person-photo${clickable ? ' is-clickable' : ''}">
         <img src="${person.image}" alt="${person.alt || person.name}" loading="lazy" decoding="async">
