@@ -42,11 +42,44 @@ customElements.define('site-header', class extends HTMLElement {
     // Mobile menu toggle
     const header = this.querySelector('.site-header');
     const toggle = this.querySelector('.nav-toggle');
+    const nav = this.querySelector('.main-nav');
+
+    /* The drawer used to transition max-height, which is a layout
+       property — it cannot be composited, and a fixed 0.35s ease
+       cannot be interrupted. It now runs on a spring at Apple's
+       drawer values (damping 0.8 / response 0.3), so tapping the
+       toggle mid-open reverses from wherever it currently is instead
+       of finishing first. */
+    let navSpring = null;
+    let isOpen = false;
+
     const setOpen = (open) => {
+      if (open === isOpen) return;
+      isOpen = open;
       header.classList.toggle('nav-open', open);
       toggle.setAttribute('aria-expanded', String(open));
+
+      /* Measured each time — the nav's height depends on viewport and
+         content, and caching it goes stale on rotate. */
+      const full = nav.scrollHeight;
+      const from = navSpring ? navSpring.value() : (open ? 0 : full);
+      const carried = navSpring ? navSpring.velocity() : 0;
+      if (navSpring) navSpring.stop();
+
+      nav.style.overflow = 'hidden';
+      navSpring = Motion.spring({
+        from: from, to: open ? full : 0, velocity: carried,
+        damping: 0.8, response: 0.3,
+        onFrame: (h) => { nav.style.maxHeight = Math.max(0, h) + 'px'; },
+        onRest: () => {
+          /* Hand height back to CSS once open, so a rotation or a
+             content change is not pinned to a stale pixel value. */
+          nav.style.maxHeight = open ? '' : '0px';
+        }
+      });
     };
-    toggle.addEventListener('click', () => setOpen(!header.classList.contains('nav-open')));
+
+    toggle.addEventListener('click', () => setOpen(!isOpen));
     this.querySelectorAll('.main-nav a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
   }
 });

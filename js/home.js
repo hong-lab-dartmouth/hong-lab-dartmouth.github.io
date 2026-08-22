@@ -5,12 +5,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const triggers = Array.from(document.querySelectorAll('.accordion-trigger'));
 
+    /* One spring per panel, kept so a panel that is still collapsing
+       can be re-opened mid-flight and pick up from its current height
+       rather than snapping. */
+    const springs = new WeakMap();
+
+    function animatePanel(panel, to) {
+        const existing = springs.get(panel);
+        const from = existing ? existing.value() : (parseFloat(panel.style.maxHeight) || 0);
+        const carried = existing ? existing.velocity() : 0;
+        if (existing) existing.stop();
+
+        springs.set(panel, Motion.spring({
+            from: from, to: to, velocity: carried,
+            damping: 1.0, response: 0.35,
+            onFrame: (h) => { panel.style.maxHeight = Math.max(0, h) + 'px'; }
+        }));
+    }
+
     function closeTrigger(trigger) {
         const panel = trigger.parentElement.querySelector('.accordion-panel');
         trigger.setAttribute('aria-expanded', 'false');
-        if (panel) {
-            panel.style.maxHeight = null;
-        }
+        if (panel) animatePanel(panel, 0);
     }
 
     triggers.forEach(trigger => {
@@ -24,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Then open the clicked one (unless it was already open)
             if (!isOpen && panel) {
                 trigger.setAttribute('aria-expanded', 'true');
-                panel.style.maxHeight = panel.scrollHeight + 'px';
+                animatePanel(panel, panel.scrollHeight);
             }
         });
     });
