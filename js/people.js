@@ -81,7 +81,7 @@ async function loadPeoplePage() {
        material arriving, not a flat fade. */
     overlay.style.opacity = String(t * fade);
     overlay.style.backdropFilter = overlay.style.webkitBackdropFilter =
-      'blur(' + (t * 10).toFixed(2) + 'px)';
+      'blur(' + (t * 6).toFixed(2) + 'px)';
   }
 
   function presentModal(origin) {

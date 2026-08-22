@@ -41,7 +41,7 @@
       'translate3d(' + x.toFixed(2) + 'px,0,0) scale(' + scale.toFixed(4) + ')';
     lightbox.style.opacity = String(t);
     lightbox.style.backdropFilter = lightbox.style.webkitBackdropFilter =
-      'blur(' + (t * 8).toFixed(2) + 'px)';
+      'blur(' + (t * 4).toFixed(2) + 'px)';
     lbCaption.style.opacity = String(t * fade);
   }
 
