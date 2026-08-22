@@ -117,10 +117,22 @@ a:hover {
     width: 100%;
     z-index: 1000;
 
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    /* The blur here used to sit behind an opaque background, so it
+       computed nothing. The ink is now slightly translucent, which is
+       what the blur was always for: content passes under the header
+       as a real material rather than behind a solid bar. */
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
 
-    background: var(--ink);
+    background: color-mix(in srgb, var(--ink) 82%, transparent);
+}
+
+/* No color-mix (older Safari/Firefox): fall back to the solid ink
+   rather than an unreadably transparent header. */
+@supports not (background: color-mix(in srgb, red 50%, transparent)) {
+    .site-header {
+        background: var(--ink);
+    }
 }
 
 .header-inner {
@@ -996,8 +1008,12 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 .bio-modal-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(7, 12, 18, 0.68);
-    backdrop-filter: blur(6px);
+    /* Heavier than it was: this scrim carries a solid white card, and
+       a light scrim under a light surface collapses the separation
+       between them. The blur radius is animated in JS on open. */
+    background: rgba(7, 12, 18, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);   /* was missing — Safari only */
 }
 
 .bio-modal-card {
@@ -1671,6 +1687,48 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 /* =========================
+   Press response
+
+   Feedback belongs on the press, not on the release — the site had
+   :hover states but nothing that acknowledged a pointer going down,
+   so every tap felt dead until it completed. :active fires on
+   pointer-down, which is exactly the moment we want.
+========================= */
+
+.main-nav a:active,
+.scholar-link:active,
+.accordion-trigger:active,
+.nav-toggle:active,
+.lightbox-close:active,
+.bio-modal-close:active {
+    transform: scale(0.97);
+    transition: transform 100ms ease-out;
+}
+
+.person-photo:active,
+.gallery-item img:active {
+    transform: scale(0.985);
+    transition: transform 120ms ease-out;
+}
+
+/* Motion is driven frame-by-frame from JS on these, so hint the
+   compositor while they are on screen. */
+.bio-modal.open .bio-modal-card,
+.bio-modal.open .bio-modal-overlay,
+.lightbox.open .lightbox-img {
+    will-change: transform, opacity;
+}
+
+/* The card and image start invisible: JS paints the first frame, and
+   without this they would flash at full size before the spring runs.
+   Scoped to .motion-ready so that if spring.js fails to load they stay
+   visible and the site simply behaves as it did before. */
+.motion-ready .bio-modal-card,
+.motion-ready .lightbox-img {
+    opacity: 0;
+}
+
+/* =========================
    Reduced motion
 ========================= */
 
@@ -1690,5 +1748,93 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
         animation-duration: 0.001ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.001ms !important;
+    }
+
+    /* Reduced motion means a gentler equivalent, not the absence of
+       feedback. The springs already snap to their target, so the
+       modal and lightbox get a short opacity cross-fade instead of
+       scaling in — no vestibular motion, but the change is still
+       legible. Press feedback stays: it is a state change, not
+       travel. */
+    .bio-modal-card,
+    .bio-modal-overlay,
+    .lightbox-img,
+    .lightbox-caption {
+        transition: opacity 200ms ease !important;
+        transform: none !important;
+    }
+
+    .main-nav a:active,
+    .scholar-link:active,
+    .accordion-trigger:active,
+    .nav-toggle:active,
+    .lightbox-close:active,
+    .bio-modal-close:active,
+    .person-photo:active,
+    .gallery-item img:active {
+        transform: none;
+        opacity: 0.7;
+    }
+}
+
+/* =========================
+   Reduced transparency
+
+   Translucency is decorative here, so when the user has asked for
+   less of it the materials become solid rather than frosted.
+========================= */
+
+@media (prefers-reduced-transparency: reduce) {
+    .site-header,
+    .main-nav {
+        background: var(--ink);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    .bio-modal-overlay {
+        background: rgba(7, 12, 18, 0.95);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    .lightbox {
+        background: rgba(0, 0, 0, 0.98);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+}
+
+/* =========================
+   Increased contrast
+
+   Near-solid surfaces with a defined border, so edges are found by
+   contrast rather than by blur and shadow.
+========================= */
+
+@media (prefers-contrast: more) {
+    .site-header {
+        background: var(--ink);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border-bottom: 2px solid var(--white);
+    }
+
+    .bio-modal-card {
+        border: 2px solid var(--text);
+    }
+
+    .bio-modal-overlay {
+        background: rgba(7, 12, 18, 0.95);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    .bio-modal-content p {
+        color: var(--text);
+    }
+
+    .lightbox-caption {
+        color: var(--white);
     }
 }
