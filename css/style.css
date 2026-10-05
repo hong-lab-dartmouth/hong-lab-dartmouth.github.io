@@ -1227,11 +1227,11 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 .footer-geisel img {
-    width: 320px;
+    width: 250px;
     max-width: 100%;
     height: auto;
     display: block;
-    opacity: 0.95;
+    opacity: 0.82;
 }
 
 
