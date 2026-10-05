@@ -924,8 +924,8 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     margin-bottom: 96px;
 }
 
-/* Borderless, editorial cards. Clickable photos get a green ring + a
-   subtle zoom on hover — fresh and distinctive, not a generic boxed card. */
+/* Borderless, editorial cards. Clickable photos get a violet ring on
+   hover to show they open a bio. */
 .person-card {
     background: none;
     border: none;
@@ -946,7 +946,6 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .person-photo::after {
@@ -961,10 +960,6 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 .person-photo.is-clickable {
     cursor: pointer;
-}
-
-.person-card:hover .person-photo.is-clickable img {
-    transform: scale(1.05);
 }
 
 .person-card:hover .person-photo.is-clickable::after {
@@ -1580,11 +1575,6 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     object-fit: cover;
     display: block;
     cursor: zoom-in;
-    transition: transform 0.45s ease;
-}
-
-.gallery-item:hover .gallery-media img {
-    transform: scale(1.04);
 }
 
 .gallery-item figcaption {
@@ -1645,34 +1635,12 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 /* =========================
-   Scroll reveal — gentle, GPU-composited fade-up. The class is added by
-   JS only when motion is allowed, so content is always visible otherwise.
-========================= */
-
-.reveal {
-    opacity: 0;
-    transform: translate3d(0, 16px, 0);
-    transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.reveal.is-visible {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-}
-
-/* =========================
    Reduced motion
 ========================= */
 
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
-    }
-
-    .reveal {
-        opacity: 1;
-        transform: none;
     }
 
     *,

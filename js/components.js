@@ -55,54 +55,6 @@ customElements.define('site-header', class extends HTMLElement {
   }
 });
 
-/* =============================================================
-   Scroll reveal — gentle GPU-composited fade-up as content enters
-   the viewport. Exposed globally + idempotent, so async pages
-   (people, publications) can call it again after injecting content.
-   Adds .reveal only when motion is allowed, so content is always
-   visible if JS is off or reduced-motion is set.
-   ============================================================= */
-window.initScrollReveal = (function () {
-  const enabled = 'IntersectionObserver' in window
-    && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-
-  const SELECTORS = [
-    '.section-heading', '.focus-intro', '.accordion-item',
-    '.page-header', '.person-card', '.side-by-side-lists',
-    '.pub-year', '.gallery-item', '.contact-layout',
-  ].join(',');
-
-  let io = null;
-
-  return function initScrollReveal() {
-    if (!enabled) return;
-    if (!io) {
-      io = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            io.unobserve(entry.target);
-          }
-        });
-      }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
-    }
-    document.querySelectorAll(SELECTORS).forEach((el) => {
-      if (el.classList.contains('reveal')) return;   // already wired
-      // Subtle stagger among siblings of the same kind (grids/lists).
-      const kind = el.classList[0];
-      const sibs = el.parentElement
-        ? Array.from(el.parentElement.children).filter((c) => c.classList.contains(kind))
-        : [];
-      const idx = sibs.indexOf(el);
-      if (idx > 0) el.style.transitionDelay = Math.min(idx, 5) * 45 + 'ms';
-      el.classList.add('reveal');
-      io.observe(el);
-    });
-  };
-})();
-
-document.addEventListener('DOMContentLoaded', () => window.initScrollReveal());
-
 customElements.define('site-footer', class extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `

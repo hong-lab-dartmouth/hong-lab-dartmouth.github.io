@@ -141,9 +141,6 @@ async function loadPeoplePage() {
     wrap.appendChild(groups);
     peopleSection.appendChild(wrap);
   }
-
-  // Wire up scroll-reveal for the freshly-injected cards/lists.
-  if (window.initScrollReveal) window.initScrollReveal();
 }
 
 loadPeoplePage().catch((error) => console.error('Failed to load people page data:', error));
