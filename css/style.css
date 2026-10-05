@@ -134,7 +134,7 @@ a:hover {
 }
 
 .header-inner {
-    max-width: var(--content-max);
+    max-width: calc(var(--content-max) + 2 * var(--gutter));
     margin: 0 auto;
     height: var(--header-h);
     box-sizing: border-box;
