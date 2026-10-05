@@ -14,8 +14,12 @@ const NAV = [
   ['Contact',      '/contact/'],
 ];
 
+// Marks the link for the current section so the nav shows where you are.
+const isCurrent = (href) => href !== '/#research-start' && location.pathname.startsWith(href);
+
 const navItems = (links) =>
-  links.map(([label, href]) => `<li><a href="${href}">${label}</a></li>`).join('');
+  links.map(([label, href]) =>
+    `<li><a href="${href}"${isCurrent(href) ? ' aria-current="page"' : ''}>${label}</a></li>`).join('');
 
 customElements.define('site-header', class extends HTMLElement {
   connectedCallback() {

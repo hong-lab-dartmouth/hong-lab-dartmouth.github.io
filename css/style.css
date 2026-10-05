@@ -88,6 +88,17 @@ a:hover {
     opacity: 0.72;
 }
 
+:focus-visible {
+    outline: 2px solid var(--accent-page);
+    outline-offset: 3px;
+}
+
+.site-header :focus-visible,
+.site-footer :focus-visible,
+.hero :focus-visible {
+    outline-color: var(--accent-bright);
+}
+
 /* Translucent violet wash — lets the text colour show through for a soft,
    refined highlight rather than a flat block. (violet @ 27%) */
 ::selection {
@@ -156,7 +167,6 @@ a:hover {
     font-weight: 400;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    cursor: default;
 }
 
 .logo-mark img {
@@ -217,7 +227,6 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     font-weight: 400;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    cursor: default;
     transition: color 0.2s ease;
 }
 
@@ -239,8 +248,13 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     transition: transform 0.28s ease;
 }
 
-.main-nav a:hover::after {
+.main-nav a:hover::after,
+.main-nav a[aria-current="page"]::after {
     transform: scaleX(1);
+}
+
+.main-nav a[aria-current="page"] {
+    color: #ffffff;
 }
 
 /* Mobile menu toggle — hidden on desktop, shown via the mobile media query */
@@ -1398,6 +1412,10 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
     .main-nav a::after {
         display: none;
+    }
+
+    .main-nav a[aria-current="page"] {
+        color: var(--accent-bright);
     }
 }
 
