@@ -39,6 +39,19 @@ site-footer {
     --radius-lg: 12px;
 
     --panel-w: 680px;           /* hero panel width */
+
+    /* One frame for every section: header, hero, page content and footer
+       share the same left/right edges at every width. */
+    --content-max: 1392px;
+    --gutter: 44px;
+}
+
+@media (max-width: 1024px) {
+    :root { --gutter: 32px; }
+}
+
+@media (max-width: 560px) {
+    :root { --gutter: 20px; }
 }
 
 body {
@@ -124,9 +137,9 @@ a:hover {
 }
 
 .header-inner {
-    max-width: 1480px;
+    max-width: var(--content-max);
     margin: 0 auto;
-    padding: 60px 44px 34px;
+    padding: 60px var(--gutter) 34px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -377,7 +390,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     max-width: var(--panel-w);
     height: 92%;                /* tall panel, stops just short of the bottom */
     margin: 0;
-    margin-left: max(44px, calc((100% - 1480px) / 2 + 44px));
+    margin-left: max(var(--gutter), calc((100% - var(--content-max)) / 2));
     padding: 48px 52px;
     box-sizing: border-box;
 
@@ -426,9 +439,9 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 @media (max-width: 760px) {
     .hero-content {
-        width: calc(100% - 32px);
-        margin-left: 16px;
-        padding: 34px 26px;
+        width: 100%;
+        margin-left: 0;
+        padding: 34px var(--gutter);
         border-radius: 0;
     }
 
@@ -534,12 +547,16 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     background: #ffffff;
     color: #0a0a0a;
     box-sizing: border-box;
-    padding: 110px 32px;
+    padding: 110px var(--gutter);
 }
 
 .focus-inner {
-    max-width: 940px;
+    max-width: var(--content-max);
     margin: 0 auto;
+}
+
+.focus-accordion {
+    max-width: 940px;
 }
 
 .focus-section .section-heading {
@@ -597,7 +614,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 .focus-accordion {
     width: 100%;
-    margin: 0 auto;
+    margin: 0;
     border-top: 1px solid rgba(10, 10, 10, 0.14);
 }
 
@@ -611,7 +628,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    padding: 26px 6px;
+    padding: 26px 0;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -672,7 +689,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 .accordion-panel-inner {
-    padding: 0 6px 30px;
+    padding: 0 0 30px;
     max-width: 760px;
 }
 
@@ -691,7 +708,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 @media (max-width: 950px) {
     .focus-section {
         min-height: auto;
-        padding: 80px 28px 90px;
+        padding: 80px var(--gutter) 90px;
     }
 
     
@@ -707,7 +724,8 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 @media (max-width: 560px) {
     .focus-section {
-        padding: 72px 22px 80px;
+        padding-top: 72px;
+        padding-bottom: 80px;
     }
 
     .focus-intro {
@@ -716,7 +734,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     }
 
     .accordion-trigger {
-        padding: 22px 2px;
+        padding: 22px 0;
     }
 
     
@@ -734,13 +752,8 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
    Publications Page
 ========================= */
 
-.page-content {
-    padding: 72px 48px 88px;
-    background: var(--bg);
-}
-
 .publications-section {
-    max-width: 1180px;
+    max-width: var(--content-max);
     margin: 0 auto;
 }
 
@@ -773,6 +786,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 .pub-list {
     min-width: 0;
+    max-width: 920px;
 }
 
 .pub-item {
@@ -871,7 +885,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 ========================= */
 
 .page-content {
-    padding: 72px 32px 88px 32px;
+    padding: 72px var(--gutter) 88px;
     background: var(--bg);
 }
 
@@ -892,7 +906,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 .people-section {
-    max-width: 1180px;
+    max-width: var(--content-max);
     margin-left: auto;
     margin-right: auto;
 }
@@ -1204,11 +1218,6 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 @media (max-width: 500px) {
-    .page-content {
-        padding-left: 22px;
-        padding-right: 22px;
-    }
-
     .people-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 28px 16px;
@@ -1230,11 +1239,11 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 .site-footer {
     background: var(--ink);
     color: rgba(255, 255, 255, 0.7);
-    padding: 76px 44px 104px;
+    padding: 76px var(--gutter) 104px;
 }
 
 .footer-inner {
-    max-width: 1392px;
+    max-width: var(--content-max);
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1.7fr 1fr 1.35fr 1.35fr;
@@ -1342,7 +1351,8 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 @media (max-width: 560px) {
     .site-footer {
-        padding: 52px 22px 76px;
+        padding-top: 52px;
+        padding-bottom: 76px;
     }
 
     .footer-inner {
@@ -1378,7 +1388,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 @media (max-width: 1024px) {
     .header-inner {
-        padding: 20px 24px;
+        padding: 20px var(--gutter);
     }
 
     .nav-toggle {
@@ -1409,7 +1419,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
     .main-nav a {
         display: block;
-        padding: 15px 24px;
+        padding: 15px var(--gutter);
         font-size: 14px;
         letter-spacing: 0.08em;
     }
@@ -1424,7 +1434,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 ========================= */
 
 .page-header {
-    max-width: 1180px;
+    max-width: var(--content-max);
     margin: 0 auto 52px;
 }
 
@@ -1474,7 +1484,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 ========================= */
 
 .contact-section {
-    max-width: 1180px;
+    max-width: var(--content-max);
     margin: 0 auto;
 }
 
@@ -1563,7 +1573,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 ========================= */
 
 .gallery-section {
-    max-width: 1180px;
+    max-width: var(--content-max);
     margin: 0 auto;
 }
 
