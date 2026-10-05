@@ -44,10 +44,11 @@ site-footer {
        share the same left/right edges at every width. */
     --content-max: 1392px;
     --gutter: 44px;
+    --header-h: 96px;           /* sticky header: 20px + 56px logo + 20px */
 }
 
 @media (max-width: 1024px) {
-    :root { --gutter: 32px; }
+    :root { --gutter: 32px; --header-h: 80px; }
 }
 
 @media (max-width: 560px) {
@@ -139,7 +140,9 @@ a:hover {
 .header-inner {
     max-width: var(--content-max);
     margin: 0 auto;
-    padding: 60px var(--gutter) 34px;
+    height: var(--header-h);
+    box-sizing: border-box;
+    padding: 0 var(--gutter);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -275,7 +278,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 #research-start {
-    scroll-margin-top: 150px;
+    scroll-margin-top: var(--header-h);
 }
 
 /* =========================
@@ -284,7 +287,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 .hero {
     position: relative;
-    height: calc(100vh - 150px);
+    height: calc(100svh - var(--header-h));
     min-height: 620px;
     display: flex;
     align-items: flex-start;
@@ -1388,7 +1391,11 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 @media (max-width: 1024px) {
     .header-inner {
-        padding: 20px var(--gutter);
+        padding: 0 var(--gutter);
+    }
+
+    .logo-mark img {
+        height: 46px;
     }
 
     .nav-toggle {
