@@ -100,7 +100,7 @@ async function loadPeoplePage() {
   if (Array.isArray(data.collaborators) && data.collaborators.length) {
     const wrap = document.createElement('div');
     wrap.className = 'side-by-side-lists collaborators-block';
-    wrap.innerHTML = '<h1 class="page-title">Collaborators</h1>';
+    wrap.innerHTML = '<h2 class="page-title">Collaborators</h2>';
 
     const list = document.createElement('div');
     list.className = 'collaborators-list';
@@ -122,7 +122,7 @@ async function loadPeoplePage() {
   if (alumniSection) {
     const wrap = document.createElement('div');
     wrap.className = 'side-by-side-lists';
-    wrap.innerHTML = `<h1 class="page-title">${alumniSection.title}</h1>`;
+    wrap.innerHTML = `<h2 class="page-title">${alumniSection.title}</h2>`;
 
     const groups = document.createElement('div');
     groups.className = 'grouped-list-wrapper';
