@@ -107,9 +107,9 @@ customElements.define('site-footer', class extends HTMLElement {
 
           <div class="footer-brand">
             <a class="footer-geisel" href="https://geiselmed.dartmouth.edu/" target="_blank" rel="noopener"
-               aria-label="Dartmouth Geisel School of Medicine, Department of Molecular & Systems Biology">
-              <img src="/assets/logos/geisel-molsysbio.png"
-                   alt="Dartmouth Geisel School of Medicine — Department of Molecular & Systems Biology">
+               aria-label="Dartmouth Geisel School of Medicine">
+              <img src="/assets/logos/geisel.png"
+                   alt="Dartmouth Geisel School of Medicine">
             </a>
           </div>
 
