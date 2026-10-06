@@ -33,10 +33,10 @@ customElements.define('site-header', class extends HTMLElement {
           <div class="header-brand">
           ${onHome() ? '' : '<a class="home-link" href="/">Hong Lab</a>'}
           <nav class="header-affiliations" aria-label="Affiliations">
-            <a class="affil-geisel" href="https://geiselmed.dartmouth.edu/" target="_blank" rel="noopener" aria-label="Dartmouth Geisel School of Medicine"><img src="/assets/logos/shield-grey.png" alt=""></a>
-            <a class="affil-cqb" href="https://sites.dartmouth.edu/cqb/" target="_blank" rel="noopener" aria-label="Center for Quantitative Biology"><img src="/assets/logos/cqb.png" alt=""></a>
-            <a class="affil-ind" href="https://sites.dartmouth.edu/ind/" target="_blank" rel="noopener" aria-label="Integrative Neuroscience at Dartmouth"><img src="/assets/logos/ind.png" alt=""></a>
-            <a class="affil-dh" href="https://www.dartmouth-health.org/" target="_blank" rel="noopener" aria-label="Dartmouth Health"><img src="/assets/logos/dartmouth-health-emblem.png" alt=""></a>
+            <a class="affil-geisel" href="https://geiselmed.dartmouth.edu/" target="_blank" rel="noopener" aria-label="Dartmouth Geisel School of Medicine"><img src="/assets/logos/shield-grey.png?v=20261006" alt=""></a>
+            <a class="affil-cqb" href="https://sites.dartmouth.edu/cqb/" target="_blank" rel="noopener" aria-label="Center for Quantitative Biology"><img src="/assets/logos/cqb.png?v=20261006" alt=""></a>
+            <a class="affil-ind" href="https://sites.dartmouth.edu/ind/" target="_blank" rel="noopener" aria-label="Integrative Neuroscience at Dartmouth"><img src="/assets/logos/ind.png?v=20261006" alt=""></a>
+            <a class="affil-dh" href="https://www.dartmouth-health.org/" target="_blank" rel="noopener" aria-label="Dartmouth Health"><img src="/assets/logos/dartmouth-health-emblem.png?v=20261006" alt=""></a>
           </nav>
           </div>
           <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
@@ -94,7 +94,7 @@ customElements.define('site-footer', class extends HTMLElement {
           <div class="footer-brand">
             <a class="footer-geisel" href="https://geiselmed.dartmouth.edu/" target="_blank" rel="noopener"
                aria-label="Dartmouth Geisel School of Medicine">
-              <img src="/assets/logos/geisel.png"
+              <img src="/assets/logos/geisel.png?v=20261006"
                    alt="Dartmouth Geisel School of Medicine">
             </a>
           </div>
