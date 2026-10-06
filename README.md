@@ -93,4 +93,4 @@ The site deploys automatically from the `main` branch via GitHub Pages.
 
 There is no manual deploy step.
 
-**When you change `css/style.css` or any file in `js/`,** bump the `?v=` number on its `<link>`/`<script>` tags in every page (e.g. `?v=20261006` → `?v=20261020`). GitHub Pages lets browsers reuse those files for 10 minutes, so without a new number a returning visitor can see the new page with the old styles. The custom domain and HTTPS are already configured in the repository's **Settings → Pages**.
+**When you change `css/style.css`, any file in `js/`, or replace a logo/favicon image under the same name,** bump the `?v=` number on its `<link>`/`<script>`/`<img>` references in every page (and in `js/components.js` for header/footer logos) (e.g. `?v=20261006` → `?v=20261020`). GitHub Pages lets browsers reuse those files for 10 minutes, so without a new number a returning visitor can see the new page with the old styles. The custom domain and HTTPS are already configured in the repository's **Settings → Pages**.
