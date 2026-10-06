@@ -71,7 +71,8 @@ async function loadPeoplePage() {
   const team = data.sections
     .filter((s) => !isAlumni(s))
     .sort((a, b) => SECTION_ORDER.indexOf(a.title.toLowerCase()) - SECTION_ORDER.indexOf(b.title.toLowerCase()))
-    .flatMap((s) => s.people.map((p) => ({ ...p, title: s.title.replace(/Students?$/i, 'Student') })));
+    // A person's own "role" (e.g. "MD-PhD Student") overrides the section's.
+    .flatMap((s) => s.people.map((p) => ({ ...p, title: p.role || s.title.replace(/Students?$/i, 'Student') })));
 
   if (data.labDirector) {
     team.unshift({ ...data.labDirector, title: data.labDirector.title || 'Principal Investigator' });
@@ -100,7 +101,7 @@ async function loadPeoplePage() {
   if (Array.isArray(data.collaborators) && data.collaborators.length) {
     const wrap = document.createElement('div');
     wrap.className = 'side-by-side-lists collaborators-block';
-    wrap.innerHTML = '<h1 class="page-title">Collaborators</h1>';
+    wrap.innerHTML = '<h2 class="page-title">Collaborators</h2>';
 
     const list = document.createElement('div');
     list.className = 'collaborators-list';
@@ -122,7 +123,7 @@ async function loadPeoplePage() {
   if (alumniSection) {
     const wrap = document.createElement('div');
     wrap.className = 'side-by-side-lists';
-    wrap.innerHTML = `<h1 class="page-title">${alumniSection.title}</h1>`;
+    wrap.innerHTML = `<h2 class="page-title">${alumniSection.title}</h2>`;
 
     const groups = document.createElement('div');
     groups.className = 'grouped-list-wrapper';
@@ -141,9 +142,6 @@ async function loadPeoplePage() {
     wrap.appendChild(groups);
     peopleSection.appendChild(wrap);
   }
-
-  // Wire up scroll-reveal for the freshly-injected cards/lists.
-  if (window.initScrollReveal) window.initScrollReveal();
 }
 
 loadPeoplePage().catch((error) => console.error('Failed to load people page data:', error));

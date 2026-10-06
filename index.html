@@ -16,124 +16,92 @@
 
 <body class="homepage">
 
-  <site-header home></site-header>
+  <site-header></site-header>
 
   <main>
 
     <section class="hero">
-      <div class="hero-media">
-        <picture>
+      <div class="hero-stage">
+        <div class="hero-image-box">
+          <div class="hero-media" aria-hidden="true">
+          <picture>
           <source srcset="assets/img/sciatic-nerve.webp" type="image/webp">
           <img class="hero-image" src="assets/img/sciatic-nerve.jpg"
-               alt="Fluorescence imaging of a sciatic nerve in the Hong Lab"
+               alt=""
                width="4960" height="1300" fetchpriority="high" decoding="async">
         </picture>
-        <div class="hero-overlay"></div>
-      </div>
-
-      <div class="hero-content">
-        <p class="hero-kicker">Geisel School of Medicine at Dartmouth</p>
-        <h1 class="hero-heading">Hong Lab</h1>
-        <p class="hero-subheading">neurosurgical systems biology</p>
-
-        <div class="hero-affiliations">
-          <div class="hero-affil-logos">
-            <a class="hero-affil hero-affil-geisel" href="https://geiselmed.dartmouth.edu/" target="_blank" rel="noopener" aria-label="Dartmouth Geisel School of Medicine">
-              <img src="assets/logos/geisel.png" alt="Dartmouth Geisel School of Medicine">
-            </a>
-            <a class="hero-affil" href="https://sites.dartmouth.edu/cqb/" target="_blank" rel="noopener" aria-label="Center for Quantitative Biology">
-              <img src="assets/logos/cqb.png" alt="Center for Quantitative Biology">
-            </a>
-            <a class="hero-affil hero-affil-ind" href="https://sites.dartmouth.edu/ind/" target="_blank" rel="noopener" aria-label="Integrative Neuroscience at Dartmouth">
-              <img src="assets/logos/ind.png" alt="Integrative Neuroscience at Dartmouth">
-            </a>
-            <a class="hero-affil hero-affil-dh" href="https://www.dartmouth-health.org/" target="_blank" rel="noopener" aria-label="Dartmouth Health">
-              <img src="assets/logos/dartmouth-health.png" alt="Dartmouth Health">
-            </a>
           </div>
-        </div>
 
-        <figure class="hero-caption">
-          <figcaption>Photo: Mouse sciatic nerve</figcaption>
-          <span class="hero-caption-credit">Imaged by Brizha Knowles</span>
-        </figure>
+          <div class="hero-content">
+            <p class="hero-kicker">Geisel School of Medicine <span class="kicker-break">at Dartmouth</span></p>
+            <h1 class="hero-heading">Hong Lab</h1>
+            <p class="hero-subheading">neurosurgical systems biology</p>
+            <div class="hero-affiliations" aria-label="Affiliations">
+              <a href="https://geiselmed.dartmouth.edu/" target="_blank" rel="noopener" aria-label="Dartmouth Geisel School of Medicine"><img src="assets/logos/geisel.png" alt=""></a>
+              <a href="https://sites.dartmouth.edu/cqb/" target="_blank" rel="noopener" aria-label="Center for Quantitative Biology"><img src="assets/logos/cqb.png" alt=""></a>
+              <a href="https://sites.dartmouth.edu/ind/" target="_blank" rel="noopener" aria-label="Integrative Neuroscience at Dartmouth"><img src="assets/logos/ind.png" alt=""></a>
+              <a href="https://www.dartmouth-health.org/" target="_blank" rel="noopener" aria-label="Dartmouth Health"><img src="assets/logos/dartmouth-health.png" alt=""></a>
+            </div>
+          </div>
+
+          <p class="hero-credit">Mouse sciatic nerve<br><span>Imaged by Brizha Knowles</span></p>
+        </div>
       </div>
     </section>
 
-    <section class="focus-section" id="research-start">
-      <div class="focus-inner">
-
-        <div class="section-heading">
-          <p class="section-label">Research</p>
-          <h2>Core areas of focus</h2>
+    <section class="research" id="research-start">
+      <div class="research-main">
+        <h2 class="visually-hidden">Research</h2>
+        <div class="research-list" aria-label="Research areas">
+          <button class="research-tab research-tab-overview" type="button" id="research-tab-overview" aria-controls="research-overview" aria-pressed="true">Research</button>
+          <button class="research-tab" type="button" id="research-tab-0" aria-controls="research-area-0" aria-pressed="false" aria-label="Molecular &amp; Cellular Mechanisms of Epilepsy">Epilepsy</button>
+          <button class="research-tab" type="button" id="research-tab-1" aria-controls="research-area-1" aria-pressed="false" aria-label="AI &amp; Computational Neuroscience">AI</button>
+          <button class="research-tab" type="button" id="research-tab-2" aria-controls="research-area-2" aria-pressed="false" aria-label="Novel Therapies in Neurological Disease">Therapies</button>
+          <button class="research-tab" type="button" id="research-tab-3" aria-controls="research-area-3" aria-pressed="false" aria-label="Neurosurgical Care, Access &amp; Ethics">Ethics</button>
+          <button class="research-tab" type="button" id="research-tab-4" aria-controls="research-area-4" aria-pressed="false" aria-label="Epilepsy Surgery &amp; Outcomes">Outcomes</button>
         </div>
 
-        <p class="focus-intro">We are a neuroscience research group that leverages the connection between the operating room and the laboratory to investigate neurological disease, such as drug-resistant epilepsy and peripheral neuropathy. Our work extends to questions of patient access to neurosurgical interventions and related issues of equity and ethics. We are passionate about rigor, reproducibility, and collaboration in pursuit of discoveries that can one day circle back to patients.</p>
+        <div class="research-detail" aria-live="polite">
+            <article class="research-area research-overview is-active" id="research-overview" aria-labelledby="research-tab-overview">
+              <p>We are a neuroscience research group working between the operating room and the laboratory to investigate neurological disease, such as drug-resistant epilepsy and peripheral neuropathy. Our work extends to questions of patient access to neurosurgical interventions and related issues of equity and ethics.</p>
+            </article>
 
-        <div class="focus-accordion">
+            <article class="research-area" id="research-area-0" aria-labelledby="research-tab-0">
+              <h3>Molecular &amp; Cellular Mechanisms of Epilepsy</h3>
+              <p>Understanding seizures requires investigating the tissue in which they arise. Our group works directly with resected surgical brain tissue, using it as a window into the cellular and molecular landscape of epilepsy. Our work spans several directions: the role of somatic mutations in focal epilepsy; cell-type-specific gene expression differences across epilepsy subtypes including focal cortical dysplasia and mesial temporal sclerosis; the biology of perineuronal nets and their potential contribution to seizure generation.</p>
+            </article>
 
-          <div class="accordion-item">
-            <button class="accordion-trigger" type="button" aria-expanded="false">
-              <span class="accordion-title">Molecular &amp; Cellular Mechanisms of Epilepsy</span>
-              <span class="accordion-icon" aria-hidden="true"></span>
-            </button>
-            <div class="accordion-panel">
-              <div class="accordion-panel-inner">
-                <p>Understanding seizures requires investigating the tissue in which they arise. Our group works directly with resected surgical brain tissue, using it as a window into the cellular and molecular landscape of epilepsy. Our work spans several directions: the role of somatic mutations in focal epilepsy; cell-type-specific gene expression differences across epilepsy subtypes including focal cortical dysplasia and mesial temporal sclerosis; the biology of perineuronal nets and their potential contribution to seizure generation.</p>
-              </div>
-            </div>
-          </div>
+            <article class="research-area" id="research-area-1" aria-labelledby="research-tab-1">
+              <h3>AI &amp; Computational Neuroscience</h3>
+              <p>Traditional methods for analysing brain tissue in detail are labour-intensive and can be challenging to scale. We are developing a virtual staining platform that uses deep learning to extract structural information from routine pathology slides without the need for specialised staining. This will make it possible to analyse large collections of archived tissue for markers that would otherwise stay invisible.</p>
+            </article>
 
-          <div class="accordion-item">
-            <button class="accordion-trigger" type="button" aria-expanded="false">
-              <span class="accordion-title">AI &amp; Computational Neuroscience</span>
-              <span class="accordion-icon" aria-hidden="true"></span>
-            </button>
-            <div class="accordion-panel">
-              <div class="accordion-panel-inner">
-                <p>Traditional methods for analysing brain tissue in detail are labour-intensive and can be challenging to scale. We are developing a virtual staining platform that uses deep learning to extract structural information from routine pathology slides without the need for specialised staining. This will make it possible to analyse large collections of archived tissue for markers that would otherwise stay invisible.</p>
-              </div>
-            </div>
-          </div>
+            <article class="research-area" id="research-area-2" aria-labelledby="research-tab-2">
+              <h3>Novel Therapies in Neurological Disease</h3>
+              <p>We use mouse models to address questions that are less tractable in human tissue and to test potential therapeutic approaches. Current work includes investigating the distribution of AAV-based gene therapies in the brain, a growing consideration as viral vector approaches move toward clinical use in epilepsy. We also study diabetic peripheral neuropathy, examining the molecular pathways involved in nerve degeneration and regeneration and exploring the potential of microtubule-stabilising compounds as a therapeutic strategy.</p>
+            </article>
 
-          <div class="accordion-item">
-            <button class="accordion-trigger" type="button" aria-expanded="false">
-              <span class="accordion-title">Novel Therapies in Neurological Disease</span>
-              <span class="accordion-icon" aria-hidden="true"></span>
-            </button>
-            <div class="accordion-panel">
-              <div class="accordion-panel-inner">
-                <p>We use mouse models to address questions that are less tractable in human tissue and to test potential therapeutic approaches. Current work includes investigating the distribution of AAV-based gene therapies in the brain, a growing consideration as viral vector approaches move toward clinical use in epilepsy. We also study diabetic peripheral neuropathy, examining the molecular pathways involved in nerve degeneration and regeneration and exploring the potential of microtubule-stabilising compounds as a therapeutic strategy.</p>
-              </div>
-            </div>
-          </div>
+            <article class="research-area" id="research-area-3" aria-labelledby="research-tab-3">
+              <h3>Neurosurgical Care, Access &amp; Ethics</h3>
+              <p>Good neurosurgical care depends not only on what happens in the operating room, but also on who can access it. We examine questions of access, equity, and ethics in neurosurgical practice including disparities in care for rural patients, the dynamics of informed consent, and the impact of emerging treatments on how stroke care is organised at a systems level.</p>
+            </article>
 
-          <div class="accordion-item">
-            <button class="accordion-trigger" type="button" aria-expanded="false">
-              <span class="accordion-title">Neurosurgical Care, Access &amp; Ethics</span>
-              <span class="accordion-icon" aria-hidden="true"></span>
-            </button>
-            <div class="accordion-panel">
-              <div class="accordion-panel-inner">
-                <p>Good neurosurgical care depends not only on what happens in the operating room, but also on who can access it. We examine questions of access, equity, and ethics in neurosurgical practice including disparities in care for rural patients, the dynamics of informed consent, and the impact of emerging treatments on how stroke care is organised at a systems level.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="accordion-item">
-            <button class="accordion-trigger" type="button" aria-expanded="false">
-              <span class="accordion-title">Epilepsy Surgery &amp; Outcomes</span>
-              <span class="accordion-icon" aria-hidden="true"></span>
-            </button>
-            <div class="accordion-panel">
-              <div class="accordion-panel-inner">
-                <p>Surgical approaches can lead to seizure reduction and cognitive improvement in patients whose epilepsy does not respond to medication, yet outcomes are variable and not straightforward to predict. We study molecular and electrophysiological predictors of surgical outcomes. Additionally, we are conducting an institutional review of different surgical approaches over the past 15 years, allowing us to track how the field has evolved and which approaches work best for which patients.</p>
-              </div>
-            </div>
-          </div>
-
+            <article class="research-area" id="research-area-4" aria-labelledby="research-tab-4">
+              <h3>Epilepsy Surgery &amp; Outcomes</h3>
+              <p>Surgical approaches can lead to seizure reduction and cognitive improvement in patients whose epilepsy does not respond to medication, yet outcomes are variable and not straightforward to predict. We study molecular and electrophysiological predictors of surgical outcomes. Additionally, we are conducting an institutional review of different surgical approaches over the past 15 years, allowing us to track how the field has evolved and which approaches work best for which patients.</p>
+            </article>
         </div>
       </div>
+
+      <figure class="lab-life" aria-label="Life in the lab">
+        <div class="lab-life-frame">
+          <img class="lab-life-slide is-active" src="assets/img/gallery/labDinner.jpg" alt="Lab dinner" data-caption="Lab dinner">
+        </div>
+        <figcaption class="lab-life-bar">
+          <span class="lab-life-caption" aria-live="polite">Lab dinner</span>
+          <a class="lab-life-more" href="/gallery/">See all photos <span aria-hidden="true">&rarr;</span></a>
+        </figcaption>
+      </figure>
     </section>
 
   </main>
