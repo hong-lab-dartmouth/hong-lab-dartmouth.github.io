@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     list.appendChild(marker);
 
     let current = null;
-    const PILL = 24;                                  // pill length, px
 
     // The label's own width (the overview tab carries extra room for its divider).
     function labelBox(tab) {
@@ -31,8 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function place() {
         if (!current) return;
         const { left, width } = labelBox(current);
-        // A fixed-size pill, centred over the selected label.
-        marker.style.transform = `translateX(${left + width / 2 - PILL / 2}px)`;
+        // A fixed-size pill (its width scales with the root size), centred over the selected label.
+        marker.style.transform = `translateX(${left + width / 2 - marker.offsetWidth / 2}px)`;
     }
 
     function show(tab) {
@@ -88,9 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const W = box.offsetWidth, H = box.offsetHeight;
         const p = Math.min(1, Math.max(0, window.scrollY / (H * 0.85)));
         const e = 1 - Math.pow(1 - p, 3);                       // ease-out
-        const side = e * Math.min(56, W * 0.05);
+        const rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+        const side = e * Math.min(3.5 * rem, W * 0.05);
         const vert = side * (H / W);
-        box.style.clipPath = `inset(${vert.toFixed(1)}px ${side.toFixed(1)}px round ${(e * 16).toFixed(1)}px)`;
+        box.style.clipPath = `inset(${vert.toFixed(1)}px ${side.toFixed(1)}px round ${(e * rem).toFixed(1)}px)`;
         img.style.transform = `scale(${(1 + 0.07 * e).toFixed(4)})`;
     };
     const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };

@@ -5,6 +5,16 @@
    Base
 ========================= */
 
+/* Sizes are in rem, so the whole layout scales from this one value.
+   Up to a 16-inch laptop (1728px wide) it is 16px; wider and larger
+   displays scale everything up together, so a big or ultrawide monitor
+   shows the same proportions as a laptop instead of a small island in
+   empty margins. The height term stops it outgrowing short, wide
+   windows (an ultrawide scales as if it were ~670px tall). */
+html {
+    font-size: clamp(16px, min(0.926vw, 2.4vh), 32px);
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -40,22 +50,22 @@ site-footer {
     --accent-bright: #3E8E88;   /* muted teal: footer rule and labels */
     --frame-line: #C9C4BC;      /* offset frames: subtle warm gray, a step darker than the band */
 
-    --panel-w: 680px;           /* hero panel width */
+    --panel-w: 42.5rem;           /* hero panel width */
 
     /* One frame for every section: header, hero, page content and footer
        share the same left/right edges at every width. */
-    --content-max: 1120px;
-    --gutter: 44px;
-    --header-h: 72px;           /* white sticky header */
-    --hero-h: clamp(380px, 68svh, 620px);   /* full-width banner: shorter on short windows */
+    --content-max: 70rem;
+    --gutter: 2.75rem;
+    --header-h: 4.5rem;           /* white sticky header */
+    --hero-h: clamp(23.75rem, 68svh, 38.75rem);   /* full-width banner: shorter on short windows */
 }
 
 @media (max-width: 1024px) {
-    :root { --gutter: 32px; --header-h: 64px; }
+    :root { --gutter: 2rem; --header-h: 4rem; }
 }
 
 @media (max-width: 560px) {
-    :root { --gutter: 20px; }
+    :root { --gutter: 1.25rem; }
 }
 
 body {
@@ -93,7 +103,7 @@ a:hover {
 
 :focus-visible {
     outline: 2px solid var(--accent-page);
-    outline-offset: 3px;
+    outline-offset: 0.1875rem;
 }
 
 .site-footer :focus-visible,
@@ -145,8 +155,8 @@ a:hover {
    (components.js toggles these classes). */
 .site-header.is-scrolled {
     background: rgba(255, 255, 255, 0.78);
-    -webkit-backdrop-filter: saturate(160%) blur(14px);
-    backdrop-filter: saturate(160%) blur(14px);
+    -webkit-backdrop-filter: saturate(160%) blur(0.875rem);
+    backdrop-filter: saturate(160%) blur(0.875rem);
 }
 
 .site-header.is-hidden {
@@ -205,16 +215,16 @@ body.homepage .hero-media img {
 /* Over the full-screen image the nav reads a step larger and brighter. */
 body.homepage .site-header.is-over-hero .main-nav a {
     opacity: 1;
-    text-shadow: 0 1px 8px rgba(18, 6, 36, 0.55);
+    text-shadow: 0 1px 0.5rem rgba(18, 6, 36, 0.55);
 }
 
 body.homepage .hero-credit {
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 @media (min-width: 861px) {
     body.homepage .hero-content {
-        bottom: clamp(56px, 10svh, 96px);
+        bottom: clamp(3.5rem, 10svh, 6rem);
     }
 }
 
@@ -222,19 +232,19 @@ body.homepage .hero-credit {
     /* Phones: the credit sits at the bottom, clear of the header. */
     body.homepage .hero-credit {
         top: auto;
-        bottom: 12px;
+        bottom: 0.75rem;
         left: auto;
         right: var(--gutter);
         text-align: right;
-        font-size: 12px;
+        font-size: 0.75rem;
     }
 
     body.homepage .hero-content {
-        bottom: 64px;
+        bottom: 4rem;
     }
 
     .hero-kicker {
-        font-size: 12px;
+        font-size: 0.75rem;
         letter-spacing: 0.12em;
         line-height: 1.5;
     }
@@ -244,7 +254,7 @@ body.homepage .hero-credit {
     }
 
     body.homepage .hero-affiliations img {
-        height: 34px;
+        height: 2.125rem;
     }
 }
 
@@ -276,7 +286,7 @@ body.homepage .hero-media img {
 .main-nav ul {
     list-style: none;
     display: flex;
-    gap: 28px;
+    gap: 1.75rem;
     margin: 0;
     padding: 0;
 }
@@ -284,7 +294,7 @@ body.homepage .hero-media img {
 .main-nav a {
     color: var(--text);
     opacity: 0.85;
-    font-size: 15px;
+    font-size: 0.9375rem;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -303,7 +313,7 @@ body.homepage .hero-media img {
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-decoration-color: rgba(30, 20, 40, 0.35);
-    text-underline-offset: 10px;
+    text-underline-offset: 0.625rem;
 }
 
 /* Left side of the header: on inner pages the "Hong Lab" wordmark (a
@@ -311,13 +321,13 @@ body.homepage .hero-media img {
 .header-brand {
     display: flex;
     align-items: center;
-    gap: 22px;
+    gap: 1.375rem;
     min-width: 0;
 }
 
 .home-link {
     font-family: var(--font-serif);
-    font-size: 28px;
+    font-size: 1.75rem;
     line-height: 1;
     color: var(--text);
     white-space: nowrap;
@@ -329,19 +339,19 @@ body.homepage .hero-media img {
 }
 
 .home-link + .header-affiliations {
-    padding-left: 22px;
+    padding-left: 1.375rem;
     border-left: 1px solid var(--line);
 }
 
 @media (max-width: 560px) {
     /* Phones: shield first, then the name, as one lockup (no divider). */
-    .header-brand { gap: 12px; }
+    .header-brand { gap: 0.75rem; }
     .header-brand .header-affiliations { order: -1; }
-    .home-link { font-size: 23px; }
+    .home-link { font-size: 1.4375rem; }
     .home-link + .header-affiliations { padding-left: 0; border-left: 0; }
-    .header-affiliations .affil-geisel img { height: 40px; }
-    .page-content { padding-top: 40px; padding-bottom: 64px; }
-    .page-header { margin-bottom: 32px; }
+    .header-affiliations .affil-geisel img { height: 2.5rem; }
+    .page-content { padding-top: 2.5rem; padding-bottom: 4rem; }
+    .page-header { margin-bottom: 2rem; }
 }
 
 
@@ -352,7 +362,7 @@ body.homepage .hero-media img {
 .header-affiliations {
     display: flex;
     align-items: center;
-    gap: 26px;
+    gap: 1.625rem;
 }
 
 .header-affiliations a {
@@ -367,28 +377,28 @@ body.homepage .hero-media img {
 
 .header-affiliations img {
     display: block;
-    height: 34px;
+    height: 2.125rem;
     width: auto;
     filter: brightness(0);
 }
 
 .header-affiliations .affil-geisel img {
-    height: 44px;
+    height: 2.75rem;
 }
 
 .header-affiliations .affil-geisel img {
-    height: 46px;
+    height: 2.875rem;
 }
 
-.header-affiliations .affil-ind img { height: 36px; }
-.header-affiliations .affil-dh img { height: 32px; }
+.header-affiliations .affil-ind img { height: 2.25rem; }
+.header-affiliations .affil-dh img { height: 2rem; }
 
 @media (max-width: 560px) {
-    .header-affiliations { gap: 16px; }
-    .header-affiliations img { height: 26px; }
-    .header-affiliations .affil-geisel img { height: 34px; }
-    .header-affiliations .affil-ind img { height: 28px; }
-    .header-affiliations .affil-dh img { height: 25px; }
+    .header-affiliations { gap: 1rem; }
+    .header-affiliations img { height: 1.625rem; }
+    .header-affiliations .affil-geisel img { height: 2.125rem; }
+    .header-affiliations .affil-ind img { height: 1.75rem; }
+    .header-affiliations .affil-dh img { height: 1.5625rem; }
 }
 
 /* Mobile menu toggle — hidden on desktop, shown via the mobile media query */
@@ -396,8 +406,8 @@ body.homepage .hero-media img {
     display: none;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
+    width: 2.125rem;
+    height: 2.125rem;
     padding: 0;
     background: transparent;
     border: none;
@@ -471,15 +481,15 @@ body.homepage .hero-media img {
 .hero-content {
     position: absolute;
     left: max(var(--gutter), calc((100% - var(--content-max)) / 2));
-    bottom: clamp(32px, 6svh, 64px);
+    bottom: clamp(2rem, 6svh, 4rem);
     z-index: 1;
-    padding: clamp(26px, 3vw, 40px) clamp(30px, 3.6vw, 52px) clamp(28px, 3.2vw, 44px);
+    padding: clamp(1.625rem, 3vw, 2.5rem) clamp(1.875rem, 3.6vw, 3.25rem) clamp(1.75rem, 3.2vw, 2.75rem);
     background: rgba(8, 4, 14, 0.7);
 }
 
 .hero-kicker {
-    margin: 0 0 clamp(12px, 1.4vw, 18px);
-    font-size: 13px;
+    margin: 0 0 clamp(0.75rem, 1.4vw, 1.125rem);
+    font-size: 0.8125rem;
     font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -489,17 +499,17 @@ body.homepage .hero-media img {
 .hero-heading {
     margin: 0;
     color: #ffffff;
-    font-size: clamp(56px, 7.4vw, 104px);
+    font-size: clamp(3.5rem, 7.4vw, 6.5rem);
     line-height: 1;
     font-weight: 400;
 }
 
 .hero-subheading {
-    margin: 10px 0 0;
+    margin: 0.625rem 0 0;
     color: rgba(255, 255, 255, 0.92);
     font-family: var(--font-serif);
     font-style: italic;
-    font-size: clamp(21px, 2.4vw, 31px);
+    font-size: clamp(1.3125rem, 2.4vw, 1.9375rem);
     line-height: 1.3;
     font-weight: 400;
 }
@@ -510,9 +520,9 @@ body.homepage .hero-media img {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 14px clamp(18px, 2.2vw, 28px);
-    margin-top: clamp(18px, 2vw, 26px);
-    padding-top: clamp(16px, 1.8vw, 22px);
+    gap: 0.875rem clamp(1.125rem, 2.2vw, 1.75rem);
+    margin-top: clamp(1.125rem, 2vw, 1.625rem);
+    padding-top: clamp(1rem, 1.8vw, 1.375rem);
     border-top: 1px solid rgba(255, 255, 255, 0.22);
 }
 
@@ -528,7 +538,7 @@ body.homepage .hero-media img {
 
 .hero-affiliations img {
     display: block;
-    height: clamp(30px, 2.8vw, 40px);
+    height: clamp(1.875rem, 2.8vw, 2.5rem);
     width: auto;
 }
 
@@ -541,15 +551,15 @@ body.homepage .hero-media img {
 .hero-credit {
     position: absolute;
     right: max(var(--gutter), calc((100% - var(--content-max)) / 2));
-    bottom: 18px;
+    bottom: 1.125rem;
     z-index: 1;
     margin: 0;
     text-align: right;
-    font-size: 13.5px;
+    font-size: 0.8438rem;
     line-height: 1.45;
     letter-spacing: 0.02em;
     color: rgba(255, 255, 255, 0.9);
-    text-shadow: 0 1px 6px rgba(18, 6, 36, 0.9), 0 0 2px rgba(18, 6, 36, 0.8);
+    text-shadow: 0 1px 0.375rem rgba(18, 6, 36, 0.9), 0 0 2px rgba(18, 6, 36, 0.8);
 }
 
 .hero-credit span {
@@ -558,39 +568,39 @@ body.homepage .hero-media img {
 
 @media (max-width: 860px) {
     .hero {
-        --hero-h: min(560px, 72svh);
+        --hero-h: min(35rem, 72svh);
     }
 
     .hero-heading {
-        font-size: clamp(56px, 16vw, 72px);
+        font-size: clamp(3.5rem, 16vw, 4.5rem);
     }
 
     .hero-subheading {
-        font-size: clamp(21px, 5.6vw, 26px);
+        font-size: clamp(1.3125rem, 5.6vw, 1.625rem);
     }
 
 
     .hero-content {
         left: var(--gutter);
         right: var(--gutter);
-        bottom: 20px;
-        padding: 20px 22px 20px;
+        bottom: 1.25rem;
+        padding: 1.25rem 1.375rem 1.25rem;
     }
 
     .hero-affiliations {
-        gap: 12px 18px;
+        gap: 0.75rem 1.125rem;
     }
 
     .hero-affiliations img {
-        height: 30px;
+        height: 1.875rem;
     }
 
     .hero-credit {
-        top: 12px;
-        left: 16px;
+        top: 0.75rem;
+        left: 1rem;
         right: auto;
         text-align: left;
-        font-size: 12px;
+        font-size: 0.75rem;
     }
 
 }
@@ -605,13 +615,13 @@ body.homepage .hero-media img {
 ========================= */
 
 .research {
-    --tab-gap: clamp(16px, 2.3vw, 34px);
+    --tab-gap: clamp(1rem, 2.3vw, 2.125rem);
     position: relative;
     width: min(var(--content-max), calc(100% - 2 * var(--gutter)));
-    margin: 56px auto clamp(48px, 5vw, 64px);
+    margin: 3.5rem auto clamp(3rem, 5vw, 4rem);
     display: grid;
     grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
-    gap: clamp(36px, 5vw, 72px);
+    gap: clamp(2.25rem, 5vw, 4.5rem);
     align-items: start;
 }
 
@@ -631,13 +641,13 @@ body.homepage .hero-media img {
     position: relative;
     flex: none;
     white-space: nowrap;
-    padding: 16px 0 0;
+    padding: 1rem 0 0;
     border: 0;
     background: none;
     text-align: left;
     cursor: pointer;
     font-family: var(--font-serif);
-    font-size: clamp(17px, 1.45vw, 20px);
+    font-size: clamp(1.0625rem, 1.45vw, 1.25rem);
     line-height: 1.3;
     color: var(--muted);
     transition: color 0.2s ease;
@@ -669,9 +679,9 @@ body.homepage .hero-media img {
 .research-marker {
     position: absolute;
     left: 0;
-    top: -2px;                  /* centred on the 1px line */
-    width: 24px;                /* fixed size; home.js centres it over the label */
-    height: 5px;
+    top: calc(0.5px - 0.15625rem);   /* centred on the 1px line */
+    width: 1.5rem;                /* fixed size; home.js centres it over the label */
+    height: 0.3125rem;
     border-radius: 999px;
     background: var(--frame-line);
     will-change: transform;
@@ -683,7 +693,7 @@ body.homepage .hero-media img {
    so swapping never shifts what's below; they crossfade in place. */
 .research-detail {
     display: grid;
-    margin-top: 26px;
+    margin-top: 1.625rem;
     max-width: 40em;
 }
 
@@ -701,9 +711,9 @@ body.homepage .hero-media img {
 }
 
 .research-area h3 {
-    margin: 0 0 10px;
+    margin: 0 0 0.625rem;
     font-family: var(--font-serif);
-    font-size: clamp(21px, 1.8vw, 24px);
+    font-size: clamp(1.3125rem, 1.8vw, 1.5rem);
     line-height: 1.2;
     font-weight: 400;
     color: var(--text);
@@ -711,7 +721,7 @@ body.homepage .hero-media img {
 
 .research-area p {
     margin: 0;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 1.7;
     color: var(--text-soft);
 }
@@ -726,7 +736,7 @@ body.homepage .hero-media img {
 
 .research-overview p {
     font-family: var(--font-serif);
-    font-size: clamp(21px, 1.75vw, 24px);
+    font-size: clamp(1.3125rem, 1.75vw, 1.5rem);
     line-height: 1.5;
     color: var(--text);
 }
@@ -740,7 +750,7 @@ body.homepage .hero-media img {
 }
 
 .research > .lab-life {
-    margin-top: 22px;
+    margin-top: 1.375rem;
 }
 
 .lab-life-frame {
@@ -757,7 +767,7 @@ body.homepage .hero-media img {
 .lab-life-frame::before {
     content: "";
     position: absolute;
-    inset: -22px -22px 22px 22px;
+    inset: -1.375rem -1.375rem 1.375rem 1.375rem;
     border: 1px solid var(--frame-line);
     pointer-events: none;
 }
@@ -782,10 +792,10 @@ body.homepage .hero-media img {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto auto;
     grid-template-areas: "cap dots more";
-    column-gap: 18px;
+    column-gap: 1.125rem;
     align-items: center;
-    margin-top: 12px;
-    font-size: 15px;
+    margin-top: 0.75rem;
+    font-size: 0.9375rem;
     line-height: 1;
 }
 
@@ -807,8 +817,8 @@ body.homepage .hero-media img {
 
 /* 8px dots inside 24px tap targets. */
 .lab-life-dot {
-    width: 24px;
-    height: 24px;
+    width: 1.5rem;
+    height: 1.5rem;
     padding: 0;
     border: 0;
     background: none;
@@ -818,8 +828,8 @@ body.homepage .hero-media img {
 .lab-life-dot::before {
     content: "";
     display: block;
-    width: 8px;
-    height: 8px;
+    width: 0.5rem;
+    height: 0.5rem;
     margin: auto;
     border-radius: 50%;
     background: rgba(30, 20, 40, 0.22);
@@ -843,18 +853,18 @@ body.homepage .hero-media img {
    behaviour as the hover on wide screens. */
 @media (max-width: 860px) {
     .research {
-        margin-top: 40px;
+        margin-top: 2.5rem;
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 2.5rem;
     }
 
     .research > .lab-life {
         order: -1;
-        margin-top: 14px;
+        margin-top: 0.875rem;
     }
 
     .lab-life-frame::before {
-        inset: -14px -14px 14px 14px;
+        inset: -0.875rem -0.875rem 0.875rem 0.875rem;
         border-left: 1px solid var(--frame-line);
     }
 
@@ -872,12 +882,12 @@ body.homepage .hero-media img {
     .lab-life-bar {
         grid-template-columns: auto 1fr;
         grid-template-areas: "cap cap" "dots more";
-        row-gap: 6px;
+        row-gap: 0.375rem;
     }
 
     .lab-life-dots {
         justify-self: start;
-        margin-left: -8px;
+        margin-left: -0.5rem;
     }
 
     .lab-life-more {
@@ -885,11 +895,11 @@ body.homepage .hero-media img {
     }
 
     .research {
-        --tab-gap: clamp(8px, 2.5vw, 22px);
+        --tab-gap: clamp(0.5rem, 2.5vw, 1.375rem);
     }
 
     .research-tab {
-        font-size: clamp(14.5px, 3.9vw, 18px);
+        font-size: clamp(0.9062rem, 3.9vw, 1.125rem);
     }
 
     /* Taps don't hover-flicker, so the text can take its own height. */
@@ -914,8 +924,8 @@ body.homepage .hero-media img {
 
 .page-title,
 .small-section-title {
-    margin: 0 0 22px 0;
-    font-size: clamp(26px, 2.6vw, 32px);
+    margin: 0 0 1.375rem 0;
+    font-size: clamp(1.625rem, 2.6vw, 2rem);
     line-height: 1.05;
     font-weight: 300;
     letter-spacing: -0.035em;
@@ -926,19 +936,19 @@ body.homepage .hero-media img {
    borderless entries on the right. */
 .pub-year {
     display: grid;
-    grid-template-columns: 64px minmax(0, 46em);
-    gap: 0 32px;
-    margin-bottom: 44px;
+    grid-template-columns: 4rem minmax(0, 46em);
+    gap: 0 2rem;
+    margin-bottom: 2.75rem;
 }
 
 /* The year stays beside its papers while they scroll past. */
 .pub-year-title {
     position: sticky;
-    top: calc(var(--header-h) + 16px);
+    top: calc(var(--header-h) + 1rem);
     align-self: start;
     margin: 0;
-    padding-top: 24px;
-    font-size: 26px;
+    padding-top: 1.5rem;
+    font-size: 1.625rem;
     font-weight: 400;
     color: var(--text-soft);
 }
@@ -948,13 +958,13 @@ body.homepage .hero-media img {
 }
 
 .pub-item {
-    padding: 24px 0 26px;
+    padding: 1.5rem 0 1.625rem;
     border-top: 1px solid var(--line);
 }
 
 .pub-title {
-    margin: 0 0 10px 0;
-    font-size: clamp(19px, 1.5vw, 22px);
+    margin: 0 0 0.625rem 0;
+    font-size: clamp(1.1875rem, 1.5vw, 1.375rem);
     line-height: 1.35;
     font-weight: 400;
     color: var(--text);
@@ -971,8 +981,8 @@ body.homepage .hero-media img {
 }
 
 .pub-authors {
-    margin: 0 0 5px 0;
-    font-size: 15px;
+    margin: 0 0 0.3125rem 0;
+    font-size: 0.9375rem;
     line-height: 1.6;
     color: var(--text-soft);
 }
@@ -984,32 +994,32 @@ body.homepage .hero-media img {
 
 .pub-venue {
     margin: 0;
-    font-size: 15px;
+    font-size: 0.9375rem;
     line-height: 1.6;
     color: var(--muted);
     font-style: italic;
 }
 
 .pub-links {
-    margin-top: 12px;
+    margin-top: 0.75rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 1.25rem;
 }
 
 .pub-link {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    min-height: 32px;           /* comfortable tap target */
+    gap: 0.3125rem;
+    min-height: 2rem;           /* comfortable tap target */
     font-family: var(--font-sans);
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 500;
     color: var(--accent-page);
     background: transparent;
     text-decoration: underline;
     text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
+    text-underline-offset: 0.25rem;
     text-decoration-color: rgba(91, 63, 168, 0.35);
 }
 
@@ -1031,14 +1041,14 @@ body.homepage .hero-media img {
     .pub-year {
         grid-template-columns: 1fr;
         gap: 0;
-        margin-bottom: 40px;
+        margin-bottom: 2.5rem;
     }
 
     .pub-year-title {
         position: static;
         padding-top: 0;
-        margin-bottom: 8px;
-        font-size: 24px;
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
     }
 }
 
@@ -1047,20 +1057,20 @@ body.homepage .hero-media img {
 ========================= */
 
 .page-content {
-    padding: clamp(28px, 4.5vw, 56px) var(--gutter) clamp(48px, 6vw, 72px);
+    padding: clamp(1.75rem, 4.5vw, 3.5rem) var(--gutter) clamp(3rem, 6vw, 4.5rem);
     background: var(--bg);
 }
 
 .person-card h2 {
-    margin: 0 0 8px 0;
-    font-size: 23px;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.4375rem;
     font-weight: 500;
     color: var(--text);
 }
 
 .person-title {
     margin: 0;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 500;
     color: var(--accent-page);
 }
@@ -1074,12 +1084,12 @@ body.homepage .hero-media img {
 .scholar-link {
     display: inline-flex;
     align-items: center;
-    min-height: 32px;
-    padding: 0 14px;
+    min-height: 2rem;
+    padding: 0 0.875rem;
     border-radius: 0;
     border: 1px solid var(--line);
     font-family: var(--font-sans);
-    font-size: 11px;
+    font-size: 0.6875rem;
     letter-spacing: 0.09em;
     text-transform: uppercase;
     font-weight: 500;
@@ -1098,8 +1108,8 @@ body.homepage .hero-media img {
 .people-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 58px 40px;
-    margin-bottom: 96px;
+    gap: 3.625rem 2.5rem;
+    margin-bottom: 6rem;
 }
 
 /* Borderless, editorial cards. Clickable photos get a violet ring on
@@ -1123,7 +1133,7 @@ body.homepage .hero-media img {
         grid-template-rows: subgrid;
         row-gap: 0;
         align-content: start;
-        margin-bottom: clamp(28px, 4vw, 52px);
+        margin-bottom: clamp(1.75rem, 4vw, 3.25rem);
     }
 
     .person-card h2 {
@@ -1137,7 +1147,7 @@ body.homepage .hero-media img {
     border-radius: 0;
     aspect-ratio: 3 / 4;
     background: #E7E3EA;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
 }
 
 .person-photo img {
@@ -1176,7 +1186,7 @@ body.homepage .hero-media img {
     display: none;
     align-items: center;
     justify-content: center;
-    padding: 32px;
+    padding: 2rem;
 }
 
 .bio-modal.open {
@@ -1187,31 +1197,31 @@ body.homepage .hero-media img {
     position: absolute;
     inset: 0;
     background: rgba(7, 12, 18, 0.68);
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(0.375rem);
 }
 
 .bio-modal-card {
     position: relative;
     z-index: 1;
-    width: min(940px, 100%);
+    width: min(58.75rem, 100%);
     max-height: 85vh;
     overflow-y: auto;
     background: #ffffff;
     border: 1px solid var(--line);
     border-radius: 0;
     display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 44px;
-    padding: 44px;
+    grid-template-columns: 18.75rem 1fr;
+    gap: 2.75rem;
+    padding: 2.75rem;
 }
 
 .bio-modal-close {
     position: absolute;
-    top: 14px;
-    right: 18px;
+    top: 0.875rem;
+    right: 1.125rem;
     border: none;
     background: transparent;
-    font-size: 34px;
+    font-size: 2.125rem;
     line-height: 1;
     cursor: pointer;
     color: var(--text);
@@ -1225,16 +1235,16 @@ body.homepage .hero-media img {
 }
 
 .bio-modal-content h2 {
-    margin: 0 36px 4px 0;
-    font-size: 30px;
+    margin: 0 2.25rem 0.25rem 0;
+    font-size: 1.875rem;
     font-weight: 300;
     letter-spacing: -0.02em;
     color: var(--text);
 }
 
 .bio-modal-content .bio-modal-title {
-    margin: 0 0 22px 0;
-    font-size: 13px;
+    margin: 0 0 1.375rem 0;
+    font-size: 0.8125rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     font-weight: 500;
@@ -1243,40 +1253,40 @@ body.homepage .hero-media img {
 
 .bio-modal-content p {
     margin: 0;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 1.8;
     color: var(--muted);
 }
 
 .bio-modal-links {
-    margin-top: 20px;
+    margin-top: 1.25rem;
     display: flex;
-    gap: 10px;
+    gap: 0.625rem;
     flex-wrap: wrap;
 }
 
 /* Bio modal on mobile: stack image over text, fit the viewport */
 @media (max-width: 640px) {
     .bio-modal {
-        padding: 16px;
+        padding: 1rem;
     }
 
     .bio-modal-card {
         grid-template-columns: 1fr;
-        gap: 16px;
-        padding: 20px;
+        gap: 1rem;
+        padding: 1.25rem;
         max-height: 88vh;
     }
 
     .bio-modal-image {
         aspect-ratio: auto;
-        height: 230px;
+        height: 14.375rem;
         object-fit: cover;
     }
 
     .bio-modal-content h2 {
-        font-size: 24px;
-        margin-right: 30px;
+        font-size: 1.5rem;
+        margin-right: 1.875rem;
     }
 }
 
@@ -1285,17 +1295,17 @@ body.homepage .hero-media img {
 }
 
 .alumni-group-title {
-    margin: 0 0 12px 0;
+    margin: 0 0 0.75rem 0;
     font-family: var(--font-sans);
-    font-size: 15px;
+    font-size: 0.9375rem;
     font-weight: 600;
     color: var(--text);
 }
 
 .alumni-name {
     display: block;
-    margin: 0 0 6px 0;
-    font-size: 16px;
+    margin: 0 0 0.375rem 0;
+    font-size: 1rem;
     line-height: 1.5;
     font-weight: 400;
     color: var(--text-soft);
@@ -1305,8 +1315,8 @@ body.homepage .hero-media img {
 .collaborator-link {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-    font-size: 17px;
+    gap: 0.4375rem;
+    font-size: 1.0625rem;
     line-height: 1.35;
     font-weight: 400;
     color: var(--text-soft);
@@ -1335,13 +1345,13 @@ body.homepage .hero-media img {
 /* Collaborators read as one tidy list (not headerless columns), tucked
    closer to the Alumni section below. */
 .side-by-side-lists.collaborators-block {
-    margin-bottom: 48px;
+    margin-bottom: 3rem;
 }
 
 .collaborators-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px 44px;
+    grid-template-columns: repeat(auto-fit, minmax(13.75rem, 1fr));
+    gap: 1.25rem 2.75rem;
 }
 
 @media (max-width: 560px) {
@@ -1352,8 +1362,8 @@ body.homepage .hero-media img {
 
 .side-by-side-lists {
     display: block;
-    margin-bottom: 80px;
-    padding-top: 48px;
+    margin-bottom: 5rem;
+    padding-top: 3rem;
     border-top: 1px solid var(--line);
 }
 
@@ -1363,15 +1373,15 @@ body.homepage .hero-media img {
 
 .grouped-list-wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 28px 44px;
+    grid-template-columns: repeat(auto-fit, minmax(13.75rem, 1fr));
+    gap: 1.75rem 2.75rem;
     margin-bottom: 0;
 }
 
 @media (max-width: 800px) {
     .side-by-side-lists {
         grid-template-columns: 1fr;
-        gap: 48px;
+        gap: 3rem;
     }
 }
 
@@ -1394,7 +1404,7 @@ body.homepage .hero-media img {
 @media (max-width: 500px) {
     .people-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 28px 16px;
+        gap: 1.75rem 1rem;
     }
 
     
@@ -1415,7 +1425,7 @@ body.homepage .hero-media img {
    the banner at the top of the homepage, which overlaps its band from
    below. */
 .site-footer {
-    --footer-rise: 112px;       /* how far the panel rises above the band */
+    --footer-rise: 7rem;       /* how far the panel rises above the band */
     box-sizing: border-box;
     padding: 0 var(--gutter);
     background: linear-gradient(to bottom,
@@ -1429,17 +1439,17 @@ body.homepage .hero-media img {
     max-width: var(--content-max);
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 56px 40px 80px;
+    padding: 3.5rem 2.5rem 5rem;
     background: var(--ink);
-    border-top: 6px solid var(--accent-bright);
+    border-top: 0.375rem solid var(--accent-bright);
     display: grid;
     grid-template-columns: 1.25fr 0.8fr 1.2fr 1.25fr;
-    gap: 40px 36px;
+    gap: 2.5rem 2.25rem;
 }
 
 /* Brand column */
 .footer-brand {
-    max-width: 380px;
+    max-width: 23.75rem;
 }
 
 .footer-geisel {
@@ -1447,7 +1457,7 @@ body.homepage .hero-media img {
 }
 
 .footer-geisel img {
-    width: 220px;
+    width: 13.75rem;
     max-width: 100%;
     height: auto;
     display: block;
@@ -1457,8 +1467,8 @@ body.homepage .hero-media img {
 
 /* Column headings */
 .footer-col h4 {
-    margin: 0 0 22px;
-    font-size: 12px;
+    margin: 0 0 1.375rem;
+    font-size: 0.75rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--accent-bright);
@@ -1471,11 +1481,11 @@ body.homepage .hero-media img {
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 16px;
+    gap: 1rem;
 }
 
 .footer-col a {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 1.4;
     color: rgba(255, 255, 255, 0.78);
@@ -1488,15 +1498,15 @@ body.homepage .hero-media img {
 
 /* Contact column */
 .footer-contact .footer-pi {
-    margin: 0 0 4px;
-    font-size: 17px;
+    margin: 0 0 0.25rem;
+    font-size: 1.0625rem;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.92);
 }
 
 .footer-contact .footer-role {
-    margin: 0 0 16px;
-    font-size: 13px;
+    margin: 0 0 1rem;
+    font-size: 0.8125rem;
     letter-spacing: 0.06em;
     font-weight: 300;
     color: rgba(255, 255, 255, 0.5);
@@ -1504,8 +1514,8 @@ body.homepage .hero-media img {
 
 .footer-contact a {
     display: inline-block;
-    margin-bottom: 18px;
-    font-size: 16px;
+    margin-bottom: 1.125rem;
+    font-size: 1rem;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.78);
 }
@@ -1517,7 +1527,7 @@ body.homepage .hero-media img {
 
 .footer-address {
     margin: 0;
-    font-size: 15px;
+    font-size: 0.9375rem;
     line-height: 1.75;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.52);
@@ -1527,7 +1537,7 @@ body.homepage .hero-media img {
 @media (max-width: 1024px) {
     .footer-inner {
         grid-template-columns: 1fr 1fr;
-        gap: 48px;
+        gap: 3rem;
     }
 
     /* Drop the Dartmouth/Geisel lockup on tablet & phone to keep the footer compact. */
@@ -1538,17 +1548,17 @@ body.homepage .hero-media img {
 
 @media (max-width: 560px) {
     .site-footer {
-        --footer-rise: 64px;
+        --footer-rise: 4rem;
     }
 
     .footer-inner {
-        padding: 40px 24px 48px;
+        padding: 2.5rem 1.5rem 3rem;
         grid-template-columns: 1fr;
-        gap: 42px;
+        gap: 2.625rem;
     }
 
     .footer-geisel img {
-        width: min(260px, 74vw);
+        width: min(16.25rem, 74vw);
     }
 }
 
@@ -1601,18 +1611,18 @@ body.homepage .hero-media img {
     .main-nav ul {
         flex-direction: column;
         gap: 0;
-        padding: 6px 0;
+        padding: 0.375rem 0;
     }
 
     .main-nav a {
         display: block;
-        padding: 15px var(--gutter);
-        font-size: 14px;
+        padding: 0.9375rem var(--gutter);
+        font-size: 0.875rem;
         letter-spacing: 0.08em;
     }
 
     .main-nav a[aria-current="page"] {
-        text-underline-offset: 6px;
+        text-underline-offset: 0.375rem;
     }
 }
 
@@ -1622,12 +1632,12 @@ body.homepage .hero-media img {
 
 .page-header {
     max-width: var(--content-max);
-    margin: 0 auto clamp(28px, 3.5vw, 40px);
+    margin: 0 auto clamp(1.75rem, 3.5vw, 2.5rem);
 }
 
 .page-eyebrow {
-    margin: 0 0 12px;
-    font-size: 13px;
+    margin: 0 0 0.75rem;
+    font-size: 0.8125rem;
     font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -1637,7 +1647,7 @@ body.homepage .hero-media img {
 .page-heading {
     margin: 0;
     font-family: var(--font-serif);
-    font-size: clamp(36px, 4.2vw, 54px);
+    font-size: clamp(2.25rem, 4.2vw, 3.375rem);
     line-height: 1.04;
     font-weight: 300;
     letter-spacing: -0.02em;
@@ -1645,9 +1655,9 @@ body.homepage .hero-media img {
 }
 
 .page-desc {
-    max-width: 720px;
-    margin: 22px 0 0;
-    font-size: 19px;
+    max-width: 45rem;
+    margin: 1.375rem 0 0;
+    font-size: 1.1875rem;
     line-height: 1.75;
     font-weight: 400;
     color: var(--text-soft);
@@ -1655,11 +1665,11 @@ body.homepage .hero-media img {
 
 @media (max-width: 560px) {
     .page-header {
-        margin-bottom: 24px;
+        margin-bottom: 1.5rem;
     }
 
     .page-desc {
-        font-size: 16px;
+        font-size: 1rem;
     }
 }
 
@@ -1678,32 +1688,32 @@ body.homepage .hero-media img {
 /* Contact has no page-desc, so tighten the heading-to-content gap to match
    the 22px rhythm used under the other section headings. */
 .contact-section .page-header {
-    margin-bottom: 22px;
+    margin-bottom: 1.375rem;
 }
 
 .contact-layout {
     display: grid;
     grid-template-columns: 0.85fr 1.15fr;
-    gap: 48px;
+    gap: 3rem;
     align-items: stretch;
 }
 
 .contact-info {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 1.875rem;
 }
 
 .contact-block h4 {
-    margin: 0 0 6px;
-    font-size: 15px;
+    margin: 0 0 0.375rem;
+    font-size: 0.9375rem;
     font-weight: 600;
     color: var(--text);
 }
 
 .contact-block p {
     margin: 0;
-    font-size: 17px;
+    font-size: 1.0625rem;
     line-height: 1.65;
     font-weight: 400;
     color: var(--text);
@@ -1714,7 +1724,7 @@ body.homepage .hero-media img {
     font-weight: 500;
     text-decoration: underline;
     text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
+    text-underline-offset: 0.25rem;
     text-decoration-color: rgba(91, 63, 168, 0.35);
 }
 
@@ -1729,8 +1739,8 @@ body.homepage .hero-media img {
 .contact-map {
     width: 100%;
     height: 100%;
-    min-height: 300px;
-    max-height: 420px;
+    min-height: 18.75rem;
+    max-height: 26.25rem;
     overflow: hidden;
     border: 1px solid var(--frame-line);
     background: #E7E3EA;
@@ -1743,13 +1753,13 @@ body.homepage .hero-media img {
 .contact-map-canvas {
     width: 100%;
     height: 100%;
-    min-height: 340px;
+    min-height: 21.25rem;
 }
 
 @media (max-width: 760px) {
     .contact-layout {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 1.875rem;
     }
 }
 
@@ -1764,8 +1774,8 @@ body.homepage .hero-media img {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-    gap: 26px 16px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: 1.625rem 1rem;
 }
 
 .gallery-item {
@@ -1787,8 +1797,8 @@ body.homepage .hero-media img {
 }
 
 .gallery-item figcaption {
-    margin: 11px 2px 0;
-    font-size: 15px;
+    margin: 0.6875rem 2px 0;
+    font-size: 0.9375rem;
     letter-spacing: 0.02em;
     color: var(--muted);
 }
@@ -1801,10 +1811,10 @@ body.homepage .hero-media img {
     display: none;
     align-items: center;
     justify-content: center;
-    padding: 40px;
+    padding: 2.5rem;
     background: rgba(0, 0, 0, 0.92);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(0.25rem);
+    -webkit-backdrop-filter: blur(0.25rem);
 }
 
 .lightbox.open {
@@ -1815,30 +1825,30 @@ body.homepage .hero-media img {
     max-width: 92vw;
     max-height: 84vh;
     object-fit: contain;
-    border-radius: 4px;
-    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+    border-radius: 0.25rem;
+    box-shadow: 0 1.5rem 4.375rem rgba(0, 0, 0, 0.55);
 }
 
 .lightbox-caption {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 24px;
+    bottom: 1.5rem;
     margin: 0;
     text-align: center;
     color: rgba(255, 255, 255, 0.85);
-    font-size: 15px;
+    font-size: 0.9375rem;
     letter-spacing: 0.04em;
 }
 
 .lightbox-close {
     position: absolute;
-    top: 18px;
-    right: 26px;
+    top: 1.125rem;
+    right: 1.625rem;
     background: transparent;
     border: none;
     color: #ffffff;
-    font-size: 42px;
+    font-size: 2.625rem;
     line-height: 1;
     cursor: pointer;
 }
