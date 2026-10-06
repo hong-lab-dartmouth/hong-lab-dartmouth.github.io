@@ -91,4 +91,6 @@ The site deploys automatically from the `main` branch via GitHub Pages.
 1. Create a branch, make your change, and open a Pull Request into `main`.
 2. After review and merge, GitHub Pages rebuilds (about a minute) and the change is live at honglab.bio.
 
-There is no manual deploy step. The custom domain and HTTPS are already configured in the repository's **Settings → Pages**.
+There is no manual deploy step.
+
+**When you change `css/style.css` or any file in `js/`,** bump the `?v=` number on its `<link>`/`<script>` tags in every page (e.g. `?v=20261006` → `?v=20261020`). GitHub Pages lets browsers reuse those files for 10 minutes, so without a new number a returning visitor can see the new page with the old styles. The custom domain and HTTPS are already configured in the repository's **Settings → Pages**.
