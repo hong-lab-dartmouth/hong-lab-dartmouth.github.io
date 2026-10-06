@@ -71,7 +71,8 @@ async function loadPeoplePage() {
   const team = data.sections
     .filter((s) => !isAlumni(s))
     .sort((a, b) => SECTION_ORDER.indexOf(a.title.toLowerCase()) - SECTION_ORDER.indexOf(b.title.toLowerCase()))
-    .flatMap((s) => s.people.map((p) => ({ ...p, title: s.title.replace(/Students?$/i, 'Student') })));
+    // A person's own "role" (e.g. "MD-PhD Student") overrides the section's.
+    .flatMap((s) => s.people.map((p) => ({ ...p, title: p.role || s.title.replace(/Students?$/i, 'Student') })));
 
   if (data.labDirector) {
     team.unshift({ ...data.labDirector, title: data.labDirector.title || 'Principal Investigator' });

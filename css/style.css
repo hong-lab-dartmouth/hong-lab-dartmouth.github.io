@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Geist:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap');
 
 /* =========================
    Base
@@ -17,38 +18,40 @@ site-footer {
 }
 
 :root {
-    --font-sans: "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-                 Roboto, Helvetica, Arial, sans-serif;
-    /* Geisel-spec serif: Bembo (print) -> Garamond secondary -> EB Garamond on web */
+    /* Display: EB Garamond (Google Fonts; Geisel-spec Garamond lineage).
+       Body and UI: Satoshi (Fontshare). */
+    --font-sans: "Satoshi", "Helvetica Neue", Arial, sans-serif;
     --font-serif: "EB Garamond", Garamond, Georgia, "Times New Roman", serif;
-    /* alias kept so existing references keep working */
-    --font-headings: var(--font-sans);
 
-    --ink: #0E0917;             /* near-black violet — chrome surfaces; reads black, nods to the nerve */
-    --bg: #fafafa;
-    --text: #0a0a0a;
-    --muted: #6b7280;
-    --line: rgba(10, 10, 10, 0.10);
+    /* Neutrals are tinted toward the micrograph's plum-black, never plain grey. */
+    --bg: #F5F3EF;              /* warm page */
+    --text: #1E1428;            /* plum ink, 16:1 on the page */
+    --text-soft: #3A3042;       /* long-form body text */
+    --muted: #5C5366;           /* captions, secondary text, 6.6:1 */
+    --line: rgba(30, 20, 40, 0.12);
     --white: #ffffff;
 
-    --accent: #17252d;          /* Geisel dark slate — accent on light surfaces */
-    --accent-bright: #3E8E88;   /* muted deep teal — header/footer chrome accents */
-    --accent-page: #7A54AE;     /* violet — in-page accents (slightly brighter, still mature) */
+    --ink: #1C0F2E;             /* dark panels (footer) */
+    --hero-ink: #120624;        /* the deep purple of the nerve image's background */
 
-    --radius: 8px;
-    --radius-lg: 12px;
+    --violet: #5B3FA8;          /* iris: cool, collegiate violet for solid bands + accents, 7.0:1 as text */
+    --accent-page: var(--violet);   /* interaction: selected research bar, text selection, links, dots */
+    --accent-wash: #ECE9E4;     /* faint warm gray: full-width bands (top and footer) */
+    --accent-bright: #3E8E88;   /* muted teal: footer rule and labels */
+    --frame-line: #C9C4BC;      /* offset frames: subtle warm gray, a step darker than the band */
 
     --panel-w: 680px;           /* hero panel width */
 
     /* One frame for every section: header, hero, page content and footer
        share the same left/right edges at every width. */
-    --content-max: 1392px;
+    --content-max: 1120px;
     --gutter: 44px;
-    --header-h: 96px;           /* sticky header: 20px + 56px logo + 20px */
+    --header-h: 72px;           /* white sticky header */
+    --hero-h: clamp(380px, 68svh, 620px);   /* full-width banner: shorter on short windows */
 }
 
 @media (max-width: 1024px) {
-    :root { --gutter: 32px; --header-h: 80px; }
+    :root { --gutter: 32px; --header-h: 64px; }
 }
 
 @media (max-width: 560px) {
@@ -93,34 +96,31 @@ a:hover {
     outline-offset: 3px;
 }
 
-.site-header :focus-visible,
 .site-footer :focus-visible,
 .hero :focus-visible {
     outline-color: var(--accent-bright);
 }
 
-/* Translucent violet wash — lets the text colour show through for a soft,
-   refined highlight rather than a flat block. (violet @ 27%) */
+/* Text selection in the brand violet. */
 ::selection {
-    background: rgba(122, 84, 174, 0.27);
+    background: var(--accent-page);
+    color: #ffffff;
 }
 
 ::-moz-selection {
-    background: rgba(122, 84, 174, 0.27);
+    background: var(--accent-page);
+    color: #ffffff;
 }
 
-/* Purple-text elements get a (slightly lighter) purple highlight with black
-   text, so the violet glyphs stay legible instead of muddying against teal. */
-.bio-modal-title::selection,
-.person-title::selection {
-    background: rgba(150, 120, 214, 0.45);
-    color: #0a0a0a;
-}
 
-.bio-modal-title::-moz-selection,
-.person-title::-moz-selection {
-    background: rgba(150, 120, 214, 0.45);
-    color: #0a0a0a;
+/* Hidden on screen, still read by screen readers. */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
 }
 
 /* =========================
@@ -134,10 +134,132 @@ a:hover {
     width: 100%;
     z-index: 1000;
 
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    background: #ffffff;
+    border-bottom: 1px solid var(--line);
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+                background-color 0.2s ease;
+}
 
-    background: var(--ink);
+/* Once scrolled: translucent, with the page blurred beneath it. While
+   scrolling down it slips up out of view; any scroll up brings it back
+   (components.js toggles these classes). */
+.site-header.is-scrolled {
+    background: rgba(255, 255, 255, 0.78);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    backdrop-filter: saturate(160%) blur(14px);
+}
+
+.site-header.is-hidden {
+    transform: translateY(-100%);
+}
+
+/* Homepage: over the full-screen nerve image the header is clear with
+   white type; once the image scrolls up past it, it turns solid white
+   (components.js toggles .is-over-hero). Not while the phone menu is open. */
+.site-header.is-over-hero:not(.nav-open) {
+    background: linear-gradient(to bottom, rgba(10, 4, 20, 0.75), rgba(10, 4, 20, 0.45) 60%, rgba(10, 4, 20, 0)) border-box;
+    border-bottom-color: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+.site-header.is-over-hero:not(.nav-open) .main-nav a,
+.site-header.is-over-hero:not(.nav-open) .nav-toggle,
+.site-header.is-over-hero:not(.nav-open) .home-link {
+    color: #ffffff;
+}
+
+.site-header.is-over-hero:not(.nav-open) .main-nav a[aria-current="page"] {
+    text-decoration-color: rgba(255, 255, 255, 0.5);
+}
+
+.site-header.is-over-hero:not(.nav-open) .header-affiliations img {
+    filter: brightness(0) invert(1);
+}
+
+.site-header {
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+                background-color 0.35s ease,
+                border-color 0.35s ease;
+}
+
+.main-nav a,
+.nav-toggle,
+.header-affiliations img {
+    transition: opacity 0.2s ease, color 0.35s ease, filter 0.35s ease;
+}
+
+/* Homepage hero fills the first screen, running up under the header. */
+body.homepage main {
+    margin-top: calc(-1 * var(--header-h) - 1px);   /* header height + its 1px border */
+}
+
+body.homepage .hero {
+    --hero-h: 100svh;
+}
+
+body.homepage .hero-media img {
+    object-position: center 40%;    /* keep the bright fibre bundle centred on tall screens */
+}
+
+/* Over the full-screen image the nav reads a step larger and brighter. */
+body.homepage .site-header.is-over-hero .main-nav a {
+    opacity: 1;
+    text-shadow: 0 1px 8px rgba(18, 6, 36, 0.55);
+}
+
+body.homepage .hero-credit {
+    font-size: 14px;
+}
+
+@media (min-width: 861px) {
+    body.homepage .hero-content {
+        bottom: clamp(56px, 10svh, 96px);
+    }
+}
+
+@media (max-width: 860px) {
+    /* Phones: the credit sits at the bottom, clear of the header. */
+    body.homepage .hero-credit {
+        top: auto;
+        bottom: 12px;
+        left: auto;
+        right: var(--gutter);
+        text-align: right;
+        font-size: 12px;
+    }
+
+    body.homepage .hero-content {
+        bottom: 64px;
+    }
+
+    .hero-kicker {
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        line-height: 1.5;
+    }
+
+    .kicker-break {
+        display: block;          /* "at Dartmouth" on its own line, never clipped */
+    }
+
+    body.homepage .hero-affiliations img {
+        height: 34px;
+    }
+}
+
+/* As the page scrolls, home.js eases the image from full-bleed into a
+   slightly inset, rounded panel (same aspect ratio) with a gentle zoom. */
+body.homepage .hero-image-box {
+    will-change: clip-path;
+}
+
+body.homepage .hero-media img {
+    will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-header.is-hidden { transform: none; }
 }
 
 .header-inner {
@@ -151,63 +273,6 @@ a:hover {
     justify-content: space-between;
 }
 
-.logo-mark {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    /* Sans-serif wordmark in a subtle grey, to sit quietly beside the
-       grey shield and echo the muted tone of the nav. */
-    color: rgba(255, 255, 255, 0.66);
-    font-family: var(--font-sans);
-    font-size: 21px;
-    font-weight: 400;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-}
-
-.logo-mark img {
-    height: 56px;
-    width: auto;
-    object-fit: contain;
-    display: block;
-    flex: 0 0 auto;
-}
-
-.logo-rest {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.logo-rest-text {
-    display: inline-block;
-    line-height: 1.35;
-    padding-bottom: 2px;
-}
-
-/* Expand animation — homepage only. Other pages show the full
-   "HONG LAB" statically (no animation). */
-body.homepage .logo-rest {
-    max-width: 0;
-    transition: max-width 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-body.homepage .logo-rest-text {
-    opacity: 0;
-    transform: translateX(-18px);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-body.homepage .site-header.is-scrolled .logo-rest {
-    max-width: 320px;
-}
-
-body.homepage .site-header.is-scrolled .logo-rest-text {
-    opacity: 1;
-    transform: translateX(0);
-}
-
 .main-nav ul {
     list-style: none;
     display: flex;
@@ -217,40 +282,113 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 .main-nav a {
-    position: relative;
-    color: rgba(255, 255, 255, 0.82);
-    font-size: 16px;
-    font-weight: 400;
-    letter-spacing: 0.1em;
+    color: var(--text);
+    opacity: 0.85;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    transition: color 0.2s ease;
+    transition: opacity 0.2s ease;
 }
 
+
+/* Hover brightens softly, like the partner logos; the current page sits
+   at full strength with a fixed hairline rule beneath it. */
 .main-nav a:hover {
     opacity: 1;
-    color: #ffffff;
-}
-
-.main-nav a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -7px;
-    height: 1.5px;
-    background: var(--accent-bright);
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 0.28s ease;
-}
-
-.main-nav a:hover::after,
-.main-nav a[aria-current="page"]::after {
-    transform: scaleX(1);
 }
 
 .main-nav a[aria-current="page"] {
-    color: #ffffff;
+    opacity: 1;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: rgba(30, 20, 40, 0.35);
+    text-underline-offset: 10px;
+}
+
+/* Left side of the header: on inner pages the "Hong Lab" wordmark (a
+   link home), a hairline, then the partner logos. */
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    min-width: 0;
+}
+
+.home-link {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    line-height: 1;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+.home-link:hover {
+    opacity: 1;
+    color: var(--accent-page);
+}
+
+.home-link + .header-affiliations {
+    padding-left: 22px;
+    border-left: 1px solid var(--line);
+}
+
+@media (max-width: 560px) {
+    /* Phones: shield first, then the name, as one lockup (no divider). */
+    .header-brand { gap: 12px; }
+    .header-brand .header-affiliations { order: -1; }
+    .home-link { font-size: 23px; }
+    .home-link + .header-affiliations { padding-left: 0; border-left: 0; }
+    .header-affiliations .affil-geisel img { height: 40px; }
+    .page-content { padding-top: 40px; padding-bottom: 64px; }
+    .page-header { margin-bottom: 32px; }
+}
+
+
+
+/* Partner logos at the top left of the header, in one quiet grey. Every
+   mark is flattened to solid ink and faded by the same amount, so they
+   all read at the same tone whatever color the source file is. */
+.header-affiliations {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+
+.header-affiliations a {
+    display: inline-flex;
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
+}
+
+.header-affiliations a:hover {
+    opacity: 1;
+}
+
+.header-affiliations img {
+    display: block;
+    height: 34px;
+    width: auto;
+    filter: brightness(0);
+}
+
+.header-affiliations .affil-geisel img {
+    height: 44px;
+}
+
+.header-affiliations .affil-geisel img {
+    height: 46px;
+}
+
+.header-affiliations .affil-ind img { height: 36px; }
+.header-affiliations .affil-dh img { height: 32px; }
+
+@media (max-width: 560px) {
+    .header-affiliations { gap: 16px; }
+    .header-affiliations img { height: 26px; }
+    .header-affiliations .affil-geisel img { height: 34px; }
+    .header-affiliations .affil-ind img { height: 28px; }
+    .header-affiliations .affil-dh img { height: 25px; }
 }
 
 /* Mobile menu toggle — hidden on desktop, shown via the mobile media query */
@@ -263,7 +401,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     padding: 0;
     background: transparent;
     border: none;
-    color: #ffffff;
+    color: var(--text);
     cursor: pointer;
 }
 
@@ -288,438 +426,477 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 /* =========================
-   Hero slideshow
+   Hero — the nerve micrograph full width across the top of the page,
+   with the lab name, tagline and partner logos in a translucent black
+   box aligned to the content column, and the image credit at lower right.
 ========================= */
 
-.hero {
+.hero-stage {
     position: relative;
-    height: calc(100svh - var(--header-h));
-    min-height: 620px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    overflow: hidden;
+}
+
+.hero-image-box {
+    position: relative;
+    height: var(--hero-h);
+    background: var(--hero-ink);
+}
+
+.lab-life-frame::before {
+    content: "";
+    position: absolute;
+    border: 1px solid var(--frame-line);
+    pointer-events: none;
+}
+
+.hero-media,
+.hero-media picture,
+.hero-media img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .hero-media {
-    position: absolute;
-    inset: 0;
     overflow: hidden;
-    background: var(--ink);
 }
 
-.hero-image {
+.hero-media img {
+    object-fit: cover;
+    object-position: center 42%;     /* keep the bright fiber bundle in the shorter crop */
+}
+
+/* The lab name in a translucent black box. */
+.hero-content {
+    position: absolute;
+    left: max(var(--gutter), calc((100% - var(--content-max)) / 2));
+    bottom: clamp(32px, 6svh, 64px);
+    z-index: 1;
+    padding: clamp(26px, 3vw, 40px) clamp(30px, 3.6vw, 52px) clamp(28px, 3.2vw, 44px);
+    background: rgba(8, 4, 14, 0.7);
+}
+
+.hero-kicker {
+    margin: 0 0 clamp(12px, 1.4vw, 18px);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.hero-heading {
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(56px, 7.4vw, 104px);
+    line-height: 1;
+    font-weight: 400;
+}
+
+.hero-subheading {
+    margin: 10px 0 0;
+    color: rgba(255, 255, 255, 0.92);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(21px, 2.4vw, 31px);
+    line-height: 1.3;
+    font-weight: 400;
+}
+
+/* Partner logos in white inside the title box, under a hairline (the
+   homepage header then shows only the Geisel shield). */
+.hero-affiliations {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px clamp(18px, 2.2vw, 28px);
+    margin-top: clamp(18px, 2vw, 26px);
+    padding-top: clamp(16px, 1.8vw, 22px);
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.hero-affiliations a {
+    display: inline-flex;
+    opacity: 0.95;
+    transition: opacity 0.2s ease;
+}
+
+.hero-affiliations a:hover {
+    opacity: 1;
+}
+
+.hero-affiliations img {
+    display: block;
+    height: clamp(30px, 2.8vw, 40px);
+    width: auto;
+}
+
+/* The header carries only the Geisel shield beside the lab name; the
+   full set of partner logos lives in the homepage banner and the footer. */
+.header-affiliations a:not(.affil-geisel) {
+    display: none;
+}
+
+.hero-credit {
+    position: absolute;
+    right: max(var(--gutter), calc((100% - var(--content-max)) / 2));
+    bottom: 18px;
+    z-index: 1;
+    margin: 0;
+    text-align: right;
+    font-size: 13.5px;
+    line-height: 1.45;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 6px rgba(18, 6, 36, 0.9), 0 0 2px rgba(18, 6, 36, 0.8);
+}
+
+.hero-credit span {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 860px) {
+    .hero {
+        --hero-h: min(560px, 72svh);
+    }
+
+    .hero-heading {
+        font-size: clamp(56px, 16vw, 72px);
+    }
+
+    .hero-subheading {
+        font-size: clamp(21px, 5.6vw, 26px);
+    }
+
+
+    .hero-content {
+        left: var(--gutter);
+        right: var(--gutter);
+        bottom: 20px;
+        padding: 20px 22px 20px;
+    }
+
+    .hero-affiliations {
+        gap: 12px 18px;
+    }
+
+    .hero-affiliations img {
+        height: 30px;
+    }
+
+    .hero-credit {
+        top: 12px;
+        left: 16px;
+        right: auto;
+        text-align: left;
+        font-size: 12px;
+    }
+
+}
+
+/* =========================
+   Research — "Research" (the overview) and five areas as one row on the
+   banner frame's line; below it the selected text, with life in the lab
+   beside it. A gray pill on the line marks the selection and glides to
+   whichever area is pointed at (or tapped). Every size is fluid, so the
+   row, text and photo all stay comfortably visible as the window
+   resizes; the photo also caps its height to the viewport.
+========================= */
+
+.research {
+    --tab-gap: clamp(16px, 2.3vw, 34px);
+    position: relative;
+    width: min(var(--content-max), calc(100% - 2 * var(--gutter)));
+    margin: 56px auto clamp(48px, 5vw, 64px);
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+    gap: clamp(36px, 5vw, 72px);
+    align-items: start;
+}
+
+.research-main {
+    min-width: 0;
+}
+
+/* The row of areas. */
+.research-list {
+    position: relative;
+    display: flex;
+    gap: var(--tab-gap);
+    border-top: 1px solid var(--frame-line);
+}
+
+.research-tab {
+    position: relative;
+    flex: none;
+    white-space: nowrap;
+    padding: 16px 0 0;
+    border: 0;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--font-serif);
+    font-size: clamp(17px, 1.45vw, 20px);
+    line-height: 1.3;
+    color: var(--muted);
+    transition: color 0.2s ease;
+}
+
+.research-tab:hover,
+.research-tab[aria-pressed="true"] {
+    color: var(--text);
+}
+
+/* "Research" is the overview: same face, set apart by a short hairline
+   centred in the space after it. */
+.research-tab-overview {
+    padding-right: var(--tab-gap);
+}
+
+.research-tab-overview::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0.3em;
+    width: 1px;
+    height: 0.9em;
+    background: var(--frame-line);
+}
+
+/* The pill: a short rounded capsule on the line, like a myelin sheath,
+   in the line's own color. home.js centres it over the selected label. */
+.research-marker {
+    position: absolute;
+    left: 0;
+    top: -2px;                  /* centred on the 1px line */
+    width: 24px;                /* fixed size; home.js centres it over the label */
+    height: 5px;
+    border-radius: 999px;
+    background: var(--frame-line);
+    will-change: transform;
+    transition: transform 0.42s cubic-bezier(0.34, 1.25, 0.5, 1);
+    pointer-events: none;
+}
+
+/* The selected text, set open (no box). All texts share one grid cell,
+   so swapping never shifts what's below; they crossfade in place. */
+.research-detail {
+    display: grid;
+    margin-top: 26px;
+    max-width: 40em;
+}
+
+.research-area {
+    grid-area: 1 / 1;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.22s ease, visibility 0s linear 0.22s;
+}
+
+.research-area.is-active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.22s ease, visibility 0s;
+}
+
+.research-area h3 {
+    margin: 0 0 10px;
+    font-family: var(--font-serif);
+    font-size: clamp(21px, 1.8vw, 24px);
+    line-height: 1.2;
+    font-weight: 400;
+    color: var(--text);
+}
+
+.research-area p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text-soft);
+}
+
+/* The overview is the lead for the whole section: set as a serif
+   standfirst, with no heading (the "Research" label names it), so it
+   fills the space beside the photo and reads above the five areas. */
+/* Body paragraphs avoid a single word on the last line. */
+.research-area p {
+    text-wrap: pretty;
+}
+
+.research-overview p {
+    font-family: var(--font-serif);
+    font-size: clamp(21px, 1.75vw, 24px);
+    line-height: 1.5;
+    color: var(--text);
+}
+
+/* Life in the lab: gallery photos crossfading, captioned, with a thin
+   frame set up-right behind the photo. */
+.lab-life {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+}
+
+.research > .lab-life {
+    margin-top: 22px;
+}
+
+.lab-life-frame {
+    position: relative;
+    aspect-ratio: 3 / 2;
+    background: #E7E3EA;
+}
+
+/* The photo always fills its column's width. */
+.research > .lab-life .lab-life-frame {
+    width: 100%;
+}
+
+.lab-life-frame::before {
+    content: "";
+    position: absolute;
+    inset: -22px -22px 22px 22px;
+    border: 1px solid var(--frame-line);
+    pointer-events: none;
+}
+
+.lab-life-slide {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
-    display: block;
+    opacity: 0;
+    transition: opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.hero-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    background: #07121f;
-    opacity: 0.10;
+.lab-life-slide.is-active {
+    opacity: 1;
 }
 
-/* Image caption — plain teal label tucked into the panel's bottom-right
-   (no box; sits on the panel itself), with a small triangle pointing right
-   toward the image. */
-.hero-caption {
-    position: absolute;
-    z-index: 3;
-    right: 52px;
-    top: 32px;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 4px;
-    text-align: right;
-    color: rgba(255, 255, 255, 0.62);
-    font-family: var(--font-sans);
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.05em;
-    line-height: 1;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
-}
-
-.hero-caption figcaption {
-    margin: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* Courtesy credit, one line below the subject; quieter than it.
-   Pulled in by the arrow's footprint (8px gap + 6px arrow) so it
-   right-aligns with the caption text, not with the arrow tip. */
-.hero-caption-credit {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 12px;
-    margin-right: 14px;
-}
-
-.hero-caption figcaption::after {
-    content: "";
-    width: 0;
-    height: 0;
-    border-top: 4px solid transparent;
-    border-bottom: 4px solid transparent;
-    border-left: 6px solid var(--accent-bright);
-}
-
-.hero-content {
+.lab-life-bar {
     position: relative;
-    z-index: 3;
-
-    width: min(var(--panel-w), calc(100% - 96px));
-    max-width: var(--panel-w);
-    height: 92%;                /* tall panel, stops just short of the bottom */
-    margin: 0;
-    margin-left: max(var(--gutter), calc((100% - var(--content-max)) / 2));
-    padding: 48px 52px;
-    box-sizing: border-box;
-
-    /* Tall panel; content anchored to the bottom. */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-
-    /* Gradient scrim: the nerve reads sharp at the top, deepening to opaque
-       behind the title so it stays legible — confident, not a flat block. */
-    background: linear-gradient(to bottom,
-                rgba(14, 9, 23, 0) 0%,
-                rgba(14, 9, 23, 0.30) 26%,
-                rgba(14, 9, 23, 0.88) 52%,
-                rgba(14, 9, 23, 0.97) 100%);
-    border: none;
-    border-radius: 0;
-
-    color: white;
-    text-align: left;
-}
-
-.hero-subheading {
-    margin: 28px 0 0 0;
-    color: rgba(255, 255, 255, 0.92);
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: clamp(26px, 3vw, 38px);
-    line-height: 1.3;
-    font-weight: 400;
-    letter-spacing: 0;
-    text-transform: none;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
-}
-
-.hero-heading {
-    margin: 0 0 14px 0;
-    color: white;
-    font-size: clamp(56px, 8vw, 128px);
-    line-height: 1.02;
-    font-weight: 300;
-    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55), 0 1px 4px rgba(0, 0, 0, 0.5);
-    letter-spacing: -0.035em;
-    max-width: none;
-}
-
-@media (max-width: 760px) {
-    .hero-content {
-        width: 100%;
-        margin-left: 0;
-        padding: 34px var(--gutter);
-        border-radius: 0;
-    }
-
-    .hero-heading {
-        font-size: clamp(44px, 14vw, 72px);
-    }
-
-    .hero-subheading {
-        font-size: 20px;
-        line-height: 1.3;
-    }
-
-    .hero-affiliations {
-        margin-top: 30px;
-        padding-top: 26px;
-        gap: 16px;
-    }
-
-    /* Subtle desktop-only details — hidden on mobile. */
-    .hero-caption {
-        display: none;
-    }
-}
-
-/* =========================
-   Hero affiliations
-========================= */
-
-.hero-affiliations {
-    margin-top: 42px;
-    padding-top: 34px;
-    border-top: 1px solid rgba(255, 255, 255, 0.16);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-    text-align: left;
-}
-
-.hero-affil-logos {
-    display: flex;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas: "cap dots more";
+    column-gap: 18px;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 26px;
-}
-
-.hero-affil {
-    display: inline-flex;
-    transition: opacity 0.2s ease;
-}
-
-.hero-affil img {
-    display: block;
-    height: 64px;
-    width: auto;
-    opacity: 0.62;
-}
-
-.hero-affil:hover img {
-    opacity: 0.95;
-}
-
-.hero-affil-geisel img {
-    height: 50px;
-}
-
-.hero-affil-ind img {
-    height: 54px;
-}
-
-.hero-affil-dh img {
-    height: 44px;
-}
-
-@media (max-width: 560px) {
-    .hero-affil-logos {
-        gap: 26px;
-    }
-
-    .hero-affil img {
-        height: 50px;
-    }
-
-    .hero-affil-geisel img {
-        height: 40px;
-    }
-
-    .hero-affil-ind img {
-        height: 44px;
-    }
-
-    .hero-affil-dh img {
-        height: 36px;
-    }
-}
-
-/* =========================
-   Research areas (white)
-========================= */
-
-.focus-section {
-    background: #ffffff;
-    color: #0a0a0a;
-    box-sizing: border-box;
-    padding: 110px var(--gutter);
-}
-
-.focus-inner {
-    max-width: var(--content-max);
-    margin: 0 auto;
-}
-
-.focus-accordion {
-    max-width: 940px;
-}
-
-.focus-section .section-heading {
-    max-width: none;
-    margin: 0 0 22px;
-    text-align: left;
-}
-
-.focus-section .section-heading h2 {
-    color: #0a0a0a;
-}
-
-.focus-intro {
-    max-width: 740px;
-    margin: 0 0 48px;
-    font-size: 19px;
-    line-height: 1.75;
-    font-weight: 400;
-    color: #374151;
-}
-
-.section-heading {
-    max-width: 1280px;
-    margin: 0 auto 48px;
-    text-align: center;
-}
-
-.section-heading h2 {
-    margin: 0;
-    font-size: clamp(38px, 5.2vw, 68px);
+    margin-top: 12px;
+    font-size: 15px;
     line-height: 1;
-    font-weight: 300;
-    letter-spacing: -0.045em;
-    color: white;
 }
 
-/* IMPORTANT: if images fail to load, circle stays visible */
-
-/* =========================
-   Research Areas Accordion
-========================= */
-
-.focus-accordion {
-    width: 100%;
-    margin: 0;
-    border-top: 1px solid rgba(10, 10, 10, 0.14);
+.lab-life-caption {
+    grid-area: cap;
+    color: var(--muted);
+    transition: opacity 0.25s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.accordion-item {
-    border-bottom: 1px solid rgba(10, 10, 10, 0.14);
-}
-
-.accordion-trigger {
-    width: 100%;
+.lab-life-dots {
+    grid-area: dots;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    padding: 26px 0;
-    background: transparent;
-    border: none;
+    gap: 0;
+    justify-self: end;
+}
+
+/* 8px dots inside 24px tap targets. */
+.lab-life-dot {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    background: none;
     cursor: pointer;
-    text-align: left;
-    color: #0a0a0a;
-    font-family: var(--font-sans);
-    transition: color 0.2s ease;
 }
 
-.accordion-title {
-    font-size: clamp(20px, 2.3vw, 28px);
-    font-weight: 300;
-    line-height: 1.25;
-    letter-spacing: -0.01em;
-}
-
-.accordion-trigger:hover {
-    color: var(--accent-page);
-}
-
-.accordion-icon {
-    position: relative;
-    flex: 0 0 auto;
-    width: 18px;
-    height: 18px;
-}
-
-.accordion-icon::before,
-.accordion-icon::after {
+.lab-life-dot::before {
     content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 18px;
-    height: 1.5px;
-    margin-top: -0.75px;
-    background: rgba(10, 10, 10, 0.55);
-    transition: transform 0.3s ease, background 0.2s ease;
+    display: block;
+    width: 8px;
+    height: 8px;
+    margin: auto;
+    border-radius: 50%;
+    background: rgba(30, 20, 40, 0.22);
+    transition: background 0.3s ease;
 }
 
-.accordion-icon::after {
-    transform: rotate(90deg);
-}
-
-.accordion-trigger:hover .accordion-icon::before,
-.accordion-trigger:hover .accordion-icon::after {
+.lab-life-dot[aria-current="true"]::before {
     background: var(--accent-page);
 }
 
-.accordion-trigger[aria-expanded="true"] .accordion-icon::after {
-    transform: rotate(0deg);
+.lab-life-more {
+    grid-area: more;
+    color: var(--accent-page);
+    font-weight: 500;
+    white-space: nowrap;
 }
 
-.accordion-panel {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease;
-}
-
-.accordion-panel-inner {
-    padding: 0 0 30px;
-    max-width: 760px;
-}
-
-.accordion-panel-inner p {
-    margin: 0;
-    font-size: 17px;
-    line-height: 1.8;
-    font-weight: 400;
-    color: #374151;
-}
-
-/* =========================
-   Responsive Research Focus
-========================= */
-
-@media (max-width: 950px) {
-    .focus-section {
-        min-height: auto;
-        padding: 80px var(--gutter) 90px;
+/* Narrow screens: one column, the lab photos first (so they're seen on
+   landing), then the row of areas on its own line (it scrolls sideways
+   if it runs out of room) and the selected text. Same tap-to-select
+   behaviour as the hover on wide screens. */
+@media (max-width: 860px) {
+    .research {
+        margin-top: 40px;
+        grid-template-columns: 1fr;
+        gap: 40px;
     }
 
-    
-
-    
-
-    
-
-    
-
-    
-}
-
-@media (max-width: 560px) {
-    .focus-section {
-        padding-top: 72px;
-        padding-bottom: 80px;
+    .research > .lab-life {
+        order: -1;
+        margin-top: 14px;
     }
 
-    .focus-intro {
-        font-size: 16px;
-        margin-bottom: 36px;
+    .lab-life-frame::before {
+        inset: -14px -14px 14px 14px;
+        border-left: 1px solid var(--frame-line);
     }
 
-    .accordion-trigger {
-        padding: 22px 0;
+    .research-list {
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding-bottom: 2px;
     }
 
-    
+    .research-list::-webkit-scrollbar {
+        display: none;
+    }
 
-    
+    /* Caption on its own line; dots and link beneath. */
+    .lab-life-bar {
+        grid-template-columns: auto 1fr;
+        grid-template-areas: "cap cap" "dots more";
+        row-gap: 6px;
+    }
 
-    
+    .lab-life-dots {
+        justify-self: start;
+        margin-left: -8px;
+    }
+
+    .lab-life-more {
+        justify-self: end;
+    }
+
+    .research {
+        --tab-gap: clamp(8px, 2.5vw, 22px);
+    }
+
+    .research-tab {
+        font-size: clamp(14.5px, 3.9vw, 18px);
+    }
+
+    /* Taps don't hover-flicker, so the text can take its own height. */
+    .research-area:not(.is-active) {
+        display: none;
+    }
+
 }
 
 /* =========================
@@ -738,37 +915,40 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 .page-title,
 .small-section-title {
     margin: 0 0 22px 0;
-    font-size: clamp(28px, 3vw, 38px);
+    font-size: clamp(26px, 2.6vw, 32px);
     line-height: 1.05;
     font-weight: 300;
     letter-spacing: -0.035em;
-    color: #0a0a0a;
+    color: var(--text);
 }
 
 /* Two-column timeline: quiet year label on the left, hairline-divided
    borderless entries on the right. */
 .pub-year {
     display: grid;
-    grid-template-columns: 110px 1fr;
-    gap: 0 48px;
-    margin-bottom: 52px;
+    grid-template-columns: 64px minmax(0, 46em);
+    gap: 0 32px;
+    margin-bottom: 44px;
 }
 
+/* The year stays beside its papers while they scroll past. */
 .pub-year-title {
+    position: sticky;
+    top: calc(var(--header-h) + 16px);
+    align-self: start;
     margin: 0;
-    padding-top: 30px;
+    padding-top: 24px;
     font-size: 26px;
-    font-weight: 300;
-    color: var(--muted);
+    font-weight: 400;
+    color: var(--text-soft);
 }
 
 .pub-list {
     min-width: 0;
-    max-width: 920px;
 }
 
 .pub-item {
-    padding: 30px 0;
+    padding: 24px 0 26px;
     border-top: 1px solid var(--line);
 }
 
@@ -777,7 +957,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     font-size: clamp(19px, 1.5vw, 22px);
     line-height: 1.35;
     font-weight: 400;
-    color: #0a0a0a;
+    color: var(--text);
 }
 
 .pub-title-link {
@@ -794,24 +974,24 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     margin: 0 0 5px 0;
     font-size: 15px;
     line-height: 1.6;
-    color: #374151;
+    color: var(--text-soft);
 }
 
 .pub-authors strong {
     font-weight: 600;
-    color: #0a0a0a;
+    color: var(--text);
 }
 
 .pub-venue {
     margin: 0;
     font-size: 15px;
     line-height: 1.6;
-    color: #6b7280;
+    color: var(--muted);
     font-style: italic;
 }
 
 .pub-links {
-    margin-top: 16px;
+    margin-top: 12px;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -821,11 +1001,16 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     display: inline-flex;
     align-items: center;
     gap: 5px;
+    min-height: 32px;           /* comfortable tap target */
     font-family: var(--font-sans);
     font-size: 14px;
     font-weight: 500;
-    color: var(--accent);
+    color: var(--accent-page);
     background: transparent;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    text-decoration-color: rgba(91, 63, 168, 0.35);
 }
 
 .pub-link::after {
@@ -835,7 +1020,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 .pub-link:hover {
     opacity: 1;
-    color: var(--accent-page);
+    text-decoration-color: var(--accent-page);
 }
 
 /* =========================
@@ -850,6 +1035,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     }
 
     .pub-year-title {
+        position: static;
         padding-top: 0;
         margin-bottom: 8px;
         font-size: 24px;
@@ -861,7 +1047,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 ========================= */
 
 .page-content {
-    padding: 72px var(--gutter) 88px;
+    padding: clamp(28px, 4.5vw, 56px) var(--gutter) clamp(48px, 6vw, 72px);
     background: var(--bg);
 }
 
@@ -869,7 +1055,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     margin: 0 0 8px 0;
     font-size: 23px;
     font-weight: 500;
-    color: #0a0a0a;
+    color: var(--text);
 }
 
 .person-title {
@@ -897,7 +1083,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     letter-spacing: 0.09em;
     text-transform: uppercase;
     font-weight: 500;
-    color: #4b5563;
+    color: var(--muted);
     background: transparent;
     transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
@@ -906,7 +1092,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     opacity: 1;
     background: var(--accent-page);
     border-color: var(--accent-page);
-    color: #0a0a0a;
+    color: var(--text);
 }
 
 .people-grid {
@@ -924,12 +1110,33 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     padding: 0;
 }
 
+/* Each card's photo, name and role sit on shared row tracks, so roles
+   line up across a row even when one name wraps to two lines. */
+@supports (grid-template-rows: subgrid) {
+    .people-grid {
+        row-gap: 0;
+    }
+
+    .person-card {
+        display: grid;
+        grid-row: span 3;
+        grid-template-rows: subgrid;
+        row-gap: 0;
+        align-content: start;
+        margin-bottom: clamp(28px, 4vw, 52px);
+    }
+
+    .person-card h2 {
+        align-self: start;
+    }
+}
+
 .person-photo {
     position: relative;
     overflow: hidden;
     border-radius: 0;
     aspect-ratio: 3 / 4;
-    background: #ececec;
+    background: #E7E3EA;
     margin-bottom: 20px;
 }
 
@@ -1007,7 +1214,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     font-size: 34px;
     line-height: 1;
     cursor: pointer;
-    color: #111827;
+    color: var(--text);
 }
 
 .bio-modal-image {
@@ -1022,7 +1229,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     font-size: 30px;
     font-weight: 300;
     letter-spacing: -0.02em;
-    color: #0a0a0a;
+    color: var(--text);
 }
 
 .bio-modal-content .bio-modal-title {
@@ -1038,7 +1245,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     margin: 0;
     font-size: 16px;
     line-height: 1.8;
-    color: #4b5563;
+    color: var(--muted);
 }
 
 .bio-modal-links {
@@ -1082,7 +1289,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     font-family: var(--font-sans);
     font-size: 15px;
     font-weight: 600;
-    color: #0a0a0a;
+    color: var(--text);
 }
 
 .alumni-name {
@@ -1091,7 +1298,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     font-size: 16px;
     line-height: 1.5;
     font-weight: 400;
-    color: #374151;
+    color: var(--text-soft);
 }
 
 /* Collaborators — linked names that flow across the same grid as alumni. */
@@ -1102,7 +1309,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     font-size: 17px;
     line-height: 1.35;
     font-weight: 400;
-    color: #1f2937;
+    color: var(--text-soft);
     transition: color 0.2s ease;
 }
 
@@ -1203,18 +1410,31 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
    Footer — spacious, spelled-out (UCSF-inspired)
 ========================= */
 
+/* A dark panel set to the hero banner's edges, capped with a teal rule.
+   Its top rises above the full-width violet band behind it, mirroring
+   the banner at the top of the homepage, which overlaps its band from
+   below. */
 .site-footer {
-    background: var(--ink);
+    --footer-rise: 112px;       /* how far the panel rises above the band */
+    box-sizing: border-box;
+    padding: 0 var(--gutter);
+    background: linear-gradient(to bottom,
+                transparent 0,
+                transparent var(--footer-rise),
+                var(--accent-wash) var(--footer-rise));
     color: rgba(255, 255, 255, 0.7);
-    padding: 76px var(--gutter) 104px;
 }
 
 .footer-inner {
     max-width: var(--content-max);
+    box-sizing: border-box;
     margin: 0 auto;
+    padding: 56px 40px 80px;
+    background: var(--ink);
+    border-top: 6px solid var(--accent-bright);
     display: grid;
-    grid-template-columns: 1.7fr 1fr 1.35fr 1.35fr;
-    gap: 48px 64px;
+    grid-template-columns: 1.25fr 0.8fr 1.2fr 1.25fr;
+    gap: 40px 36px;
 }
 
 /* Brand column */
@@ -1227,7 +1447,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 }
 
 .footer-geisel img {
-    width: 250px;
+    width: 220px;
     max-width: 100%;
     height: auto;
     display: block;
@@ -1318,11 +1538,11 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 @media (max-width: 560px) {
     .site-footer {
-        padding-top: 52px;
-        padding-bottom: 76px;
+        --footer-rise: 64px;
     }
 
     .footer-inner {
+        padding: 40px 24px 48px;
         grid-template-columns: 1fr;
         gap: 42px;
     }
@@ -1337,8 +1557,6 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 ========================= */
 
 .hero-heading,
-.section-heading h2,
-.accordion-title,
 .page-title,
 .small-section-title,
 .pub-year-title,
@@ -1346,7 +1564,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 .person-card h2,
 .bio-modal-content h2 {
     font-family: var(--font-serif);
-    letter-spacing: -0.005em;
+    letter-spacing: 0;
 }
 
 /* =========================
@@ -1358,9 +1576,6 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
         padding: 0 var(--gutter);
     }
 
-    .logo-mark img {
-        height: 46px;
-    }
 
     .nav-toggle {
         display: flex;
@@ -1371,8 +1586,9 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
         top: 100%;
         left: 0;
         right: 0;
-        background: var(--ink);
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        background: #ffffff;
+        border-top: 1px solid var(--line);
+        box-shadow: 0 1px 0 var(--line);
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.35s ease;
@@ -1395,12 +1611,8 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
         letter-spacing: 0.08em;
     }
 
-    .main-nav a::after {
-        display: none;
-    }
-
     .main-nav a[aria-current="page"] {
-        color: var(--accent-bright);
+        text-underline-offset: 6px;
     }
 }
 
@@ -1410,17 +1622,26 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 .page-header {
     max-width: var(--content-max);
-    margin: 0 auto 52px;
+    margin: 0 auto clamp(28px, 3.5vw, 40px);
+}
+
+.page-eyebrow {
+    margin: 0 0 12px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-page);
 }
 
 .page-heading {
     margin: 0;
     font-family: var(--font-serif);
-    font-size: clamp(38px, 5vw, 66px);
+    font-size: clamp(36px, 4.2vw, 54px);
     line-height: 1.04;
     font-weight: 300;
     letter-spacing: -0.02em;
-    color: #0a0a0a;
+    color: var(--text);
 }
 
 .page-desc {
@@ -1429,12 +1650,12 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     font-size: 19px;
     line-height: 1.75;
     font-weight: 400;
-    color: #374151;
+    color: var(--text-soft);
 }
 
 @media (max-width: 560px) {
     .page-header {
-        margin-bottom: 40px;
+        margin-bottom: 24px;
     }
 
     .page-desc {
@@ -1477,7 +1698,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     margin: 0 0 6px;
     font-size: 15px;
     font-weight: 600;
-    color: #0a0a0a;
+    color: var(--text);
 }
 
 .contact-block p {
@@ -1485,30 +1706,38 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
     font-size: 17px;
     line-height: 1.65;
     font-weight: 400;
-    color: #0a0a0a;
+    color: var(--text);
 }
 
 .contact-block a {
-    color: #0a0a0a;
+    color: var(--accent-page);
+    font-weight: 500;
     text-decoration: underline;
-    text-underline-offset: 3px;
-    text-decoration-color: rgba(10, 10, 10, 0.3);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    text-decoration-color: rgba(91, 63, 168, 0.35);
 }
 
 .contact-block a:hover {
     opacity: 1;
-    color: var(--accent-page);
     text-decoration-color: var(--accent-page);
 }
 
+/* The map is toned to the warm palette (desaturated) so it sits with the
+   page instead of shouting; framed by the site's hairline, and kept to a
+   sensible height. */
 .contact-map {
     width: 100%;
     height: 100%;
-    min-height: 340px;
-    border-radius: var(--radius);
+    min-height: 300px;
+    max-height: 420px;
     overflow: hidden;
-    border: 1px solid var(--line);
-    background: #ececec;
+    border: 1px solid var(--frame-line);
+    background: #E7E3EA;
+}
+
+.contact-map .leaflet-tile-pane {
+    filter: grayscale(1) sepia(0.18) contrast(0.92) brightness(1.04);
 }
 
 .contact-map-canvas {
@@ -1546,7 +1775,7 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 .gallery-media {
     overflow: hidden;
     border-radius: 0;
-    background: #ececec;
+    background: #E7E3EA;
 }
 
 .gallery-media img {
@@ -1559,9 +1788,9 @@ body.homepage .site-header.is-scrolled .logo-rest-text {
 
 .gallery-item figcaption {
     margin: 11px 2px 0;
-    font-size: 14px;
+    font-size: 15px;
     letter-spacing: 0.02em;
-    color: #6b7280;
+    color: var(--muted);
 }
 
 /* Lightbox */

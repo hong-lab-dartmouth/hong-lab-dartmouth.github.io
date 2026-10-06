@@ -70,6 +70,11 @@
                     "image": "../assets/img/people/Dhanya Mahesh.jpg",
                     "name": "Dhanya Mahesh",
                     "description": "I am a fourth-year medical student at Dartmouth. My research investigates neuronal signaling and perineuronal net morphology in human brain organotypic slice cultures as a model system for studying epilepsy."
+                },
+                {
+                    "image": "../assets/img/people/Mathew Lin.jpg",
+                    "name": "Mathew D. Lin",
+                    "description": "I am from North Carolina and earned my BS at Cornell University. Currently, I am a medical student with a strong interest in neuro-oncology and translational medicine. In my free time I enjoy playing guitar, watching football (go Panthers!) and playing all kinds of sports."
                 }
             ]
         },
@@ -85,6 +90,16 @@
                     "image": "../assets/img/people/Kylie Nelson-Marois.jpeg",
                     "name": "Kylie Nelson-Marois",
                     "description": "I am a PhD student in the IND program. Prior to Dartmouth, I earned my BA and MA at Wesleyan University, studying the effects of SSRIs on zebra finch neurogenesis. In the Hong lab, my research interests include studying the pathogenesis of drug-resistant epilepsy and applying this knowledge to engineer new medical technologies. Outside of the lab, I enjoy hiking, lifting, indie video games, and collecting knickknacks like art, trinkets & vinyl."
+                },
+                {
+                    "image": "../assets/img/people/Jan Magielski.jpg",
+                    "scholar": {
+                        "url": "https://scholar.google.com/citations?user=zxwF4J8AAAAJ&hl=en",
+                        "label": "Google Scholar"
+                    },
+                    "name": "Jan H. Magielski",
+                    "role": "MD-PhD Student",
+                    "description": "I am an MD-PhD student at the Geisel School of Medicine. Before coming to Dartmouth, I was studying pediatric genetic epilepsies and neurodevelopmental disorders at Children’s Hospital of Philadelphia using big data and genomics approaches. In my research, I am interested in exploring the intersection of genomics, electroencephalography, and cognition in epilepsy. Outside of the lab, I enjoy hiking, reading, playing soccer, and following Philadelphia sports teams."
                 }
             ]
         },
