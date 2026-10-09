@@ -1804,14 +1804,18 @@ body.homepage .hero-media img {
    photo keeps its shape with no crop: the lead spans three rows at
    4:3, the stack beside it is three 4:3 tiles, the portrait spans two
    rows at 3:4, and the title takes the cell above it.
-   Width = 6.8333r + 5.4167g, so r comes from the room's inner width. */
+   Width = 6.8333r + 5.4167g, so r comes from the room's inner width,
+   and never taller than the first screen: the smaller of the width-led
+   and height-led row sizes wins, centred when height does. The width
+   is held in a little from the gutters so the mosaic has air. */
 .gallery-mosaic {
     --g: 1.25rem;
-    /* ...and never taller than the first screen: the smaller of the
-       width-led and height-led row sizes wins, centred when height does.
-       Width is also held in from the gutters so the mosaic has air. */
-    --r: min(calc((88cqw - 5.4167 * var(--g)) / 6.8333),
-             calc((100svh - var(--header-h) - 8.5rem - 2 * var(--g)) / 3));
+    --rows: 3;
+    --w-coef: 6.8333;
+    --g-coef: 5.4167;
+    --span: 94cqw;
+    --r: min(calc((var(--span) - var(--g-coef) * var(--g)) / var(--w-coef)),
+             calc((100svh - var(--header-h) - 8.5rem - (var(--rows) - 1) * var(--g)) / var(--rows)));
     display: grid;
     justify-content: center;
     grid-template-columns:
@@ -1824,6 +1828,28 @@ body.homepage .hero-media img {
         "lead dinner conf"
         "lead derby  conf";
     gap: var(--g);
+}
+
+/* Wide, short windows (large and ultrawide monitors): height, not
+   width, limits the mosaic, so two rows use the screen far better.
+   The lead spans both rows, two 4:3 tiles sit in each middle column,
+   the portrait spans both rows, the title sits above the portrait.
+   Width = 6.8333r + 5.0833g. */
+@media (min-aspect-ratio: 2 / 1) and (min-width: 901px) {
+    .gallery-mosaic {
+        --rows: 2;
+        --g-coef: 5.0833;
+        --span: 100cqw;
+        grid-template-columns:
+            calc(2.6667 * var(--r) + 1.3333 * var(--g))
+            calc(1.3333 * var(--r))
+            calc(1.3333 * var(--r))
+            calc(1.5 * var(--r) + 0.75 * var(--g));
+        grid-template-rows: repeat(2, var(--r));
+        grid-template-areas:
+            "lead second title conf"
+            "lead dinner derby conf";
+    }
 }
 
 .gallery-title {
