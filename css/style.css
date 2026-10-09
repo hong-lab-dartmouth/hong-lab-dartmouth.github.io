@@ -1784,7 +1784,7 @@ body.homepage .hero-media img {
     --room-text: rgba(255, 255, 255, 0.66);
     background: var(--hero-ink);
     color: #ffffff;
-    padding: 2rem var(--gutter) 3.5rem;
+    padding: 3.5rem var(--gutter) 5rem;
     container-type: inline-size;     /* the mosaic sizes itself from this width */
 }
 
@@ -1806,11 +1806,12 @@ body.homepage .hero-media img {
    rows at 3:4, and the title takes the cell above it.
    Width = 6.8333r + 5.4167g, so r comes from the room's inner width. */
 .gallery-mosaic {
-    --g: 0.625rem;
+    --g: 1.25rem;
     /* ...and never taller than the first screen: the smaller of the
-       width-led and height-led row sizes wins, centred when height does. */
-    --r: min(calc((100cqw - 5.4167 * var(--g)) / 6.8333),
-             calc((100svh - var(--header-h) - 5.5rem - 2 * var(--g)) / 3));
+       width-led and height-led row sizes wins, centred when height does.
+       Width is also held in from the gutters so the mosaic has air. */
+    --r: min(calc((88cqw - 5.4167 * var(--g)) / 6.8333),
+             calc((100svh - var(--header-h) - 8.5rem - 2 * var(--g)) / 3));
     display: grid;
     justify-content: center;
     grid-template-columns:
@@ -1828,7 +1829,7 @@ body.homepage .hero-media img {
 .gallery-title {
     grid-area: title;
     align-self: end;
-    padding: 0 0.5rem 0.25rem 0.25rem;
+    padding: 0 0.5rem 0.5rem 1rem;
 }
 
 .gallery-title .page-header { margin: 0; }
