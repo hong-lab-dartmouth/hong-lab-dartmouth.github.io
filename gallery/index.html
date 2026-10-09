@@ -10,55 +10,84 @@
   <meta property="og:description" content="Moments from the Hong Lab at Dartmouth.">
   <meta property="og:image" content="../assets/img/sciatic-nerve.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="../css/style.css?v=20261007">
+  <link rel="stylesheet" href="../css/style.css?v=20261009">
   <link rel="icon" type="image/png" href="../assets/favicon.png?v=20261006">
 </head>
 
-<body>
+<body class="gallery-page">
 
   <site-header></site-header>
 
-  <main class="page-content">
-    <section class="gallery-section">
+  <main>
+    <section class="gallery-room">
 
-      <div class="page-header">
-        <p class="page-eyebrow">Gallery</p>
-        <h1 class="page-heading">Life in the lab</h1>
-        <p class="page-desc">Dinners, traditions, and conferences</p>
-      </div>
+      <!-- One mosaic, every photo at its own shape, sized to fit the first
+           screen. The newest event leads; an event's photos all sit in its
+           .gallery-media, each opens on its own and the viewer pages through
+           the rest. data-caption is what the homepage slideshow says. -->
+      <div class="gallery-mosaic">
 
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <div class="gallery-media"><img src="../assets/img/gallery/cornMaze2026.jpg" alt="Lab members smiling in a corn maze, holding cups of cider"></div>
-          <figcaption>Corn maze, fall 2026</figcaption>
+        <header class="gallery-title">
+          <p class="page-eyebrow">Gallery</p>
+          <h1 class="page-heading">Life in the lab</h1>
+          <p class="page-desc">Dinners, traditions, and conferences</p>
+        </header>
+
+        <figure class="gallery-item gallery-feature" data-caption="Corn maze and pumpkin patch, fall 2026">
+          <div class="gallery-media">
+            <img class="tile-lead" src="../assets/img/gallery/pumpkinPatch2026.jpg" alt="Five lab members in a sunny pumpkin patch, holding pumpkins and ears of corn">
+            <img class="tile-second" src="../assets/img/gallery/cornMaze2026.jpg" alt="Lab members smiling in a corn maze, holding cups of cider">
+          </div>
+          <figcaption>
+            <span class="gallery-label">Latest · Fall 2026</span>
+            <span class="gallery-caption">Corn maze and pumpkin patch</span>
+            <span class="gallery-meta">2 photos</span>
+          </figcaption>
         </figure>
-        <figure class="gallery-item">
-          <div class="gallery-media"><img src="../assets/img/gallery/labDinner.jpg" alt="Lab dinner"></div>
-          <figcaption>Lab dinner</figcaption>
+
+        <figure class="gallery-item tile-dinner" data-caption="Lab dinner 2025">
+          <div class="gallery-media"><img src="../assets/img/gallery/labDinner.jpg" alt="Lab members around a table at a lab dinner, 2025"></div>
+          <figcaption><span class="gallery-caption">Lab dinner</span><span class="gallery-meta">2025</span></figcaption>
         </figure>
-        <figure class="gallery-item">
+
+        <figure class="gallery-item tile-derby" data-caption="Pumpkin Derby 2025">
           <div class="gallery-media"><img src="../assets/img/gallery/pumpkinDerby.jpg" alt="Pumpkin Derby 2025"></div>
-          <figcaption>Pumpkin Derby 2025</figcaption>
+          <figcaption><span class="gallery-caption">Pumpkin Derby</span><span class="gallery-meta">2025</span></figcaption>
         </figure>
-        <figure class="gallery-item">
-          <div class="gallery-media"><img src="../assets/img/gallery/conference.jpg" alt="At conference"></div>
-          <figcaption>At conference</figcaption>
-        </figure>
-      </div>
 
+        <figure class="gallery-item tile-conf" data-caption="Montreal Neurological Institute, EAEEG conference 2026">
+          <div class="gallery-media"><img src="../assets/img/gallery/conference.jpg" alt="Lab members at the EAEEG conference, Montreal Neurological Institute, 2026"></div>
+          <figcaption><span class="gallery-caption">EAEEG conference</span><span class="gallery-meta">Montreal Neurological Institute, 2026</span></figcaption>
+        </figure>
+
+      </div>
     </section>
   </main>
 
   <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close image">×</button>
-    <img class="lightbox-img" id="lightbox-img" src="" alt="">
-    <p class="lightbox-caption" id="lightbox-caption"></p>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" aria-hidden="true">
+    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+    </button>
+    <button class="lightbox-nav lightbox-prev" id="lightbox-prev" type="button" aria-label="Previous photo">
+      <svg viewBox="0 0 24 48" width="24" height="48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20,4 4,24 20,44"/></svg>
+    </button>
+    <figure class="lightbox-stage">
+      <img class="lightbox-img" id="lightbox-img" src="" alt="">
+      <figcaption class="lightbox-bar">
+        <span class="lightbox-caption" id="lightbox-caption"></span>
+        <span class="lightbox-counter" id="lightbox-counter"></span>
+      </figcaption>
+      <div class="lightbox-thumbs" id="lightbox-thumbs"></div>
+    </figure>
+    <button class="lightbox-nav lightbox-next" id="lightbox-next" type="button" aria-label="Next photo">
+      <svg viewBox="0 0 24 48" width="24" height="48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,4 20,24 4,44"/></svg>
+    </button>
   </div>
 
   <site-footer></site-footer>
 
   <script src="../js/components.js?v=20261006b"></script>
-  <script src="../js/gallery.js?v=20261006b"></script>
+  <script src="../js/gallery.js?v=20261008d"></script>
 </body>
 </html>

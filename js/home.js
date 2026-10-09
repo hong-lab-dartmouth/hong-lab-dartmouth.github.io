@@ -120,13 +120,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         const html = await (await fetch(galleryUrl)).text();
         const doc = new DOMParser().parseFromString(html, 'text/html');
-        photos = Array.from(doc.querySelectorAll('.gallery-item')).map((item) => {
-            const img = item.querySelector('img');
-            return {
+        // Every photo, including each one of a multi-photo event, under its event's caption.
+        photos = Array.from(doc.querySelectorAll('.gallery-item')).flatMap((item) => {
+            const cap = item.querySelector('.gallery-caption') || item.querySelector('figcaption');
+            const text = item.dataset.caption || (cap ? cap.textContent.trim() : '');
+            return Array.from(item.querySelectorAll('img')).map((img) => ({
                 src: new URL(img.getAttribute('src'), galleryUrl).href,
                 alt: img.getAttribute('alt') || '',
-                caption: (item.querySelector('figcaption') || img).textContent.trim() || img.getAttribute('alt') || '',
-            };
+                caption: text || img.getAttribute('alt') || '',
+            }));
         });
     } catch (e) {
         return; // keep the single photo already on the page
