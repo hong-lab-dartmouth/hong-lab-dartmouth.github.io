@@ -10,8 +10,13 @@
   <meta property="og:description" content="Moments from the Hong Lab at Dartmouth.">
   <meta property="og:image" content="../assets/img/sciatic-nerve.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="../css/style.css?v=20261009c">
+  <link rel="stylesheet" href="../css/style.css?v=20261009e">
   <link rel="icon" type="image/png" href="../assets/favicon.png?v=20261006">
+  <script>
+    // The chosen view (Gallery or Timeline), applied before first paint.
+    try { document.documentElement.setAttribute('data-gallery-view', localStorage.getItem('gallery-view') === 'timeline' ? 'timeline' : 'mosaic'); }
+    catch (e) { document.documentElement.setAttribute('data-gallery-view', 'mosaic'); }
+  </script>
 </head>
 
 <body class="gallery-page">
@@ -20,46 +25,67 @@
 
   <main>
     <section class="gallery-room">
+      <div class="gallery-inner">
 
-      <!-- One mosaic, every photo at its own shape, sized to fit the first
-           screen. The newest event leads; an event's photos all sit in its
-           .gallery-media, each opens on its own and the viewer pages through
-           the rest. data-caption is what the homepage slideshow says. -->
-      <div class="gallery-mosaic">
+        <!-- One set of events serves two views: the mosaic (every photo on
+             the first screen) and the timeline (newest first down the middle).
+             An event's photos all sit in its .gallery-media: each opens on
+             its own and the viewer pages through the rest. data-caption is
+             what the homepage slideshow says. -->
+        <div class="gallery-stream">
 
-        <header class="gallery-title">
-          <p class="page-eyebrow">Gallery</p>
-          <h1 class="page-heading">Photographs</h1>
-          <p class="page-desc">Dinners, traditions, and conferences</p>
-        </header>
+          <header class="gallery-title">
+            <p class="page-eyebrow">Gallery</p>
+            <h1 class="page-heading">Photographs</h1>
+            <p class="page-desc">Dinners, traditions, and conferences</p>
+            <div class="view-switch" role="group" aria-label="View">
+              <button type="button" data-view="mosaic" aria-pressed="true">Gallery</button>
+              <button type="button" data-view="timeline" aria-pressed="false">Timeline</button>
+            </div>
+          </header>
 
-        <figure class="gallery-item gallery-feature" data-caption="Corn maze and pumpkin patch, fall 2026">
-          <div class="gallery-media">
-            <img class="tile-lead" src="../assets/img/gallery/pumpkinPatch2026.jpg" alt="Five lab members in a sunny pumpkin patch, holding pumpkins and ears of corn">
-            <img class="tile-second" src="../assets/img/gallery/cornMaze2026.jpg" alt="Lab members smiling in a corn maze, holding cups of cider">
-          </div>
-          <figcaption>
-            <span class="gallery-label">Latest · Fall 2026</span>
-            <span class="gallery-caption">Corn maze and pumpkin patch</span>
-            <span class="gallery-meta">2 photos</span>
-          </figcaption>
-        </figure>
+          <div class="tl-year"><span>2026</span></div>
 
-        <figure class="gallery-item tile-dinner" data-caption="Lab dinner 2025">
-          <div class="gallery-media"><img src="../assets/img/gallery/labDinner.jpg" alt="Lab members around a table at a lab dinner, 2025"></div>
-          <figcaption><span class="gallery-caption">Lab dinner</span><span class="gallery-meta">2025</span></figcaption>
-        </figure>
+          <figure class="gallery-item gallery-feature tl-entry" data-caption="Corn maze and pumpkin patch, fall 2026">
+            <div class="gallery-media">
+              <img class="tile-lead" src="../assets/img/gallery/pumpkinPatch2026.jpg" alt="Five lab members in a sunny pumpkin patch, holding pumpkins and ears of corn">
+              <img class="tile-second" src="../assets/img/gallery/cornMaze2026.jpg" alt="Lab members smiling in a corn maze, holding cups of cider">
+            </div>
+            <figcaption>
+              <span class="gallery-label">Fall 2026</span>
+              <span class="gallery-caption">Corn maze and pumpkin patch</span>
+              <span class="gallery-meta">2 photos</span>
+            </figcaption>
+          </figure>
 
-        <figure class="gallery-item tile-derby" data-caption="Pumpkin Derby 2025">
-          <div class="gallery-media"><img src="../assets/img/gallery/pumpkinDerby.jpg" alt="Pumpkin Derby 2025"></div>
-          <figcaption><span class="gallery-caption">Pumpkin Derby</span><span class="gallery-meta">2025</span></figcaption>
-        </figure>
+          <figure class="gallery-item tile-conf tl-entry" data-caption="Montreal Neurological Institute, EAEEG conference 2026">
+            <div class="gallery-media"><img src="../assets/img/gallery/conference.jpg" alt="Lab members at the EAEEG conference, Montreal Neurological Institute, 2026"></div>
+            <figcaption>
+              <span class="gallery-label">2026</span>
+              <span class="gallery-caption">EAEEG conference</span>
+              <span class="gallery-meta">Montreal Neurological Institute</span>
+            </figcaption>
+          </figure>
 
-        <figure class="gallery-item tile-conf" data-caption="Montreal Neurological Institute, EAEEG conference 2026">
-          <div class="gallery-media"><img src="../assets/img/gallery/conference.jpg" alt="Lab members at the EAEEG conference, Montreal Neurological Institute, 2026"></div>
-          <figcaption><span class="gallery-caption">EAEEG conference</span><span class="gallery-meta">Montreal Neurological Institute, 2026</span></figcaption>
-        </figure>
+          <div class="tl-year"><span>2025</span></div>
 
+          <figure class="gallery-item tile-dinner tl-entry" data-caption="Lab dinner 2025">
+            <div class="gallery-media"><img src="../assets/img/gallery/labDinner.jpg" alt="Lab members around a table at a lab dinner, 2025"></div>
+            <figcaption>
+              <span class="gallery-label">2025</span>
+              <span class="gallery-caption">Lab dinner</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item tile-derby tl-entry" data-caption="Pumpkin Derby 2025">
+            <div class="gallery-media"><img src="../assets/img/gallery/pumpkinDerby.jpg" alt="Pumpkin Derby 2025"></div>
+            <figcaption>
+              <span class="gallery-label">2025</span>
+              <span class="gallery-caption">Pumpkin Derby</span>
+            </figcaption>
+          </figure>
+
+        </div>
       </div>
     </section>
   </main>
@@ -88,6 +114,6 @@
   <site-footer></site-footer>
 
   <script src="../js/components.js?v=20261006b"></script>
-  <script src="../js/gallery.js?v=20261008d"></script>
+  <script src="../js/gallery.js?v=20261009b"></script>
 </body>
 </html>

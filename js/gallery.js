@@ -1,4 +1,5 @@
-/* Gallery page: click a photo to open it full-size in a viewer.
+/* Gallery page: the timeline lights up as you scroll, and clicking a
+   photo opens it full-size in a viewer.
    A figure with several photos is one event: any photo opens on its
    own, and the viewer pages through the rest of the event with the
    arrows, arrow keys, a swipe or the thumbnails. */
@@ -127,4 +128,48 @@
     if (Math.abs(dx) > 40) show(index + (dx < 0 ? 1 : -1));
     x0 = null;
   });
+})();
+
+/* The view switch (Gallery or Timeline), remembered for next time. */
+(function () {
+  const root = document.documentElement;
+  const buttons = Array.from(document.querySelectorAll('.view-switch button'));
+  if (!buttons.length) return;
+
+  function setView(view, remember) {
+    root.setAttribute('data-gallery-view', view);
+    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === view)));
+    if (remember) { try { localStorage.setItem('gallery-view', view); } catch (e) { /* private window */ } }
+    window.dispatchEvent(new Event('galleryview'));
+  }
+
+  setView(root.getAttribute('data-gallery-view') === 'timeline' ? 'timeline' : 'mosaic', false);
+  buttons.forEach((b) => b.addEventListener('click', () => setView(b.dataset.view, true)));
+})();
+
+/* The timeline: the line starts under the title and fills to the
+   middle of the window; an event's marker lights once it is reached. */
+(function () {
+  const stream = document.querySelector('.gallery-stream');
+  const firstYear = stream && stream.querySelector('.tl-year');
+  if (!stream || !firstYear) return;
+
+  const entries = Array.from(stream.querySelectorAll('.tl-entry'));
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    if (document.documentElement.getAttribute('data-gallery-view') !== 'timeline') return;
+    const r = stream.getBoundingClientRect();
+    const start = firstYear.offsetTop;
+    const lit = Math.min(r.height - start, Math.max(0, window.innerHeight * 0.55 - (r.top + start)));
+    stream.style.setProperty('--tl-start', `${start}px`);
+    stream.style.setProperty('--tl-progress', `${lit.toFixed(0)}px`);
+    const reach = window.innerHeight * 0.82;
+    entries.forEach((e) => e.classList.toggle('is-seen', e.getBoundingClientRect().top < reach));
+  };
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  window.addEventListener('galleryview', onScroll);
+  update();
 })();

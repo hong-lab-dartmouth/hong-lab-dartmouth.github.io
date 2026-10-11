@@ -1768,11 +1768,14 @@ body.homepage .hero-media img {
 
 /* =========================
    Gallery
-   A dark room, the plum of the homepage hero, holding one mosaic that
-   fits the first screen: every photo at its own shape, the newest event
-   leading, the page title set into the grid. Pointing at an event lifts
-   all its photos together (the second a beat after the first), brings
-   up its caption, and the other events settle back.
+   A dark room, the plum of the homepage hero, with two views of the
+   same events, chosen with the switch under the title and remembered:
+   the mosaic (default) fits every photo on the first screen, each at
+   its own shape, the newest event leading and the title set into the
+   grid; the timeline runs the events newest-first down a line in the
+   middle, photos one side and words the other, the line filling as you
+   scroll. In both, pointing at an event lifts all its photos together
+   (the second a beat behind) while the others settle back.
 ========================= */
 
 .gallery-page main {
@@ -1780,8 +1783,9 @@ body.homepage .hero-media img {
 }
 
 .gallery-room {
-    --room-ink: #CFE7E4;             /* labels: pale teal on plum */
+    --room-ink: #CFE7E4;             /* labels, the lit line: pale teal on plum */
     --room-text: rgba(255, 255, 255, 0.66);
+    --room-line: rgba(255, 255, 255, 0.16);
     background: var(--hero-ink);
     color: #ffffff;
     padding: 3.5rem var(--gutter) 5rem;
@@ -1800,15 +1804,115 @@ body.homepage .hero-media img {
                 var(--accent-wash) var(--footer-rise));
 }
 
-/* The mosaic. Column widths follow from one row height r so each
-   photo keeps its shape with no crop: the lead spans three rows at
-   4:3, the stack beside it is three 4:3 tiles, the portrait spans two
-   rows at 3:4, and the title takes the cell above it.
-   Width = 6.8333r + 5.4167g, so r comes from the room's inner width,
-   and never taller than the first screen: the smaller of the width-led
-   and height-led row sizes wins, centred when height does. The width
-   is held in a little from the gutters so the mosaic has air. */
-.gallery-mosaic {
+/* The view switch: two words, the chosen one underlined in teal. */
+.view-switch {
+    display: flex;
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+}
+
+.view-switch button {
+    padding: 0 0 0.25rem;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    background: none;
+    font: inherit;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--room-text);
+    cursor: pointer;
+    transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.view-switch button:hover { color: #ffffff; }
+
+.view-switch button[aria-pressed="true"] {
+    color: #ffffff;
+    border-bottom-color: var(--room-ink);
+    cursor: default;
+}
+
+.view-switch button:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 4px;
+}
+
+/* ---- Shared: photos, lift, captions ---- */
+
+.gallery-item img {
+    object-fit: cover;
+    background: #2A1B3D;
+    cursor: zoom-in;
+    transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
+                box-shadow 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
+                filter 0.4s ease,
+                opacity 0.4s ease;
+}
+
+.gallery-item img:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: -4px;
+}
+
+.gallery-item:hover img,
+.gallery-item:focus-within img {
+    transform: translateY(-0.375rem);
+    box-shadow: 0 1.5rem 2.5rem -0.5rem rgba(0, 0, 0, 0.65);
+    filter: brightness(1.06);
+    z-index: 1;
+}
+
+.gallery-item:hover .tile-second,
+.gallery-item:focus-within .tile-second {
+    transition-delay: 70ms;
+}
+
+.gallery-item:hover .gallery-caption,
+.gallery-item:focus-within .gallery-caption {
+    color: var(--room-ink);
+}
+
+.gallery-stream:has(.gallery-item:hover) .gallery-item:not(:hover) img {
+    opacity: 0.55;
+}
+
+.gallery-label {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--room-ink);
+}
+
+.gallery-caption {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1.375rem;
+    line-height: 1.15;
+    color: #ffffff;
+    transition: color 0.3s ease;
+}
+
+.gallery-feature .gallery-caption {
+    font-size: 1.875rem;
+}
+
+.gallery-meta {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--room-text);
+}
+
+/* ---- Mosaic (default) ----
+   Column widths follow from one row height r so each photo keeps its
+   shape with no crop: the lead spans three rows at 4:3, the stack
+   beside it is three 4:3 tiles, the portrait spans two rows at 3:4,
+   and the title takes the cell above it. Width = 6.8333r + 5.4167g,
+   so r comes from the room's inner width, and never taller than the
+   first screen: the smaller of the width-led and height-led row sizes
+   wins, centred when height does. */
+.gallery-stream {
     --g: 1.25rem;
     --rows: 3;
     --w-coef: 6.8333;
@@ -1832,11 +1936,9 @@ body.homepage .hero-media img {
 
 /* Wide, short windows (large and ultrawide monitors): height, not
    width, limits the mosaic, so two rows use the screen far better.
-   The lead spans both rows, two 4:3 tiles sit in each middle column,
-   the portrait spans both rows, the title sits above the portrait.
    Width = 6.8333r + 5.0833g. */
 @media (min-aspect-ratio: 2 / 1) and (min-width: 901px) {
-    .gallery-mosaic {
+    .gallery-stream {
         --rows: 2;
         --g-coef: 5.0833;
         --span: 100cqw;
@@ -1858,9 +1960,10 @@ body.homepage .hero-media img {
     padding: 0 0.5rem 0.5rem 1rem;
 }
 
-.gallery-title .page-header { margin: 0; }
 .gallery-title .page-heading { font-size: clamp(2rem, 2.9cqw, 3.25rem); }
 .gallery-title .page-desc { margin-top: 0.5rem; }
+
+.tl-year { display: none; }
 
 /* Figures and their media are layout-transparent: the photos and
    captions place themselves in the mosaic. */
@@ -1872,13 +1975,6 @@ body.homepage .hero-media img {
 .gallery-item img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    background: #2A1B3D;
-    cursor: zoom-in;
-    transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
-                box-shadow 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
-                filter 0.4s ease,
-                opacity 0.4s ease;
 }
 
 .tile-lead   { grid-area: lead; }
@@ -1886,11 +1982,6 @@ body.homepage .hero-media img {
 .tile-dinner img { grid-area: dinner; }
 .tile-derby img  { grid-area: derby; }
 .tile-conf img   { grid-area: conf; }
-
-.gallery-item img:focus-visible {
-    outline: 2px solid #ffffff;
-    outline-offset: -4px;
-}
 
 /* Captions sit over the foot of their photo (an event's over its lead)
    and come up with the lift. */
@@ -1914,62 +2005,16 @@ body.homepage .hero-media img {
 .tile-derby figcaption  { grid-area: derby; }
 .tile-conf figcaption   { grid-area: conf; }
 
-/* The lift: every photo of the event rises together, the second a
-   beat behind, and its caption comes up with it. */
-.gallery-item:hover img,
-.gallery-item:focus-within img {
-    transform: translateY(-0.375rem);
-    box-shadow: 0 1.5rem 2.5rem -0.5rem rgba(0, 0, 0, 0.65);
-    filter: brightness(1.06);
-    z-index: 1;
-}
-
-.gallery-item:hover .tile-second,
-.gallery-item:focus-within .tile-second {
-    transition-delay: 70ms;
-}
-
 .gallery-item:hover figcaption,
 .gallery-item:focus-within figcaption {
     opacity: 1;
     transform: translateY(-0.375rem);
 }
 
-/* The other events settle back while one is pointed at. */
-.gallery-mosaic:has(.gallery-item:hover) .gallery-item:not(:hover) img {
-    opacity: 0.55;
-}
-
-.gallery-label {
-    display: block;
-    font-size: 0.75rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--room-ink);
-}
-
-.gallery-caption {
-    display: block;
-    font-family: var(--font-serif);
-    font-size: 1.375rem;
-    line-height: 1.15;
-    color: #ffffff;
-}
-
-.gallery-feature .gallery-caption {
-    font-size: 1.875rem;
-}
-
-.gallery-meta {
-    display: block;
-    font-size: 0.875rem;
-    color: var(--room-text);
-}
-
 /* Narrow screens: a single column, each photo at its shape with its
    caption beneath, the title first. */
 @media (max-width: 900px) {
-    .gallery-mosaic {
+    .gallery-stream {
         display: block;
     }
 
@@ -1987,7 +2032,6 @@ body.homepage .hero-media img {
         gap: var(--g);
     }
 
-    /* The mosaic's named areas don't exist here: photos stack in order. */
     .gallery-item img,
     .gallery-item figcaption {
         grid-area: auto;
@@ -2022,8 +2066,242 @@ body.homepage .hero-media img {
         transform: none;
     }
 
-    .gallery-mosaic:has(.gallery-item:hover) .gallery-item:not(:hover) img {
+    .gallery-stream:has(.gallery-item:hover) .gallery-item:not(:hover) img {
         opacity: 1;
+    }
+}
+
+/* ---- Timeline ----
+   Newest first down a line in the middle: each event's photos on one
+   side, its date and title facing them, alternating. gallery.js sets
+   --tl-start (where the line begins, under the title) and --tl-progress
+   (how much of it is lit). */
+:root[data-gallery-view="timeline"] .gallery-inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+}
+
+:root[data-gallery-view="timeline"] .gallery-stream {
+    --tl-start: 0px;
+    --tl-progress: 0px;
+    position: relative;
+    display: block;
+}
+
+:root[data-gallery-view="timeline"] .gallery-stream::before,
+:root[data-gallery-view="timeline"] .gallery-stream::after {
+    content: "";
+    position: absolute;
+    top: var(--tl-start);
+    left: 50%;
+    width: 1px;
+    transform: translateX(-50%);
+}
+
+:root[data-gallery-view="timeline"] .gallery-stream::before {
+    bottom: 0;
+    background: var(--room-line);
+}
+
+:root[data-gallery-view="timeline"] .gallery-stream::after {
+    height: var(--tl-progress);
+    background: var(--room-ink);
+    transition: height 0.15s linear;
+}
+
+:root[data-gallery-view="timeline"] .gallery-title {
+    padding: 0 0 4.5rem;
+}
+
+:root[data-gallery-view="timeline"] .gallery-title .page-heading {
+    font-size: clamp(2.25rem, 4.2vw, 3.375rem);
+}
+
+/* Year markers sit on the line, masking it. */
+:root[data-gallery-view="timeline"] .tl-year {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    margin: 0 0 3rem;
+}
+
+:root[data-gallery-view="timeline"] .tl-year span {
+    padding: 0.25rem 1rem;
+    background: var(--hero-ink);
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--room-ink);
+}
+
+:root[data-gallery-view="timeline"] .gallery-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 6rem;
+    align-items: center;
+    margin: 0 0 5.5rem;
+}
+
+/* The marker: a ring on the line that fills once its event is reached. */
+:root[data-gallery-view="timeline"] .tl-entry::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    width: 0.75rem;
+    height: 0.75rem;
+    box-sizing: border-box;
+    border: 1px solid var(--room-ink);
+    border-radius: 50%;
+    background: var(--hero-ink);
+    transform: translate(-50%, -50%);
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+:root[data-gallery-view="timeline"] .tl-entry.is-seen::before {
+    background: var(--room-ink);
+    box-shadow: 0 0 0 0.375rem rgba(207, 231, 228, 0.14);
+}
+
+:root[data-gallery-view="timeline"] .tl-entry:nth-child(even of .tl-entry) .gallery-media { order: 2; }
+:root[data-gallery-view="timeline"] .tl-entry:nth-child(even of .tl-entry) figcaption {
+    order: 1;
+    text-align: right;
+    align-items: flex-end;
+}
+
+/* Photos: the first fills its side; a second sits over its lower corner,
+   toward the line, like a print laid on top. */
+:root[data-gallery-view="timeline"] .gallery-media {
+    display: block;
+    position: relative;
+}
+
+:root[data-gallery-view="timeline"] .gallery-item img {
+    display: block;
+    grid-area: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+}
+
+:root[data-gallery-view="timeline"] .tile-conf img {
+    width: 66%;
+    aspect-ratio: 3 / 4;
+    margin-left: auto;
+}
+
+:root[data-gallery-view="timeline"] .tl-entry:nth-child(even of .tl-entry) .tile-conf img {
+    margin-left: 0;
+}
+
+:root[data-gallery-view="timeline"] .gallery-media .tile-second {
+    position: absolute;
+    right: -2rem;
+    bottom: -2.5rem;
+    width: 46%;
+    border: 0.375rem solid var(--hero-ink);
+    box-shadow: 0 1rem 2rem -0.5rem rgba(0, 0, 0, 0.6);
+}
+
+:root[data-gallery-view="timeline"] .tl-entry:nth-child(even of .tl-entry) .gallery-media .tile-second {
+    right: auto;
+    left: -2rem;
+}
+
+:root[data-gallery-view="timeline"] .gallery-item figcaption {
+    position: static;
+    grid-area: auto;
+    align-self: center;
+    gap: 0.5rem;
+    padding: 0;
+    background: none;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+}
+
+:root[data-gallery-view="timeline"] .gallery-item:hover figcaption,
+:root[data-gallery-view="timeline"] .gallery-item:focus-within figcaption {
+    transform: none;
+}
+
+:root[data-gallery-view="timeline"] .gallery-caption,
+:root[data-gallery-view="timeline"] .gallery-feature .gallery-caption {
+    font-size: clamp(1.75rem, 2.4vw, 2.375rem);
+    line-height: 1.1;
+}
+
+:root[data-gallery-view="timeline"] .gallery-meta {
+    font-size: 0.9375rem;
+}
+
+/* Narrow screens: the line moves to the left edge and everything sits
+   to its right, words above photos. */
+@media (max-width: 760px) {
+    :root[data-gallery-view="timeline"] .gallery-stream {
+        padding-left: 1.75rem;
+    }
+
+    :root[data-gallery-view="timeline"] .gallery-stream::before,
+    :root[data-gallery-view="timeline"] .gallery-stream::after {
+        left: 0.375rem;
+        transform: none;
+    }
+
+    :root[data-gallery-view="timeline"] .gallery-title {
+        margin-left: -1.75rem;
+        padding-bottom: 2.5rem;
+    }
+
+    :root[data-gallery-view="timeline"] .tl-year {
+        justify-content: flex-start;
+        margin: 0 0 2rem;
+    }
+
+    :root[data-gallery-view="timeline"] .tl-year span {
+        padding-left: 0;
+    }
+
+    :root[data-gallery-view="timeline"] .gallery-item {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 3.5rem;
+    }
+
+    :root[data-gallery-view="timeline"] .tl-entry::before {
+        top: 0.5rem;
+        left: calc(0.375rem - 1.75rem);
+        transform: translateX(-50%);
+    }
+
+    :root[data-gallery-view="timeline"] .tl-entry:nth-child(even of .tl-entry) .gallery-media {
+        order: 0;
+    }
+
+    :root[data-gallery-view="timeline"] .gallery-item figcaption,
+    :root[data-gallery-view="timeline"] .tl-entry:nth-child(even of .tl-entry) figcaption {
+        order: -1;
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    :root[data-gallery-view="timeline"] .tile-conf img,
+    :root[data-gallery-view="timeline"] .tl-entry:nth-child(even of .tl-entry) .tile-conf img {
+        width: 100%;
+        margin: 0;
+    }
+
+    :root[data-gallery-view="timeline"] .gallery-media .tile-second,
+    :root[data-gallery-view="timeline"] .tl-entry:nth-child(even of .tl-entry) .gallery-media .tile-second {
+        position: static;
+        width: 100%;
+        border: 0;
+        margin-top: var(--gutter);
+        box-shadow: none;
     }
 }
 
